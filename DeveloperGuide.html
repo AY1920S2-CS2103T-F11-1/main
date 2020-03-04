@@ -750,6 +750,30 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <td class="tableblock halign-left valign-top"><p class="tableblock">have an option to see the entire Food record</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">know what Food items have their data currently in the records</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who is forgetful</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to edit the nutritional value of a previously saved Food item in the Food record</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I can edit the Food Item if I remembered a nutrition value of the Food Item wrongly previously</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who is busy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to create a list of Food records with preset nutritional values</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I can quickly choose a Food Item with preset values and add it to my calorie tracker</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who don&#8217;t like redundant things</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see and be warned if a Food item that I am about to update my Food Record with already exists</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I can save time and effort and not create a duplicate item in the Food record.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who gets bored of food easily</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete a Food item that I no longer want to eat in future from my Food records</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I do not have so many Food items in the Food records that I no longer eat.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -854,6 +878,57 @@ Use case ends.</p>
 <p><strong>The Food record is empty.</strong><br>
 A message indicating that the Food records are currently empty is shown.<br>
 Use case ends.</p>
+</div>
+<h3 id="use-case-update-current-food-record-with-new-food-item" class="discrete">Use case: update current Food record with new Food Item</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to add a new Food Item in the Food Records</p>
+</li>
+<li>
+<p>Calgo creates and saves a new Food Item in the Food Records with nutritional information specified by user.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<h3 id="use-case-update-an-existing-food-item-in-current-food-record" class="discrete">Use case: update an existing Food Item in current Food record</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to edit an existing Food Item in the Food Records</p>
+</li>
+<li>
+<p>Calgo replaces the existing Food Item&#8217;s nutritional value with the new nutritional information in the Food Records.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<h3 id="use-case-deletes-an-existing-food-item-in-current-food-record" class="discrete">Use case: deletes an existing Food Item in current Food record</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to delete an existing Food Item from the Food Records</p>
+</li>
+<li>
+<p>Calgo deletes the existing Food Item in the Food Records.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1044,4 +1119,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-04 04:13:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-04 06:16:57 UTC</div></div></div></body></html>

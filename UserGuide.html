@@ -14,14 +14,15 @@
 <li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
 <li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
-<li><a href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></li>
-<li><a href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.3. Listing all Food items in Calgo&#8217;s current Food Record : <code>list</code></a></li>
-<li><a href="#exporting-the-current-food-record-export">3.4. Exporting the current Food Record : 'export'</a></li>
-<li><a href="#editing-a-person-code-edit-code">3.5. Editing a person : <code>edit</code></a></li>
-<li><a href="#getting-food-items-by-keywords-or-food-item-values-code-find-code">3.6. Getting Food items by keywords or Food item values: <code>find</code></a></li>
-<li><a href="#deleting-a-person-code-delete-code">3.7. Deleting a person : <code>delete</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.8. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.9. Exiting the program : <code>exit</code></a></li>
+<li><a href="#updating-the-current-food-record-code-update-code">3.2. Updating the current Food Record: <code>update</code></a></li>
+<li><a href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record: <code>delete</code></a></li>
+<li><a href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.4. Listing all Food items in Calgo&#8217;s current Food Record : <code>list</code></a></li>
+<li><a href="#exporting-the-current-food-record-export">3.5. Exporting the current Food Record : 'export'</a></li>
+<li><a href="#editing-a-person-code-edit-code-to-be-edited-by-ray">3.6. Editing a person : <code>edit</code> (TO BE EDITED BY RAY)</a></li>
+<li><a href="#getting-food-items-by-keywords-or-food-item-values-code-find-code">3.7. Getting Food items by keywords or Food item values: <code>find</code></a></li>
+<li><a href="#deleting-a-person-code-delete-code-to-be-edited-by-ray">3.8. Deleting a person : <code>delete</code> (TO BE EDITED BY RAY)</a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.9. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.10. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -132,10 +133,41 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></h3>
+<h3 id="updating-the-current-food-record-code-update-code"><a class="link" href="#updating-the-current-food-record-code-update-code">3.2. Updating the current Food Record: <code>update</code></a></h3>
 <div class="paragraph">
-<p>Adds a person to the address book<br>
-Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+<p>Updates a Food Item in the Food Record</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If Food Item is not present in the Food Record, this will create a new Food Item with all the nutritional details specified</p>
+</li>
+<li>
+<p>If Food Item is already present in the Food Record, this will override that Food Item with the nutritional details specified by user</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>update n/FOOD_NAME cal/CALORIES [p/PROTEINS] [c/CARBS] [f/FATS]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>update n/pizza cal/200 p/10 c/200</code><br>
+This command adds a new food item, pizza into the user’s food presets with nutritional details of 200 calories, 10g of protein, 200g of carbohydrates.</p>
+</li>
+<li>
+<p><code>update n/pizza c/100 p/10 c/100 f/30</code><br>
+As pizza is already in the user’s food preset, this command overrides the nutritional details of pizza with 200 calories, 10g of protein, 200g of carbohydrates and 20g of fats</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -144,34 +176,41 @@ Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;<
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-A person can have any number of tags (including 0)
+You can leave the any of the proteins, carbohydrates or fats value of a food item blank when updating a Food Item into the Food Record.
 </td>
 </tr>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-food-item-from-current-food-record-code-delete-code"><a class="link" href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record: <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Deletes the specified Food Item from the Food Record</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete n/FOOD_NAME</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
-</li>
-<li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
+<p><code>delete n/pizza</code><br>
+Deletes pizza from the Food Record</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-food-items-in-calgo-s-current-food-record-code-list-code"><a class="link" href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.3. Listing all Food items in Calgo&#8217;s current Food Record : <code>list</code></a></h3>
+<h3 id="listing-all-food-items-in-calgo-s-current-food-record-code-list-code"><a class="link" href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.4. Listing all Food items in Calgo&#8217;s current Food Record : <code>list</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of all Food items in the Food Records, with their respective nutritional values of Calories, Proteins, Carbohydrates, and Fats.<br>
 Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exporting-the-current-food-record-export"><a class="link" href="#exporting-the-current-food-record-export">3.4. Exporting the current Food Record : 'export'</a></h3>
+<h3 id="exporting-the-current-food-record-export"><a class="link" href="#exporting-the-current-food-record-export">3.5. Exporting the current Food Record : 'export'</a></h3>
 <div class="paragraph">
 <p>Provides a human-readable text file (FoodRecords.txt) in the target folder (default: same folder as the Calgo application), containing all Food item records including name, calories, and nutritional values.</p>
 </div>
@@ -190,7 +229,7 @@ Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.5. Editing a person : <code>edit</code></a></h3>
+<h3 id="editing-a-person-code-edit-code-to-be-edited-by-ray"><a class="link" href="#editing-a-person-code-edit-code-to-be-edited-by-ray">3.6. Editing a person : <code>edit</code> (TO BE EDITED BY RAY)</a></h3>
 <div class="paragraph">
 <p>Edits an existing person in the address book.<br>
 Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
@@ -235,7 +274,7 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 </div>
 </div>
 <div class="sect2">
-<h3 id="getting-food-items-by-keywords-or-food-item-values-code-find-code"><a class="link" href="#getting-food-items-by-keywords-or-food-item-values-code-find-code">3.6. Getting Food items by keywords or Food item values: <code>find</code></a></h3>
+<h3 id="getting-food-items-by-keywords-or-food-item-values-code-find-code"><a class="link" href="#getting-food-items-by-keywords-or-food-item-values-code-find-code">3.7. Getting Food items by keywords or Food item values: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds all Food items whose names contain any of the keyword(s), even as an incompletely-spelled word (e.g. by mistake).<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -295,7 +334,7 @@ Returns an error message</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.7. Deleting a person : <code>delete</code></a></h3>
+<h3 id="deleting-a-person-code-delete-code-to-be-edited-by-ray"><a class="link" href="#deleting-a-person-code-delete-code-to-be-edited-by-ray">3.8. Deleting a person : <code>delete</code> (TO BE EDITED BY RAY)</a></h3>
 <div class="paragraph">
 <p>Deletes the specified person from the address book.<br>
 Format: <code>delete INDEX</code></p>
@@ -336,14 +375,14 @@ Deletes the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.8. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.9. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the address book.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.9. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.10. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
@@ -373,8 +412,11 @@ e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1
 <p><strong>Clear</strong> : <code>clear</code></p>
 </li>
 <li>
-<p><strong>Delete</strong> : <code>delete INDEX</code><br>
-e.g. <code>delete 3</code></p>
+<p><strong>Update</strong> : <code>update n/FOOD_NAME cal/CALORIES [p/PROTEINS] [p/PROTEINS] [c/CARBS] [f/FATS]</code></p>
+</li>
+<li>
+<p><strong>Delete</strong> : <code>delete n/FOOD_NAME</code><br>
+e.g. <code>delete pizza</code></p>
 </li>
 <li>
 <p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
@@ -382,7 +424,7 @@ e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
 </li>
 <li>
 <p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code> <strong>OR</strong> <code>find [cal/CALORIES] [p/PROTEINS] [c/CARBS] [f/FATS]</code><br>
-e.g. <code>find strawberr jam</code> <strong>OR</strong><br>
+e.g. <code>find strawberry jam</code> <strong>OR</strong><br>
 <code>find cal/100 f/10</code></p>
 </li>
 <li>
@@ -397,4 +439,4 @@ e.g. <code>find strawberr jam</code> <strong>OR</strong><br>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-04 04:13:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-04 06:16:57 UTC</div></div></div></body></html>
