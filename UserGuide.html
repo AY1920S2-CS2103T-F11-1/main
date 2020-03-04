@@ -15,7 +15,7 @@
 <ul class="sectlevel2">
 <li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
 <li><a href="#updating-the-current-food-record-code-update-code">3.2. Updating the current Food Record : <code>update</code></a></li>
-<li><a href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record : <code>delete</code></a></li>
+<li><a href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record: <code>delete</code></a></li>
 <li><a href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.4. Listing all Food items in Calgo&#8217;s current Food Record : <code>list</code></a></li>
 <li><a href="#showing-all-food-items-consumed-on-a-particular-day-code-stomach-code">3.5. Showing all food items consumed on a particular day : <code>stomach</code></a></li>
 <li><a href="#consuming-food-on-a-certain-day-code-nom-code">3.6. Consuming food on a certain day : <code>nom</code></a></li>
@@ -60,10 +60,10 @@
 <p>Ensure you have Java <code>11</code> or above installed in your Computer.</p>
 </li>
 <li>
-<p>Download the latest <code>addressbook.jar</code> <a href="https://github.com/AY1920S2-CS2103T-F11-1/main/releases">here</a>.</p>
+<p>Download the latest <code>calgo.jar</code> <a href="https://github.com/AY1920S2-CS2103T-F11-1/main/releases">here</a>.</p>
 </li>
 <li>
-<p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
+<p>Copy the file to the folder you want to use as the home folder for your Calgo application.</p>
 </li>
 <li>
 <p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
@@ -85,7 +85,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p><strong><code>list</code></strong> : lists all Food items currently recorded in the Food Records.</p>
 </li>
 <li>
-<p><strong><code>update</strong>`n/kiwi cal/125 p/1 c/20 f/3</code> : If there is no Food named <code>kiwi</code> in Food Records, this command adds <code>kiwi</code> to the Food Records with its details saved as: 125 calories, 1 gram of protein, 20 grams of carbohydrates, and 3 grams of fats.</p>
+<p><strong><code>update</strong>`n/kiwi cal/125 p/1 c/20 f/3</code> : adds <code>kiwi</code> to the Food Records if there is currently no Food called 'kiwi' inside it, with 'kiwi&#8217;s details saved as: 125 calories, 1 gram of protein, 20 grams of carbohydrates, and 3 grams of fats.</p>
 </li>
 <li>
 <p><strong><code>find</code></strong><code>banana</code> : finds the entry banana in the Food Records and returns its details if available; otherwise an error message will be shown.</p>
@@ -132,7 +132,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
-<p>Displays a guide for all available commands for Calgo.</p>
+<p>Displays a guide for all available commands in Calgo.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -170,7 +170,7 @@ This command will display only available commands containing the keyword 'list'.
 <div class="sect2">
 <h3 id="updating-the-current-food-record-code-update-code"><a class="link" href="#updating-the-current-food-record-code-update-code">3.2. Updating the current Food Record : <code>update</code></a></h3>
 <div class="paragraph">
-<p>Updates a Food Item in the Food Record</p>
+<p>Updates a Food Item in the Food Record.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -200,7 +200,7 @@ This command adds a new food item, pizza into the user’s food presets with nut
 </li>
 <li>
 <p><code>update n/pizza c/100 p/10 c/100 f/30</code><br>
-As pizza is already in the user’s food preset, this command overrides the nutritional details of pizza with 200 calories, 10g of protein, 200g of carbohydrates and 20g of fats</p>
+As pizza is already in the user’s food preset, this command overrides the nutritional details of pizza with 200Cal calories, 10g of protein, 200g of carbohydrates and 20g of fats.</p>
 </li>
 </ul>
 </div>
@@ -218,9 +218,9 @@ You can leave any of the proteins, carbohydrates or fats value of a food item bl
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-food-item-from-current-food-record-code-delete-code"><a class="link" href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record : <code>delete</code></a></h3>
+<h3 id="deleting-a-food-item-from-current-food-record-code-delete-code"><a class="link" href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record: <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified Food Item from the Food Record</p>
+<p>Deletes the specified Food Item from the Food Record.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>delete n/FOOD_NAME</code></p>
@@ -240,7 +240,7 @@ Deletes pizza from the Food Record</p>
 <div class="sect2">
 <h3 id="listing-all-food-items-in-calgo-s-current-food-record-code-list-code"><a class="link" href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.4. Listing all Food items in Calgo&#8217;s current Food Record : <code>list</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all Food items in the Food Records, with their respective nutritional values of Calories, Proteins, Carbohydrates, and Fats.<br>
+<p>Shows a list of all Food items in the Food Records, with their respective nutritional values of calories, proteins, carbohydrates, and fats.<br>
 Format: <code>list</code></p>
 </div>
 </div>
@@ -313,7 +313,7 @@ Displays a list of food user has consumed today.</p>
 <li>
 <p>Ad-hoc consumption of food coming to you in v1.3 for flexibility should user be lazy to create a food items<br>
 which differs from existing ones/rarely eats. Also marked as ad-hoc since it does not exists in food record in case user
-have other plans in the future..</p>
+have other plans in the future.</p>
 </li>
 <li>
 <p>In v1.3, food items tagged with mood values will be displayed separately.</p>
@@ -341,8 +341,10 @@ Adds 2 portion of apple pie to the log tracking user&#8217;s consumption today.<
 <div class="sect2">
 <h3 id="deleting-something-consumed-on-a-certain-day-code-vomit-code"><a class="link" href="#deleting-something-consumed-on-a-certain-day-code-vomit-code">3.7. Deleting something consumed on a certain day : <code>vomit</code></a></h3>
 <div class="paragraph">
-<p>Deletes a food item that a user has previously added to the log tracking consumption on that day.<br>
-Format: <code>vomit [num/INDEX_OF_FOOD] [d/DATE] [portion/PORTION]</code></p>
+<p>Deletes a food item that a user has previously added to the log tracking consumption on that day.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>vomit [num/INDEX_OF_FOOD] [d/DATE] [portion/PORTION]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -355,7 +357,7 @@ Format: <code>vomit [num/INDEX_OF_FOOD] [d/DATE] [portion/PORTION]</code></p>
 <p>The index refers to the index number shown in the displayed consumption list.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong>: 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>If no portion is specified, the whole entry is deleted.</p>
@@ -398,7 +400,7 @@ Deletes 3 portions of of the first food item consumed on 2020-03-04.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Address book data are saved in the application automatically after any command that changes the data. There is no need to save manually for this matter.<br></p>
+<p>Calgo data is saved in the application automatically after any command that changes the data. There is no need to save manually.<br></p>
 </li>
 <li>
 <p>However, to obtain a more readable form of this data, use the <code>export</code> command.</p>
@@ -627,4 +629,4 @@ eg. <code>vomit num/1 d/2020-03-04 portion/3</code> <strong>OR</strong> <code>nu
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-04 10:44:32 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-04 11:28:33 UTC</div></div></div></body></html>
