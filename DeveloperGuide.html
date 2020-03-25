@@ -24,8 +24,9 @@
 <ul class="sectlevel2">
 <li><a href="#lexicographical-code-list-code-command">3.1. Lexicographical <code>list</code> Command</a></li>
 <li><a href="#food-consumption-management">3.2. Food Consumption Management</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
+<li><a href="#updating-code-foodrecord-code">3.3. Updating <code>FoodRecord</code></a></li>
+<li><a href="#logging">3.4. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -150,13 +151,13 @@ In particular, the <code>LogsCenter</code> class plays an important role at the 
 </div>
 <h4 id="how-the-architecture-components-interact-with-each-other" class="discrete">How the architecture components interact with each other</h4>
 <div class="paragraph">
-<p>The <em>Sequence Diagram</em> below shows how the components interact with each other for the scenario where the user issues the command <code>delete 1</code>.</p>
+<p>The <em>Sequence Diagram</em> below shows how the components interact with each other for the scenario where the user issues the command <code>delete n/Apple</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ArchitectureSequenceDiagram.png" alt="ArchitectureSequenceDiagram">
 </div>
-<div class="title">Figure 3. Component interactions for <code>delete 1</code> command</div>
+<div class="title">Figure 3. Component interactions for <code>delete n/Apple</code> command</div>
 </div>
 <div class="paragraph">
 <p>The sections below give more details of each component.</p>
@@ -208,7 +209,7 @@ In particular, the <code>LogsCenter</code> class plays an important role at the 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>Logic</code> uses the <code>AddressBookParser</code> class to parse the user command.</p>
+<p><code>Logic</code> uses the <code>FoodRecordParser</code> class to parse the user command.</p>
 </li>
 <li>
 <p>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</p>
@@ -225,13 +226,13 @@ In particular, the <code>LogsCenter</code> class plays an important role at the 
 </ol>
 </div>
 <div class="paragraph">
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call.</p>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete n/Apple")</code> API call.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/DeleteSequenceDiagram.png" alt="DeleteSequenceDiagram">
 </div>
-<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>delete n/Apple</code> Command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -542,7 +543,7 @@ cohesiveness of code.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-aspect-data-structure-to-support-the-consumption-commands"><a class="link" href="#aspect-aspect-data-structure-to-support-the-consumption-commands">Aspect: Aspect: Data structure to support the consumption commands</a></h5>
+<h5 id="aspect-data-structure-to-support-the-consumption-commands"><a class="link" href="#aspect-data-structure-to-support-the-consumption-commands">Aspect: Data structure to support the consumption commands</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -579,14 +580,116 @@ in <code>DailyFoodLog</code> for each <code>LocalDate</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="updating-code-foodrecord-code"><a class="link" href="#updating-code-foodrecord-code">3.3. Updating <code>FoodRecord</code></a></h3>
+<div class="paragraph">
+<p>This feature allows you to add a food preset with all its nutritional details into the <code>FoodRecord</code>.
+This makes it convenient for you to keep track of your <code>Food</code> consumed in the day without having to manually key in the nutritional details every time you do so.</p>
+</div>
+<div class="sect3">
+<h4 id="implementation-4"><a class="link" href="#implementation-4">3.3.1. Implementation</a></h4>
+<div class="paragraph">
+<p>The update mechanism is facilitated by <code>FoodRecord</code> and <code>UpdateCommand</code>. An additional operation was implemented into <code>FoodRecord</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>FoodRecord#hasExistingFood()</code> - Checks if there is an existing <code>Food</code> in <code>FoodRecord</code> based on its name only</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This operation was exposed in the <code>Model</code> interface as <code>Model#hasExistingFood()</code>.</p>
+</div>
+<div class="paragraph">
+<p>The update feature first checks if there is already an existing <code>Food</code> item with the same name
+inside <code>FoodRecord</code> using the method <code>FoodRecord#hasExistingFood()</code>.</p>
+</div>
+<div class="paragraph">
+<p>If there is already an existing <code>Food</code> with the same name, the existing <code>Food</code> item will override the <code>Food</code> item inside <code>FoodRecord</code> with
+the new nutritional information provided by the user.<br>
+Otherwise, the new <code>Food</code> item will be added into the <code>FoodRecord</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the update operation works in both cases:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UpdateSequenceDiagram.png" alt="UpdateSequenceDiagram">
+</div>
+<div class="title">Figure 12. Sequence Diagram for Update command</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>UpdateCommandParser</code> and <code>UpdateCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarises what happens when a user enters a valid <code>update</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UpdateActivityDiagram.png" alt="UpdateActivityDiagram">
+</div>
+<div class="title">Figure 13. Activity Diagram for Update command</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
+<div class="paragraph">
+<p>Aspect: Updating the <code>FoodRecord</code> when there is an existing <code>Food</code> item in <code>FoodRecord</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Overrides the existing <code>Food</code> item with the new <code>Food</code> item</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need for a separate command of <code>edit</code> to deal with existing <code>Food</code> item apart from <code>add</code> to add new <code>Food</code> item into the <code>FoodRecord</code>.
+Instead, a smarter command of <code>update</code> is used to deal with both scenarios.</p>
+</li>
+<li>
+<p>Cons:
+This might not be intuitive for the user since the word "update" is generally assumed to be for editing something only, and not necessarily adding something.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Informs the user that there is already an existing <code>Food</code> item, and direct him to use another function <code>edit</code> to edit the existing <code>Food</code> instead.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: In the event where the user is unaware that there is already an existing <code>Food</code> item, this two step process will be clearer to him that he is
+in fact editing a <code>Food</code> item and not adding a new one in.</p>
+</li>
+<li>
+<p>Cons: This is more tedious for the user since more steps is required to change an existing <code>Food</code> item. On top of that, an additional command of <code>edit</code> will be required and <code>update</code>
+should be replaced with <code>add</code> for clearer user experience.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.4, &#8220;Configuration&#8221;</a> below)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a> below)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -617,7 +720,7 @@ in <code>DailyFoodLog</code> for each <code>LocalDate</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the App can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1222,22 +1325,22 @@ Expected: The most recent window size and location is retained.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Deleting a food while all foods are listed</p>
+<p>Deleting a <code>Food</code> item from the <code>FoodRecord</code></p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all foods using the <code>list</code> command. Multiple foods in the list.</p>
+<p>Prerequisites: Launch <code>Calgo</code> succesfully and a <code>Food</code> item Apple already exists in <code>FoodRecord</code></p>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Test case: <code>delete n\Apple</code><br>
+Expected: <code>Food</code> item Apple is deleted from <code>FoodRecord</code>. Details of the deleted <code>Food</code> shown in the status message.</p>
 </li>
 <li>
 <p>Test case: <code>delete 0</code><br>
 Expected: No food is deleted. Error details shown in the status message. Status bar remains the same.</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
+<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete n/Banana</code> (where <code>Food</code> banana does not exists in <code>FoodRecord</code>)<br>
 Expected: Similar to previous.</p>
 </li>
 </ol>
@@ -1291,4 +1394,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-25 03:48:33 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-25 10:13:37 UTC</div></div></div></body></html>
