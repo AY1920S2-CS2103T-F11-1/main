@@ -14,14 +14,14 @@
 <li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
 <li><a href="#displaying-help-code-help-code">3.1. Displaying help : <code>help</code></a></li>
-<li><a href="#updating-the-current-food-record-code-update-code">3.2. Updating the current Food Record : <code>update</code></a></li>
-<li><a href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record: <code>delete</code></a></li>
-<li><a href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.4. Listing All Food Items in Calgo&#8217;s Current Food Record : <code>list</code></a></li>
+<li><a href="#updating-the-current-code-food-record-code-code-update-code">3.2. Updating the current <code>Food Record</code> : <code>update</code></a></li>
+<li><a href="#deleting-a-food-item-from-current-code-food-record-code-code-delete-code">3.3. Deleting a Food Item from current <code>Food Record</code>: <code>delete</code></a></li>
+<li><a href="#listing-all-food-items-in-calgo-s-current-code-food-record-code-code-list-code">3.4. Listing All Food Items in Calgo&#8217;s Current <code>Food Record</code> : <code>list</code></a></li>
 <li><a href="#showing-all-food-items-consumed-on-a-particular-day-code-stomach-code">3.5. Showing all food items consumed on a particular day : <code>stomach</code></a></li>
 <li><a href="#consuming-food-on-a-certain-day-code-nom-code">3.6. Consuming food on a certain day : <code>nom</code></a></li>
 <li><a href="#deleting-something-consumed-on-a-certain-day-code-vomit-code">3.7. Deleting something consumed on a certain day : <code>vomit</code></a></li>
-<li><a href="#exporting-the-current-food-record-into-a-reference-sheet-code-export-code">3.8. Exporting the Current Food Record into a Reference Sheet : <code>export</code></a></li>
-<li><a href="#getting-food-items-by-keywords-in-name-or-nutritional-value-code-find-code">3.9. Getting Food items by Keywords in Name or Nutritional Value : <code>find</code></a></li>
+<li><a href="#exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code">3.8. Exporting the Current <code>Food Record</code> into a Reference Sheet : <code>export</code></a></li>
+<li><a href="#getting-code-food-code-items-by-nutritional-value-or-keywords-in-name-code-find-code">3.9. Getting <code>Food</code> items by Nutritional Value or Keywords in Name: <code>find</code></a></li>
 <li><a href="#generating-an-ideal-daily-calorie-goal-code-getgoal-code">3.10. Generating an ideal daily calorie goal: <code>getGoal</code></a></li>
 <li><a href="#setting-a-daily-calorie-goal-code-setgoal-code">3.11. Setting a daily calorie goal: <code>setGoal</code></a></li>
 <li><a href="#generating-insights-code-report-code">3.12. Generating insights : <code>report</code></a></li>
@@ -38,17 +38,32 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Calgo is an <strong>all-in-one smart calorie tracker</strong> to ensure that you are always one step ahead in your fitness goals.</p>
+<p>Have you always wanted to live a healthy lifestyle, but never got to the stage where you could sustain it yourself? Is it too difficult to remember nutritional values, or too expensive to hire a personal assistant to keep track of your diet?</p>
+</div>
+<div class="paragraph">
+<p>Fear not!</p>
+</div>
+<div class="paragraph">
+<p><strong>Calgo</strong> is an <strong>all-in-one smart calorie tracker</strong> to ensure that you are always one step ahead in your fitness goals!</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>For the modern day user who prefers to use a <strong>desktop application</strong>, Calgo&#8217;s <strong>Command Line Interface (CLI)</strong> works seamlessly with its <strong>Graphical User Interface (GUI)</strong> to provide fast and accurate usage while presenting results with visual depth and clarity.</p>
+<p><strong>Insights:</strong> set goals, generate consumption reports and view progress and statistics</p>
 </li>
 <li>
-<p>Fast typists would therefore greatly benefit from not only the speed of processing their input via the CLI but also the input correction methods of Calgo.</p>
+<p><strong>Hassle-Free Convenience:</strong> tolerates incomplete search inputs, produces fast responses, and smartly manages entry conflicts</p>
+</li>
+<li>
+<p><strong>Flexibility:</strong> generate a portable copy of your <code>Food</code> records so you can continue eating healthily even without the App</p>
+</li>
+<li>
+<p><strong>Efficiency:</strong> for users who prefer to use <strong>desktop applications</strong>, our <strong>Command Line Interface (CLI)</strong> works seamlessly with the <strong>Graphical User Interface (GUI)</strong> to provide fast and accurate usage alongside visual depth and clarity.<br></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Beginners, fast typists, and health enthusiasts would therefore benefit alike from the plethora of features <strong>Calgo</strong> offers, be it convenience, speed, or portability.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -91,13 +106,13 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>update</strong>n/kiwi cal/125 p/1 c/20 f/3</code> : adds <code>kiwi</code> to the Food Records if there is currently no Food called 'kiwi' inside it, with its details saved as: 125 calorie, 1 gram of protein, 20 grams of carbohydrates, and 3 grams of fats.</p>
+<p><strong><code>update</strong>n/kiwi cal/125 p/1 c/20 f/3</code> : adds <code>kiwi</code> to the <code>Food Record</code>s if there is currently no Food called 'kiwi' inside it, with its details saved as: 125 calorie, 1 gram of protein, 20 grams of carbohydrates, and 3 grams of fats.</p>
 </li>
 <li>
-<p><strong><code>find</code></strong><code>n/banana</code> or <strong><code>find</code></strong><code>banana</code>: finds the entry banana in the Food Record and returns its details if available; otherwise an message reflecting no such Food item is shown.</p>
+<p><strong><code>find</code></strong><code>n/banana</code> or <strong><code>find</code></strong><code>banana</code>: finds the entry banana in the <code>Food Record</code> and returns its details if available; otherwise an message reflecting no such Food item is shown.</p>
 </li>
 <li>
-<p><strong><code>list</code></strong> : lists all Food items currently recorded in the Food Record.</p>
+<p><strong><code>list</code></strong> : lists all Food items currently recorded in the <code>Food Record</code>.</p>
 </li>
 <li>
 <p><strong><code>exit</code></strong> : exits the Calgo application</p>
@@ -131,21 +146,11 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </li>
 <li>
-<p>Items in square brackets are optional</p>
+<p>Items in square brackets (i.e. []) are optional</p>
 <div class="ulist">
 <ul>
 <li>
 <p>e.g. in <code>[t/TAG]</code>, <code>TAG</code> is an optional parameter which can be used as <code>t/fruit</code> to tag the Food item as a 'fruit'.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Items with <code>…</code>​ after them can be used multiple times (including zero times)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>e.g. <code>[t/TAG]&#8230;&#8203;</code> implies it can be left empty, or used as <code>t/favourite</code>, <code>t/favourite t/green</code> or with more than 2 tags.</p>
 </li>
 </ul>
 </div>
@@ -156,6 +161,16 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <ul>
 <li>
 <p>e.g. if the command specifies <code>n/NAME p/PROTEINS</code>, <code>p/PROTEINS n/NAME</code> gives the same functionality.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Items with <code>…</code>​ after them can be used multiple times (including zero times)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. <code>[t/TAG]&#8230;&#8203;</code> implies it can be left empty, or used as <code>t/favourite</code>, <code>t/favourite t/green</code> or with more than 2 tags.</p>
 </li>
 </ul>
 </div>
@@ -204,19 +219,19 @@ This command will display only available commands containing the keyword 'list'.
 </div>
 </div>
 <div class="sect2">
-<h3 id="updating-the-current-food-record-code-update-code"><a class="link" href="#updating-the-current-food-record-code-update-code">3.2. Updating the current Food Record : <code>update</code></a></h3>
+<h3 id="updating-the-current-code-food-record-code-code-update-code"><a class="link" href="#updating-the-current-code-food-record-code-code-update-code">3.2. Updating the current <code>Food Record</code> : <code>update</code></a></h3>
 <div class="paragraph">
-<p>Updates a Food Item in the Food Record.</p>
+<p>Updates a Food Item in the <code>Food Record</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>If Food Item is not present in the Food Record, this will create a new Food Item with all the nutritional details specified</p>
+<p>If Food Item is not present in the <code>Food Record</code>, this will create a new Food Item with all the nutritional details specified</p>
 </li>
 <li>
-<p>If Food Item is already present in the Food Record, this will override that Food Item with the nutritional details specified by user</p>
+<p>If Food Item is already present in the <code>Food Record</code>, this will override that Food Item with the nutritional details specified by user</p>
 </li>
 </ul>
 </div>
@@ -248,7 +263,7 @@ As pizza is already in the user’s food preset, this command overrides the nutr
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can leave any of the protein, carbohydrates or fats value of a food item blank when updating a Food Item into the Food Record.
+You can leave any of the protein, carbohydrates or fats value of a food item blank when updating a Food Item into the <code>Food Record</code>.
 </td>
 </tr>
 </table>
@@ -256,9 +271,9 @@ You can leave any of the protein, carbohydrates or fats value of a food item bla
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-food-item-from-current-food-record-code-delete-code"><a class="link" href="#deleting-a-food-item-from-current-food-record-code-delete-code">3.3. Deleting a Food Item from current Food Record: <code>delete</code></a></h3>
+<h3 id="deleting-a-food-item-from-current-code-food-record-code-code-delete-code"><a class="link" href="#deleting-a-food-item-from-current-code-food-record-code-code-delete-code">3.3. Deleting a Food Item from current <code>Food Record</code>: <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified Food Item from the Food Record.</p>
+<p>Deletes the specified Food Item from the <code>Food Record</code>.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>delete n/NAME</code></p>
@@ -270,15 +285,15 @@ You can leave any of the protein, carbohydrates or fats value of a food item bla
 <ul>
 <li>
 <p><code>delete n/pizza</code><br>
-Deletes pizza from the Food Record</p>
+Deletes pizza from the <code>Food Record</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-food-items-in-calgo-s-current-food-record-code-list-code"><a class="link" href="#listing-all-food-items-in-calgo-s-current-food-record-code-list-code">3.4. Listing All Food Items in Calgo&#8217;s Current Food Record : <code>list</code></a></h3>
+<h3 id="listing-all-food-items-in-calgo-s-current-code-food-record-code-code-list-code"><a class="link" href="#listing-all-food-items-in-calgo-s-current-code-food-record-code-code-list-code">3.4. Listing All Food Items in Calgo&#8217;s Current <code>Food Record</code> : <code>list</code></a></h3>
 <div class="paragraph">
-<p>To view a list of all Food items in the current Food Record, you can simply use the <code>list</code> command.<br></p>
+<p>To view a list of all Food items in the current <code>Food Record</code>, you can simply use the <code>list</code> command.<br></p>
 </div>
 <div class="ulist">
 <ul>
@@ -366,7 +381,7 @@ Displays a list of food user has consumed today.</p>
 </li>
 <li>
 <p>Ad-hoc consumption of food coming to you in v1.3 for flexibility should user be lazy to create a food items<br>
-which differs from existing ones/rarely eats. Also marked as ad-hoc since it does not exists in food record in case user
+which differs from existing ones/rarely eats. Also marked as ad-hoc since it does not exists in <code>Food Record</code> in case user
 have other plans in the future.</p>
 </li>
 <li>
@@ -449,14 +464,15 @@ Deletes 3 portions of of the first food item consumed on 2020-03-04.</p>
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="exporting-the-current-food-record-into-a-reference-sheet-code-export-code"><a class="link" href="#exporting-the-current-food-record-into-a-reference-sheet-code-export-code">3.8. Exporting the Current Food Record into a Reference Sheet : <code>export</code></a></h3>
+<h3 id="exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code"><a class="link" href="#exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code">3.8. Exporting the Current <code>Food Record</code> into a Reference Sheet : <code>export</code></a></h3>
 <div class="paragraph">
-<p>Should you feel the need to obtain a portable version of the current Food Record entries, the <code>export</code> command provides an editable text file (FoodRecords.txt) in the exports folder.<br></p>
+<p>Obtaining a copy of the <code>Food Record</code> entries may be useful for situations like sharing or printing.
+Should you feel the need to obtain a portable version of the current <code>Food Record</code> entries, the <code>export</code> command provides an editable text file (FoodRecords.txt) in the <code>data/exports</code> folder.<br></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>FoodRecords.txt shows the Food Record in alphabetical order of names, and includes the corresponding details of each Food item.</p>
+<p>FoodRecords.txt shows the <code>Food Record</code> in alphabetical order of names, and includes the corresponding details of each Food item neatly in a table.</p>
 </li>
 </ul>
 </div>
@@ -467,7 +483,19 @@ Deletes 3 portions of of the first food item consumed on 2020-03-04.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Calgo data is saved in the application automatically. There is no need to save manually for each session. The <code>export</code> command allows users to manually track their calories with a reference sheet of the Food entries previously entered.
+The <code>export</code> command allows users to manually track their calories with a reference sheet of the Food entries previously entered. You can freely edit this reference sheet to include information outside of the App.<br>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Calgo&#8217;s session data is saved in the application automatically. There is no need to save manually for each session.
 </td>
 </tr>
 </table>
@@ -478,27 +506,35 @@ Calgo data is saved in the application automatically. There is no need to save m
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="getting-food-items-by-keywords-in-name-or-nutritional-value-code-find-code"><a class="link" href="#getting-food-items-by-keywords-in-name-or-nutritional-value-code-find-code">3.9. Getting Food items by Keywords in Name or Nutritional Value : <code>find</code></a></h3>
+<h3 id="getting-code-food-code-items-by-nutritional-value-or-keywords-in-name-code-find-code"><a class="link" href="#getting-code-food-code-items-by-nutritional-value-or-keywords-in-name-code-find-code">3.9. Getting <code>Food</code> items by Nutritional Value or Keywords in Name: <code>find</code></a></h3>
 <div class="paragraph">
-<p>We can use the <code>find</code> command to show all the Food items containing the given keyword in their names, or Food items with a nutritional value lower (or equal to) than the specified value (i.e. either in terms of the number of calories, or grams of proteins/carbohydrates/fat).</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>If no such Food item(s) exist, there will be an indicative message shown.</p>
-</li>
-</ul>
+<p>With many <code>Food</code> items, it may be difficult to search for a particular <code>Food</code> you want. This is where the <code>find</code> command comes in nicely.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>find [n/NAME] [cal/CALORIES] [p/PROTEINS] [c/CARBS] [f/FATS]</code><br>
-Quick-Find Format: <code>find NAME</code> (no 'n/' prefix needed)</p>
+<p>The <code>find</code> command shows all the <code>Food</code> items with a nutritional value matching what you specify (either in terms of the number of <code>Calories</code>, or grams of <code>Proteins</code>/<code>Carbohydrates</code>/<code>Fat</code>).</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can choose to search for a keyword which may appear in, or as the actual <code>Name</code> of a <code>Food</code> or a particular <code>Tag</code> associated with it.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>find [n/NAME] [cal/CALORIES] [p/PROTEINS] [c/CARBS] [f/FATS] [t/TAG]</code> (choose only 1 parameter)</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The search is case insensitive.</p>
+<p>In finding Food items via nutritional value, only Food items with exactly matching values will be shown.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. <code>find cal/50</code> results will only contain Food items with calories equal to 50 <code>Calories</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Finding via <code>Name</code> or <code>Tag</code> is case insensitive.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -507,49 +543,35 @@ Quick-Find Format: <code>find NAME</code> (no 'n/' prefix needed)</p>
 </ul>
 </div>
 </li>
-<li>
-<p>The order of the keywords does not matter. e.g.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>e.g. <code>find Grilled Cheeseburger</code> and <code>find Cheeseburger Grilled</code> have the same results.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Incompletely-spelled keywords will be matched to all Food items containing it.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>e.g. <code>find Kiw</code> can give 'Kiwi' and 'Kiwi Juice'</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Food items containing at least one keyword (even if it is spelt incompletely) will be returned.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>e.g. <code>find Ki Jui</code> results can contain 'Kiwi Ice Cream' (which contains 'Ki'), 'Orange Juice' (which contains 'Jui'), and so on.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>In finding Food items via nutritional value, only Food items with nutritional values lower than the one stated will be shown.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>e.g. <code>find cal/50</code> results will only contain Food items with calories less than or equal to 50 calories.</p>
-</li>
-</ul>
-</div>
-</li>
 </ul>
 </div>
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You don&#8217;t actually have to type out the entire keyword! Incomplete keywords will be matched to <code>Food</code> items containing them in the specified parameter.<br>
+e.g. <code>find t/Gre</code> can give 'Kiwi' and 'Sugarcane' which are tagged <code>Green</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can search for multiple <code>Name</code> keywords by separating them with space(s).<br>
+e.g. <code>find n/Ki Jui</code> results can give 'Kiwi Ice Cream' (which contains 'Ki'), 'Orange Juice' (which contains 'Jui'), and so on.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -557,12 +579,12 @@ Quick-Find Format: <code>find NAME</code> (no 'n/' prefix needed)</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>find kiwi</code><br>
+<p><code>find n/kIWi</code><br>
 Returns <code>kiwi</code> and <code>kiwi juice</code></p>
 </li>
 <li>
 <p><code>find p/25</code><br>
-Returns <code>chocolate protein powder shake</code> and <code>vanilla protein milkshake</code> which have 25 and 20 grams of protein respectively.</p>
+Returns <code>chocolate protein powder shake</code> and <code>vanilla protein milkshake</code> which both have 25 grams of protein.</p>
 </li>
 <li>
 <p><code>find n/food_item_not_in_food_record</code><br>
@@ -712,7 +734,7 @@ This generates a pdf containing the above-mentioned insights made on the consump
 <div class="sect2">
 <h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.13. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
-<p>Clears all entries from the Food Record.<br>
+<p>Clears all entries from the <code>Food Record</code>.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
@@ -752,26 +774,29 @@ e.g. <code>delete pizza</code></p>
 </li>
 <li>
 <p><strong>Find</strong> : <code>find [n/NAME] [cal/CALORIES] [p/PROTEINS] [c/CARBS] [f/FATS]</code><br>
-e.g. <code>find strawberry jam</code> <strong>OR</strong><br>
-<code>find cal/100 f/10</code></p>
+e.g. <code>find cal/100</code> <strong>OR</strong><br>
+ <code>find n/Kiwi Chilli</code></p>
 </li>
 <li>
 <p><strong>List</strong> : <code>list</code></p>
 </li>
 <li>
 <p><strong>Stomach</strong> : stomach [d/DATE]<br>
-eg. <code>stomach</code> <strong>OR</strong> <code>stomach d/2020-03-04</code></p>
+eg. <code>stomach</code> <strong>OR</strong><br>
+<code>stomach d/2020-03-04</code></p>
 </li>
 <li>
 <p><strong>Nom</strong> : nom [n/NAME] [d/DATE] [portion/PORTION]<br>
-eg. <code>nom n/chicken d/2020-03-04 portion/1.5</code> <strong>OR</strong> <code>nom n/chicken</code></p>
+eg. <code>nom n/chicken d/2020-03-04 portion/1.5</code> <strong>OR</strong><br>
+<code>nom n/chicken</code></p>
 </li>
 <li>
 <p><strong>Vomit</strong> : <code>vomit [index/INDEX_OF_FOOD] [d/DATE] [portion/PORTION]</code><br>
-eg. <code>vomit num/chicken d/2020-03-04 portion/3</code> <strong>OR</strong> <code>vomit num/chicken</code></p>
+eg. <code>vomit num/chicken d/2020-03-04 portion/3</code> <strong>OR</strong><br>
+<code>vomit num/chicken</code></p>
 </li>
 <li>
-<p><strong>Export</strong> : <code>export</code> <strong>OR</strong> <code>export location /C:\Users\eugen\OneDrive\Desktop\</code></p>
+<p><strong>Export</strong> : <code>export</code></p>
 </li>
 <li>
 <p><strong>getGoal</strong> : <code>getGoal a/AGE g/GENDER h/HEIGHT w/WEIGHT i/IDEAL_WEIGHT d/TARGET_DATE e/WEEKLY_EXERCISE_TIME</code>
@@ -791,4 +816,4 @@ eg. <code>report 2020-03-27</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-03-29 09:29:13 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-01 03:13:02 UTC</div></div></div></body></html>
