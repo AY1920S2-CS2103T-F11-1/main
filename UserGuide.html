@@ -221,7 +221,7 @@ This command will display only available commands containing the keyword 'list'.
 <div class="sect2">
 <h3 id="updating-the-current-code-food-record-code-code-update-code"><a class="link" href="#updating-the-current-code-food-record-code-code-update-code">3.2. Updating the current <code>Food Record</code> : <code>update</code></a></h3>
 <div class="paragraph">
-<p>Updates a Food Item in the <code>Food Record</code>.</p>
+<p>Updates a Food Item into the <code>Food Record</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -231,7 +231,7 @@ This command will display only available commands containing the keyword 'list'.
 <p>If Food Item is not present in the <code>Food Record</code>, this will create a new Food Item with all the nutritional details specified</p>
 </li>
 <li>
-<p>If Food Item is already present in the <code>Food Record</code>, this will override that Food Item with the nutritional details specified by user</p>
+<p>If Food Item is already present in the <code>Food Record</code>, this will override that Food Item with all the nutritional details specified by user</p>
 </li>
 </ul>
 </div>
@@ -239,7 +239,7 @@ This command will display only available commands containing the keyword 'list'.
 </div>
 <div style="page-break-after: always;"></div>
 <div class="paragraph">
-<p>Format: <code>update n/NAME cal/CALORIES [p/PROTEINS] [c/CARBS] [f/FATS]</code></p>
+<p>Format: <code>update n/NAME cal/CALORIES p/PROTEINS] c/CARB] f/FATS [t/TAGS]</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -247,12 +247,13 @@ This command will display only available commands containing the keyword 'list'.
 <div class="ulist">
 <ul>
 <li>
-<p><code>update n/pizza cal/200 p/10 c/200</code><br>
-This command adds a new food item, pizza into the user’s food presets with nutritional details of 200Cal calorie, 10g of protein, 200g of carbohydrates.</p>
+<p><code>update n/pizza cal/200 p/10 c/200 f/200</code><br>
+This command adds a new food item, pizza into the user’s food presets with nutritional details of 200Cal calorie, 10g of protein, 200g of carbohydrates and 200g of fats.</p>
 </li>
 <li>
-<p><code>update n/pizza cal/100 p/10 c/100 f/30</code><br>
-As pizza is already in the user’s food preset, this command overrides the nutritional details of pizza with 200Cal calorie, 10g of protein, 200g of carbohydrates and 20g of fats.</p>
+<p><code>update n/pizza cal/100 p/10 c/100 f/30 tags/Italiano</code><br>
+As pizza is already in the user’s food preset, this command overrides the nutritional details of pizza with 200Cal calorie, 10g of protein, 200g of carbohydrates and 20g of fats.
+The pizza is also tagged with the word "Italiano".</p>
 </li>
 </ul>
 </div>
@@ -263,7 +264,8 @@ As pizza is already in the user’s food preset, this command overrides the nutr
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can leave any of the protein, carbohydrates or fats value of a food item blank when updating a Food Item into the <code>Food Record</code>.
+Whenever you begin to key in the name of the food item, Calgo automatically filters the Food Record display for you so that you only see Food items with
+the same name. This helps you refer to any existing Food item that you maybe updating with ease.
 </td>
 </tr>
 </table>
@@ -335,6 +337,9 @@ For a more detailed statistical report with nutritional values of food consumed,
 <p>If a date is not provided, Calgo will take it that the user wishes to see food consumed today.</p>
 </li>
 <li>
+<p>If you want to show today&#8217;s records, inclusion of <code>d/</code> prefix is optional.</p>
+</li>
+<li>
 <p>Date follows yyyy-mm-dd format.</p>
 </li>
 </ul>
@@ -347,11 +352,11 @@ For a more detailed statistical report with nutritional values of food consumed,
 <div class="ulist">
 <ul>
 <li>
-<p><code>stomach d/2020-03-04</code>
+<p><code>stomach d/2020-03-04</code><br>
 Displays a list of food user has consumed on 2020-03-04.</p>
 </li>
 <li>
-<p><code>stomach</code><br>
+<p><code>stomach</code> or <code>stomach d/</code><br>
 Displays a list of food user has consumed today.</p>
 </li>
 </ul>
@@ -377,15 +382,14 @@ Displays a list of food user has consumed today.</p>
 <p>Date follows yyyy-mm-dd format.</p>
 </li>
 <li>
+<p>When opting for default values, inclusion of <code>d/</code> and <code>portion/</code> prefixes are optional.<br>
+Not giving any values set date to today, and portion to 1 by default.</p>
+</li>
+<li>
 <p>User can check how much nutritional content each type of food content by checking the existing list of food.</p>
 </li>
 <li>
-<p>Ad-hoc consumption of food coming to you in v1.3 for flexibility should user be lazy to create a food items<br>
-which differs from existing ones/rarely eats. Also marked as ad-hoc since it does not exists in <code>Food Record</code> in case user
-have other plans in the future.</p>
-</li>
-<li>
-<p>In v1.3, food items tagged with mood values will be displayed separately.</p>
+<p>You can rate your dining experience, average rating of consuming a certain food will then be displayed.</p>
 </li>
 </ul>
 </div>
@@ -428,6 +432,10 @@ Adds 2 portion of apple pie to the log tracking user&#8217;s consumption today.<
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong>: 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>When opting for default values, inclusion of <code>d/</code> and <code>portion/</code> prefixes are optional.<br>
+Not giving any values set date to today.</p>
 </li>
 <li>
 <p>If no portion is specified, the whole entry is deleted.</p>
@@ -782,18 +790,17 @@ e.g. <code>find cal/100</code> <strong>OR</strong><br>
 </li>
 <li>
 <p><strong>Stomach</strong> : stomach [d/DATE]<br>
-eg. <code>stomach</code> <strong>OR</strong><br>
-<code>stomach d/2020-03-04</code></p>
+eg. <code>stomach</code> <strong>OR</strong> <code>stomach d/</code> <strong>OR</strong> <code>stomach d/2020-03-04</code>+</p>
 </li>
 <li>
 <p><strong>Nom</strong> : nom [n/NAME] [d/DATE] [portion/PORTION]<br>
-eg. <code>nom n/chicken d/2020-03-04 portion/1.5</code> <strong>OR</strong><br>
-<code>nom n/chicken</code></p>
+eg. <code>nom n/chicken d/2020-03-04 portion/1.5</code> <strong>OR</strong>
+<code>nom n/chicken</code> <strong>OR</strong> <code>nom n/chicken d/ portion/</code></p>
 </li>
 <li>
 <p><strong>Vomit</strong> : <code>vomit [index/INDEX_OF_FOOD] [d/DATE] [portion/PORTION]</code><br>
 eg. <code>vomit num/chicken d/2020-03-04 portion/3</code> <strong>OR</strong><br>
-<code>vomit num/chicken</code></p>
+<code>vomit num/chicken</code><strong>OR</strong> <code>vomit n/chicken d/ portion/</code></p>
 </li>
 <li>
 <p><strong>Export</strong> : <code>export</code></p>
@@ -816,4 +823,4 @@ eg. <code>report 2020-03-27</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-01 03:13:02 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-01 10:21:37 UTC</div></div></div></body></html>
