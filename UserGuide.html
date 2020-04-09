@@ -175,7 +175,7 @@ Format: <code>clear</code></p>
 <p>The <code>nom</code> command allows you to keep track of your consumption on certain date.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>nom [n/NAME] [d/DATE] [portion/PORTION][r/RATING]</code></p>
+<p>Format: <code>nom n/NAME [d/DATE] [portion/PORTION][r/RATING]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -261,7 +261,7 @@ Deletes pizza from the <code>Food Record</code>.</p>
 <p>Deletes a <code>Food</code> that a user has previously added to the log tracking consumption on that day.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>vomit [num/INDEX_OF_FOOD] [d/DATE] [portion/PORTION]</code></p>
+<p>Format: <code>vomit num/INDEX_OF_FOOD [d/DATE] [portion/PORTION]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -630,9 +630,6 @@ After a <code>find</code> command, you are advised to complete your intended act
 <div class="paragraph">
 <p>Format: <code>list</code></p>
 </div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="setting-a-daily-code-calorie-code-target-code-goal-code"><a class="link" href="#setting-a-daily-code-calorie-code-target-code-goal-code">3.11. Setting a daily <code>Calorie</code> target : <code>goal</code></a></h3>
@@ -773,64 +770,111 @@ Whenever you begin to key in the name of the <code>Food</code>, Calgo shows you 
 <h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Q</strong>: How do I transfer my <strong>Calgo</strong> data to another Computer?<br>
-<strong>A</strong>: Install <strong>Calgo</strong> in a folder inside the target computer and copy over your current <code>data</code> folder into that folder.</p>
-</div>
-<div class="paragraph">
-<p><strong>Q</strong>: Where can I find my exported <code>Food Record</code> entries and consumption reports?<br>
-<strong>A</strong>: They are both found in the <code>exports</code> and <code>reports</code> subfolders in the <code>data</code> folder respectively. Please do not remove the json files in the <code>data</code> folder.</p>
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the App in the other computer and overwrite/paste the <code>data</code> folder from the source computer into the folder containing the <strong>Calgo</strong> App.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Clear</strong> : <code>clear</code></p>
-</li>
-<li>
-<p><strong>Update</strong> : <code>update n/NAME cal/CALORIES p/PROTEINS c/CARBOHYDRATES f/FATS [t/TAGS]</code></p>
-</li>
-<li>
-<p><strong>Delete</strong> : <code>delete n/NAME</code><br>
-e.g. <code>delete pizza</code></p>
-</li>
-<li>
-<p><strong>Find</strong> : <code>find [n/NAME] [cal/CALORIES] [p/PROTEINS] [c/CARBOHYDRATES] [f/FATS]</code><br>
-e.g. <code>find cal/100</code> <strong>OR</strong><br>
- <code>find n/Kiwi Chilli</code></p>
-</li>
-<li>
-<p><strong>List</strong> : <code>list</code></p>
-</li>
-<li>
-<p><strong>Stomach</strong> : stomach [d/DATE]<br>
-eg. <code>stomach</code> <strong>OR</strong> <code>stomach d/</code> <strong>OR</strong> <code>stomach d/2020-03-04</code>+</p>
-</li>
-<li>
-<p><strong>Nom</strong> : nom [n/NAME] [d/DATE] [portion/PORTION]<br>
-eg. <code>nom n/chicken d/2020-03-04 portion/1.5 r/6</code> <strong>OR</strong>
-<code>nom n/chicken</code> <strong>OR</strong> <code>nom n/chicken d/ portion/ r/</code></p>
-</li>
-<li>
-<p><strong>Vomit</strong> : <code>vomit [index/INDEX_OF_FOOD] [d/DATE] [portion/PORTION]</code><br>
-eg. <code>vomit num/chicken d/2020-03-04 portion/3</code> <strong>OR</strong><br>
-<code>vomit num/chicken</code><strong>OR</strong> <code>vomit n/chicken d/ portion/</code></p>
-</li>
-<li>
-<p><strong>goal</strong> : <code>goal GOAL</code><br>
-e.g <code>goal 2000</code></p>
-</li>
-<li>
-<p><strong>Report</strong> : <code>report d/DATE</code> (in YYYY-MM-DD)<br>
-eg. <code>report d/2020-03-27</code></p>
-</li>
-<li>
-<p><strong>Help</strong> : <code>help</code></p>
-</li>
-</ul>
+<table class="tableblock frame-all grid-all" style="width: 59%;">
+<colgroup>
+<col style="width: 17%;">
+<col style="width: 18%;">
+<col style="width: 20%;">
+<col style="width: 25%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command Category</th>
+<th class="tableblock halign-left valign-top">Command Name</th>
+<th class="tableblock halign-left valign-top">Usage</th>
+<th class="tableblock halign-left valign-top">Format</th>
+<th class="tableblock halign-left valign-top">Example (if applicable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Navigate app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exits the app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Goal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets your daily caloric goal.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>goal GOAL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>goal 2500</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Help</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays a guide for all commands. Can also display only commands containing the given command word.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help [COMMAND_WORD]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code><strong>OR</strong><code>help nom</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Edit Food Record</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clears all <code>food</code> entries from the Food Record.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes the specified <code>Food</code> from the <code>Food Record</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>delete pizza</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Update</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updates a <code>Food</code> in <code>Food Record</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>update n/NAME cal/CALORIES p/PROTEINS c/CARBOHYDRATES f/FATS [t/TAGS]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>update n/pizza cal/200 p/10 c/200 f/200</code><strong>OR</strong><code>update n/pizza cal/100 p/10 c/100 f/30 t/Italiano t/Favourite</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Navigate Food Record</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Find</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Searches for and displays a particular <code>Food</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find [n/NAME] [cal/CALORIES] [p/PROTEINS] [c/CARBOHYDRATES] [f/FATS] [t/TAG]</code> (choose only 1 parameter)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find n/Pizza</code><strong>OR</strong><code>find cal/110</code> etc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays all <code>Food`s in `Food Record</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Edit Daily List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a <code>Food</code> to a specific day&#8217;s <code>Daily List</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nom [n/NAME] [d/DATE] [portion/PORTION][r/RATING]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nom n/chicken d/2020-03-04 portion/1.5</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stomach</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all <code>Food</code> in a particular day&#8217;s <code>Daily List</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stomach [d/DATE]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stomach d/2020-03-04</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vomit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes a specific <code>Food</code> from the <code>Daily List</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vomit num/INDEX_OF_FOOD [d/DATE] [portion/PORTION]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vomit num/chicken d/2020-03-04 portion/3</code><strong>OR</strong><br>
+<code>vomit num/chicken</code><strong>OR</strong> <code>vomit n/chicken d/ portion/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generate Report</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Report</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generate the report for a given date.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>report d/DATE in YYYY-MM-DD</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>report d/2020-03-04</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-09 05:38:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-09 06:20:31 UTC</div></div></div></body></html>
