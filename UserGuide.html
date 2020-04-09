@@ -389,6 +389,9 @@ Format: <code>exit</code></p>
 <li>
 <p>If a previous FoodRecord.txt file exists, do close any instances of the file (if previously opened) before running the <code>export</code> command. The file will be replaced by an updated version representing your latest <code>Food Record</code>.</p>
 </li>
+<li>
+<p><code>Tags</code> are placed outside of the dashed lines.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -412,7 +415,7 @@ This lets you manually track your diet using a reference sheet of your past <cod
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Certain <code>Food</code> names and nutritional values may be too long to fit into the given columns. The reference sheet allows the storage of these values by going beyond the columns originally intended. While some entries may be misaligned, rest assured that all the information will still be captured and separated by space(s). Individual entries will also appear on separate lines.
+Certain <code>Food</code> names may be too long to fit into the given space. The reference sheet truncates these names and shows the remainder on the following lines. Rest assured that all your information is still captured and will be separated with space(s). Individual entries will also appear on separate lines.
 </td>
 </tr>
 </table>
@@ -472,7 +475,7 @@ You don&#8217;t have to capitalise each keyword. The search is always case insen
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You don&#8217;t actually have to type out the entire keyword. Incomplete keywords will be matched to <code>Food</code> entries containing them in the specified parameter of <code>Name</code> or <code>Tag</code>.<br>
+You don&#8217;t actually have to type out the entire keyword either. For your comfort, incomplete keywords will be matched to <code>Food</code> entries containing them in the specified parameter of <code>Name</code> or <code>Tag</code>.<br>
 </td>
 </tr>
 </table>
@@ -622,7 +625,7 @@ This generates a txt file containing the above-mentioned insights made on the co
 </td>
 <td class="content">
 You can think of this as the undo of a <code>find</code> command.
-After a <code>find</code> command, you are advised to complete your intended actions first, before using the <code>list</code> command. This allows for a smoother workflow as you will now avoid the need to perform the same <code>find</code> command again.
+After a <code>find</code> command, you are advised to complete your intended actions first, before using the <code>list</code> command to reset the display. This allows for a smoother workflow as you will now avoid the need to perform the same <code>find</code> command again.
 </td>
 </tr>
 </table>
@@ -770,8 +773,12 @@ Whenever you begin to key in the name of the <code>Food</code>, Calgo shows you 
 <h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the App in the other computer and overwrite/paste the <code>data</code> folder from the source computer into the folder containing the <strong>Calgo</strong> App.</p>
+<p><strong>Q</strong>: How do I transfer my <strong>Calgo</strong> data to another Computer?<br>
+<strong>A</strong>: Install <strong>Calgo</strong> in a folder inside the target computer and copy over your current <code>data</code> folder into that folder.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: Where can I find my exported <code>Food Record</code> entries and consumption reports?<br>
+<strong>A</strong>: They are both found in the <code>exports</code> and <code>reports</code> subfolders in the <code>data</code> folder respectively. Please do not remove the json files in the <code>data</code> folder. These are system files.</p>
 </div>
 </div>
 </div>
@@ -797,7 +804,7 @@ Whenever you begin to key in the name of the <code>Food</code>, Calgo shows you 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Navigate app</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Navigate App</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exit</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Exits the app</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>exit</code></p></td>
@@ -877,4 +884,4 @@ Whenever you begin to key in the name of the <code>Food</code>, Calgo shows you 
 </tbody>
 </table>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-09 09:44:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-09 14:50:13 UTC</div></div></div></body></html>
