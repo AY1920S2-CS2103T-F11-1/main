@@ -379,11 +379,6 @@ An example of how such a model may look like is given in the below diagram.<br>
 <div class="paragraph">
 <p>Certain properties of the App can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Implementation-HelpGuide"><a class="link" href="#Implementation-HelpGuide">4.2. Command guide <code>help</code> command</a></h3>
-<div class="sect3">
-<h4 id="implementation-2"><a class="link" href="#implementation-2">4.2.1. Implementation</a></h4>
 <div class="paragraph">
 <p>As with any application with a plethora of commands, it is useful to have an in-app and offline method by which users can view the purpose and usage format of each command.</p>
 </div>
@@ -395,10 +390,36 @@ An example of how such a model may look like is given in the below diagram.<br>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/HelpSequenceDiagram.png" alt="HelpSequenceDiagram">
+<img src="images/HelpSequenceDiagram.png" alt="]// tag::helpcommand[">
 </div>
 <div class="title">Figure 10. Sequence Diagram for Help Command</div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="Implementation-HelpGuide"><a class="link" href="#Implementation-HelpGuide">4.2. Command guide <code>help</code> command</a></h3>
+<div class="paragraph">
+<p>This section addresses how the <code>help</code> command works.</p>
+</div>
+<div class="paragraph">
+<p>The <code>help</code> command allows us to reference a summarised version of the User Guide (called the command guide)
+containing the usages of the commands and their formats, arranged in alphabetical order. Users may enter an
+optional <code>Command_word</code> that filters the displayed command guide.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>Command_word</code> filters out only commands which contain the <code>Command_word</code> as a substring. If no commands contain it
+as a substring, an error message will be displayed at the top of the <code>HelpWindow</code> and the full command guide will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">4.2.1. Implementation</a></h4>
 <div class="paragraph">
 <p>Step 1: <code>LogicManager</code> takes in the user input of "help".<br>
 Step 2: <code>FoodRecordParser</code> is passed the String input and is parsed using <code>parseCommand</code>.<br>
@@ -407,6 +428,7 @@ Step 4: The <code>LogicManager</code> encapsulates the result as a <code>Command
 Step 5: The <code>MainWindow</code> executes the handleHelp() method, displaying the <code>HelpWindow</code> if it is not already being displayed.<br>
 Step 6: <code>HelpWindow</code> is displayed as a separate popup.</p>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">4.2.2. Design considerations</a></h4>
@@ -415,14 +437,38 @@ Step 6: <code>HelpWindow</code> is displayed as a separate popup.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> <code>HelpWindow</code> is displayed as a self-contained popup.</p>
+<p><strong>Alternative 1 (current choice):</strong> <code>HelpWindow</code> is displayed as a separate popup.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: User can refer to the command guide in a window separately from the main app. Additionally, no internet access is required as all information on commands are stored offline.</p>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>User can refer to the command guide in a window separately from Calgo, keeping it present as they use the App.</p>
 </li>
 <li>
-<p>Cons: As <code>help</code> does not redirect to a url containing the most up-to-date User Guide, any changes to command functionality or addition of new commands must be updated for local display.</p>
+<p>Command guide can give a more detailed description of command usage and format as it has more space to display in.</p>
+</li>
+<li>
+<p>No internet access is required as all information on commands is stored offline.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>help</code> does not redirect to a url containing the most up-to-date User Guide. Changes made to the User Guide
+must be updated in <code>HelpCommand</code> separately.</p>
+</li>
+<li>
+<p><code>HelpWindow</code> might obstruct view of the App upon initially loading it, causing annoyance.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -432,10 +478,28 @@ Step 6: <code>HelpWindow</code> is displayed as a separate popup.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: No possibility of a popup blocking the main app, and all information is contained within a single window.</p>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>No possibility of a popup blocking the main app.</p>
 </li>
 <li>
-<p>Cons: User must use the <code>help</code> command every time they require a guide, as <code>ResultDisplay</code> will be overwritten after every command.</p>
+<p>All information is contained within a single window.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>User must use the <code>help</code> command every time they require a guide, as <code>ResultDisplay</code> will be
+overwritten after other commands.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -448,14 +512,32 @@ Step 6: <code>HelpWindow</code> is displayed as a separate popup.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> <code>help</code> displays all command guides by default. User can selectively filter to display only desired commands by entering an optional keyword after <code>help</code>.</p>
+<p><strong>Alternative 1 (current choice):</strong> <code>help</code> displays all command guides by default. User can selectively filter to
+display only desired commands by entering an optional keyword after <code>help</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: User can filter out command guides they know they aren&#8217;t looking for, thus having a more focused display.</p>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Desired command can be more rapidly found.</p>
 </li>
 <li>
-<p>Cons: If user does not know the name of the command they want, the filtered <code>help</code> is not useful.</p>
+<p>Removes all unwanted commands from <code>HelpWindow</code>, reducing clutter.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Filtered <code>help</code> does not benefit users who don&#8217;t know the command they&#8217;re looking for.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -465,10 +547,27 @@ Step 6: <code>HelpWindow</code> is displayed as a separate popup.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: No possibility of user being unable to find their desired command after sufficient searching.</p>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>No possibility of user being unable to find their desired command after sufficient searching.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Cons: Can be very overwhelming and frustrating to search through, should an experienced user be using the app.</p>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Relatively large array of commands can be overwhelming to a new user, deterring them from using the App.</p>
+</li>
+<li>
+<p>Can be very frustrating to search through for experienced users.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1478,20 +1577,33 @@ The following activity diagram summarises what happens when a user enters a vali
 <div class="sect2">
 <h3 id="Implementation-CalorieGraph"><a class="link" href="#Implementation-CalorieGraph">4.9. Past seven days calorie data graph</a></h3>
 <div class="paragraph">
-<p>This feature displays to the user a summary of their past seven days' daily total calorie consumption in the form of a line graph.
-Specifically, the graph shows the calorie consumption for the date of the <code>DailyList</code>, and the six days before it.</p>
+<p>(by Janice)</p>
 </div>
 <div class="paragraph">
-<p>This functionality is automatic. The graph will always display the past seven days' data at the bottom of the app, and will update
+<p>This section addresses how the graph displaying the user&#8217;s past seven day&#8217;s daily total calorie consumption works.
+Note that the graph counts starting from the date on the current <code>Food Record</code>, and the six days prior to it.</p>
+</div>
+<div class="paragraph">
+<p>The graph will always display the past seven days' data at the bottom of the app, and will update
 whenever app data is changed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a command changes the date of the <code>Food Record</code> (such as <code>nom</code> or <code>stomach</code>), the graph will update to show data
+for the past seven days from that date, inclusive.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="implementation-8"><a class="link" href="#implementation-8">4.9.1. Implementation</a></h4>
 <div class="paragraph">
-<p>This feature is facilitated by the <code>GraphPanel</code> class in the <code>Ui</code> component.</p>
-</div>
-<div class="paragraph">
-<p><code>GraphPanel</code> contains a <code>LineChart</code> of <code>String</code> date against <code>Number</code> calories, and is populated with
+<p><code>GraphPanel</code> in the <code>Ui</code> component. It contains a <code>LineChart</code> of <code>String</code> date against <code>Number</code> calories, and is populated with
 data from an <code>XYChart.series</code>. The data is in turn obtained from the <code>Logic</code> component, which provides only the past seven days'
 of <code>DailyFoodLog</code>. The implementation of the <code>GraphPanel</code> class will be further explained.</p>
 </div>
@@ -1523,6 +1635,69 @@ most recent app data.</p>
 <div class="paragraph">
 <p>Calgo will display the past seven days' graph automatically, and likewise update automatically. It does so by having <code>MainWindow</code>
 call <code>GraphPanel#getGraph(Logic logic)</code> on startup and after execution of commands.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below demonstrates how the <code>Graph</code> feature works, such as upon loading of <code>MainWindow</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GraphSequenceDiagram.png" alt="GraphSequenceDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>Sequence Diagram for <code>Graph</code> feature.</p>
+</div>
+<div class="paragraph">
+<p>Step 1: <code>MainWindow</code> requests for an instance of <code>GraphPanel</code>.</p>
+</div>
+<div class="paragraph">
+<p>If no instance exists, a new <code>GraphPanel</code> is created. Otherwise one is retrieved. This ensures that <code>GraphPanel</code>
+is a singleton.</p>
+</div>
+<div class="paragraph">
+<p>Step 2: <code>MainWindow</code> calls <code>GraphPanel</code> again to generate the graph and add it to the <code>GraphPanelPlaceholder</code> inside <code>MainWindow</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 3: Inside <code>GraphPanel</code>, a wrapper method <code>makeGraph</code> calls three methods in a row:</p>
+</div>
+<div class="paragraph">
+<p>First, <code>initialiseTreeMap</code>, which has <code>Logic</code> call the <code>getPastWeekLogs</code> method onto <code>GraphPanel</code>, generating
+a <code>TreeMap</code> of <code>String</code> date mapped to <code>Double</code> calories using the past seven days' <code>DailyFoodLog</code>.
+Second, <code>initialiseGraph</code> method is called to generate the graph itself.
+Third, <code>updateSeries</code> method is called to ensure the data populating the graph is up to date.</p>
+</div>
+<div class="paragraph">
+<p>After which, the <code>GraphPanel</code> adds the graph to <code>MainWindow</code>.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.9.2. Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-choice-of-visuals-for-past-seven-days-summary"><a class="link" href="#aspect-choice-of-visuals-for-past-seven-days-summary">Aspect: Choice of visuals for past seven days summary</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Summary is represented using a line graph.</p>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Summary is represented in a table.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-when-graph-s-dates-are-based-on"><a class="link" href="#aspect-when-graph-s-dates-are-based-on">Aspect: When graph&#8217;s dates are based on</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Dates are based on past seven days starting from date of <code>Consumption Record</code>, inclusive.</p>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Dates are based on past seven days starting from today&#8217;s date, inclusive.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -2154,4 +2329,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 16:49:12 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 18:11:02 UTC</div></div></div></body></html>
