@@ -30,6 +30,7 @@
 <li><a href="#Implementation-LexicographicOrder">4.5. Lexicographical <code>Food</code> order</a></li>
 <li><a href="#logging">4.6. Logging</a></li>
 <li><a href="#Implementation-SmartUpdate">4.7. Updating <code>FoodRecord</code></a></li>
+<li><a href="#Implementation-CalorieGraph">4.8. Past seven days calorie data graph</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a></li>
@@ -381,6 +382,9 @@ An example of how such a model may look like is given in the below diagram.<br>
 </div>
 <div class="sect2">
 <h3 id="Implementation-HelpGuide"><a class="link" href="#Implementation-HelpGuide">4.2. Command guide <code>help</code> command</a></h3>
+<div class="paragraph">
+<p>(by Janice)</p>
+</div>
 <div class="sect3">
 <h4 id="implementation-2"><a class="link" href="#implementation-2">4.2.1. Implementation</a></h4>
 <div class="paragraph">
@@ -442,11 +446,50 @@ Step 6: <code>HelpWindow</code> is displayed as a separate popup.</p>
 </ul>
 </div>
 </div>
+<div class="sect4">
+<h5 id="aspect-command-guides-can-be-selectively-displayed"><a class="link" href="#aspect-command-guides-can-be-selectively-displayed">Aspect: Command guides can be selectively displayed</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> <code>help</code> displays all command guides by default. User can selectively filter to display only desired commands by entering an optional keyword after <code>help</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: User can filter out command guides they know they aren&#8217;t looking for, thus having a more focused display.</p>
+</li>
+<li>
+<p>Cons: If user does not know the name of the command they want, the filtered <code>help</code> is not useful.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Always display all command guides to ensure user will find the guide they require.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No possibility of user being unable to find their desired command after sufficient searching.</p>
+</li>
+<li>
+<p>Cons: Can be very overwhelming and frustrating to search through, should an experienced user be using the app.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="summary"><a class="link" href="#summary">4.2.3. Summary</a></h4>
 <div class="paragraph">
 <p><code>help</code> will produce a popup, displaying a guide on the App&#8217;s available commands' purposes and usage format.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/HelpActivityDiagram.png" alt="HelpActivityDiagram">
+</div>
+<div class="title">Figure 11. Activity Diagram for Help</div>
 </div>
 </div>
 </div>
@@ -565,7 +608,7 @@ in <code>DailyFoodLog</code> for each <code>LocalDate</code>.</p>
 <div class="content">
 <img src="images/NomActivityDiagram.png" alt="NomActivityDiagram">
 </div>
-<div class="title">Figure 11. Activity Diagram for Nom</div>
+<div class="title">Figure 12. Activity Diagram for Nom</div>
 </div>
 </div>
 </div>
@@ -695,7 +738,7 @@ more memory than .txt files as well.</p>
 <div class="content">
 <img src="images/ReportActivityDiagram.png" alt="ReportActivityDiagram">
 </div>
-<div class="title">Figure 12. Activity Diagram for Report command</div>
+<div class="title">Figure 13. Activity Diagram for Report command</div>
 </div>
 </div>
 </div>
@@ -999,7 +1042,7 @@ Step 3: The next step in the creation of the <code>FoodRecord</code> is the intr
 <div class="content">
 <img src="images/LexicographicalOrderingActivityDiagram.png" alt="LexicographicalOrderingActivityDiagram">
 </div>
-<div class="title">Figure 13. Activity Diagram for Lexicographical Ordering</div>
+<div class="title">Figure 14. Activity Diagram for Lexicographical Ordering</div>
 </div>
 </div>
 </div>
@@ -1078,7 +1121,7 @@ Otherwise, the new <code>Food</code> item will be added into the <code>FoodRecor
 <div class="content">
 <img src="images/UpdateSequenceDiagram.png" alt="UpdateSequenceDiagram">
 </div>
-<div class="title">Figure 14. Sequence Diagram for Update command</div>
+<div class="title">Figure 15. Sequence Diagram for Update command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1145,7 +1188,57 @@ The following activity diagram summarises what happens when a user enters a vali
 <div class="content">
 <img src="images/UpdateActivityDiagram.png" alt="UpdateActivityDiagram">
 </div>
-<div class="title">Figure 15. Activity Diagram for Update command</div>
+<div class="title">Figure 16. Activity Diagram for Update command</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Implementation-CalorieGraph"><a class="link" href="#Implementation-CalorieGraph">4.8. Past seven days calorie data graph</a></h3>
+<div class="paragraph">
+<p>This feature displays to the user a summary of their past seven days' daily total calorie consumption in the form of a line graph.</p>
+</div>
+<div class="paragraph">
+<p>This functionality is automatic. The graph will always display the past seven days' data at the bottom of the app, and will update
+whenever app data is changed.</p>
+</div>
+<div class="sect3">
+<h4 id="implementation-7"><a class="link" href="#implementation-7">4.8.1. Implementation</a></h4>
+<div class="paragraph">
+<p>This feature is facilitated by the <code>GraphPanel</code> class in the <code>Ui</code> component.</p>
+</div>
+<div class="paragraph">
+<p><code>GraphPanel</code> contains a <code>LineChart</code> of <code>String</code> date against <code>Number</code> calories, and is populated with
+data from an <code>XYChart.series</code>. The data is in turn obtained from the <code>Logic</code> component, which provides only the past seven days'
+of <code>DailyFoodLog</code>. The implementation of the <code>GraphPanel</code> class will be further explained.</p>
+</div>
+<div class="paragraph">
+<p><code>GraphPanel</code> class implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GraphPanel#initialiseTreeMap(Logic logic)</code> - Sets up the TreeMap that maps <code>LocalDate</code> date of <code>DailyFoodLog</code> to the <code>Double</code>
+total calorie consumption n that day.</p>
+</li>
+<li>
+<p><code>GraphPanel#initialseGraph()</code> - Sets up the <code>LineChart</code> with xAxis a <code>String</code> representing date, and yAxis a <code>Double</code> representing
+total calories consumed on that date.</p>
+</li>
+<li>
+<p><code>GraphPanel#updateSeries()</code> - Ensures the <code>XYChart.series</code> that populates the graph with data is always updated with the
+most recent app data.</p>
+</li>
+<li>
+<p><code>GraphPanel#makeGraph(Logic logic)</code> - Wrapper function that calls the above three methods.</p>
+</li>
+<li>
+<p><code>GraphPanel#getGraph(Logic logic)</code> - Public accessor function to generate and retrieve the <code>LineChart</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Calgo will display the past seven days' graph automatically, and likewise update automatically. It does so by having <code>MainWindow</code>
+call <code>GraphPanel#getGraph(Logic logic)</code> on startup and after execution of commands.</p>
 </div>
 </div>
 </div>
@@ -1811,4 +1904,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 07:45:16 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 08:01:02 UTC</div></div></div></body></html>
