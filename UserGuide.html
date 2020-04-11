@@ -525,7 +525,8 @@ Certain <code>Food</code> names may be too long to fit into the given space. The
 </table>
 </div>
 <div class="paragraph">
-<p>Format: <code>export</code></p>
+<p>Format: <code>export</code><br>
+(any parameters entered are ignored)</p>
 </div>
 <div class="paragraph">
 <p>Example:<br></p>
@@ -558,7 +559,7 @@ You can find this copy (FoodRecord.txt) in the <code>data/exports</code> folder 
 <p>(by Eugene)<br></p>
 </div>
 <div class="paragraph">
-<p>With many <code>Food</code> entries in the <code>Food Record</code>, it may be quite difficult to search for a particular <code>Food</code> entry you want. This is where the <code>find</code> command comes in nicely.</p>
+<p>When you have many entries in the <code>Food Record</code>, it may be rather difficult to search for a particular one. This is where the <code>find</code> command comes in nicely.</p>
 </div>
 <div class="paragraph">
 <p>The <code>find</code> command shows all <code>Food</code> entries that have a nutritional value matching what you specify. This can be the number of <code>Calories</code>, or the number of grams of <code>Proteins</code>/<code>Carbohydrates</code>/<code>Fats</code>.</p>
@@ -580,23 +581,26 @@ You can find this copy (FoodRecord.txt) in the <code>data/exports</code> folder 
 <p>For finding via nutritional value, only <code>Food</code> matching the same exact value will be shown.</p>
 </li>
 <li>
-<p>To facilitate the possibility of typing errors made by fast typists, any additional input (separated by spaces) typed without a preceding prefix (e.g. <code>n/</code>, <code>p/</code>) will be ignored.</p>
+<p>You don&#8217;t have to capitalise each keyword. The search is always case insensitive when searching for keyword(s) via <code>Name</code> or <code>Tag</code>.<br></p>
 </li>
 <li>
-<p>The GUI changes as a result of using the <code>find</code> command. We can reset the <code>Food Record</code> to show all entries once again using the <a href="#ListCommand"><code>list</code></a> command.</p>
+<p>You don&#8217;t actually have to type out the entire keyword either. For your comfort, incomplete keywords will be matched to <code>Food</code> entries containing them in the specified parameter of <code>Name</code> or <code>Tag</code>.<br></p>
+</li>
+<li>
+<p>You can search for multiple <code>Name</code> keywords by using a single <code>n/</code> prefix, separating them with space(s).<br></p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You don&#8217;t have to capitalise each keyword. The search is always case insensitive when searching for keyword(s) via <code>Name</code> or <code>Tag</code>.<br>
+If you&#8217;re a fast typist, fear not! We understand the possibility that typing errors can be made quite often, so any additional input for the <code>find</code> command without a preceding prefix (e.g. <code>n/</code>, <code>p/</code>) will be ignored.
 </td>
 </tr>
 </table>
@@ -608,19 +612,7 @@ You don&#8217;t have to capitalise each keyword. The search is always case insen
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You don&#8217;t actually have to type out the entire keyword either. For your comfort, incomplete keywords will be matched to <code>Food</code> entries containing them in the specified parameter of <code>Name</code> or <code>Tag</code>.<br>
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-You can search for multiple <code>Name</code> keywords by using a single <code>n/</code> prefix, separating them with space(s).<br>
+The <code>Food Record</code> displays the relevant entries of each <code>find</code> command. We can reset the <code>Food Record</code> to show all entries once again using the <a href="#ListCommand"><code>list</code></a> command.
 </td>
 </tr>
 </table>
@@ -633,7 +625,7 @@ You can search for multiple <code>Name</code> keywords by using a single <code>n
 <p>Examples:<br></p>
 </div>
 <div class="paragraph">
-<p>Example 1: Say you wish to search for a <code>Food</code> entry with 150 <code>Calories</code> because you are looking for a snack.</p>
+<p>Example 1: Say you want to use <strong>Calgo</strong> to search for a <code>Food</code> entry with 150 <code>Calories</code> because you are looking for a light snack.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -641,7 +633,7 @@ You can search for multiple <code>Name</code> keywords by using a single <code>n
 </div>
 </div>
 <div class="paragraph">
-<p>You should first enter <code>find cal/150</code> as input and press enter.<br></p>
+<p>You should first enter <code>find cal/150</code> as input.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -649,10 +641,10 @@ You can search for multiple <code>Name</code> keywords by using a single <code>n
 </div>
 </div>
 <div class="paragraph">
-<p>Once the command has been entered, the <code>Result Display</code> shows the results of your command and the GUI&#8217;s <code>Food Record</code> shows the relevant entries with 150 <code>Calories</code>.</p>
+<p>Once the command has been entered, the <code>Result Display</code> shows the results of your command and the <code>Food Record</code> displays the relevant entries with 150 <code>Calories</code>.</p>
 </div>
 <div class="paragraph">
-<p>Example 2: Say you wish to find entries which contain the keyword <code>Cheese</code> in their <code>Name</code>, but your hand slipped and the keyword only registered <code>Chees</code>.<br></p>
+<p>Example 2: Say you wish to find entries which contain the keyword <code>Cheese</code> in their <code>Name</code>, but your hand slipped and the keyboard only registered <code>Chees</code>.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -660,7 +652,7 @@ You can search for multiple <code>Name</code> keywords by using a single <code>n
 </div>
 </div>
 <div class="paragraph">
-<p>You would therefore enter <code>find n/Chees</code> as the command input.<br></p>
+<p>You are therefore likely to enter <code>find n/Chees</code> as the command input.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -668,7 +660,7 @@ You can search for multiple <code>Name</code> keywords by using a single <code>n
 </div>
 </div>
 <div class="paragraph">
-<p>Once the command has been entered, the <code>Result Display</code> shows the results of your command and the GUI&#8217;s <code>Food Record</code> shows the relevant entries which contain <code>Chees</code> in their <code>Name</code>. This is not too bad, as you still obtain entries that will be largely relevant.</p>
+<p>Once the command has been entered, the <code>Result Display</code> shows the results of your command and the <code>Food Record</code> shows the relevant entries which contain <code>Chees</code> in their <code>Name</code>. This is not too bad, as you still obtain entries that will be largely relevant to <code>Cheese</code>.</p>
 </div>
 <div class="paragraph">
 <p>Example 3: Say you are lazy but wish to find entries containing the keyword <code>sweet</code> in their <code>Tag</code>.<br></p>
@@ -679,7 +671,7 @@ You can search for multiple <code>Name</code> keywords by using a single <code>n
 </div>
 </div>
 <div class="paragraph">
-<p>You could first enter <code>find t/swe</code> as input and press enter.<br></p>
+<p>You could first enter <code>find t/swe</code> as input.<br></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -687,10 +679,10 @@ You can search for multiple <code>Name</code> keywords by using a single <code>n
 </div>
 </div>
 <div class="paragraph">
-<p>As the <code>find</code> command allows you to search using substrings, <code>Food</code> entries with <code>swe</code> in any one of their <code>Tags</code> would appear in the <code>Food Record</code>. Therefore, your original search for <code>sweet</code> would also have its results shown.<br></p>
+<p>Upon entering the command, the <code>Food Record</code> will display all entries which have the <code>swe</code> keyword present in any one of their <code>Tags</code>. As the <code>find</code> command allows you to search using substrings, the intended search for <code>sweet</code> will also have its results shown.<br></p>
 </div>
 <div class="paragraph">
-<p>Please note that the search is case-insensitive, as seen from the <code>Sweet</code> <code>Tag</code> of the result <code>Sambal Chilli</code>. Moreover, as with Example 2, we allow for incomplete words to be used as search keywords.</p>
+<p>Please note that the search is case-insensitive, an example being the <code>Sweet</code> <code>Tag</code> of the result <code>Bandung</code>. Moreover, as with Example 2, we allow for incomplete words to be used as search keywords.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -804,7 +796,7 @@ After a <code>find</code> command, you are advised to complete your intended act
 </div>
 </div>
 <div class="paragraph">
-<p>You should first enter <code>list</code> as input, and press enter.</p>
+<p>You should first enter <code>list</code> as input.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1091,13 +1083,14 @@ being updated into the <code>Food Record</code>, your new <code>Food</code> item
 <tr>
 <td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Navigate Food Record</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Find</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Searches for and displays a particular <code>Food</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Searches through the <code>Food Record</code> and displays the relevant entries based on the specifications entered.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>find [n/NAME] [cal/CALORIES] [p/PROTEINS] [c/CARBOHYDRATES] [f/FATS] [t/TAG]</code> (choose only 1 parameter)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find n/Pizza</code><strong>OR</strong><code>find cal/110</code> etc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>find n/Pizza</code><br>
+    <code>find cal/110</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">List</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Displays all <code>Food`s in `Food Record</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays all entries in the <code>Food Record</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>list</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
@@ -1122,13 +1115,32 @@ being updated into the <code>Food Record</code>, your new <code>Food</code> item
 <code>vomit num/chicken</code><strong>OR</strong> <code>vomit n/chicken d/ portion/</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generate Report</p></td>
+<td class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">Generate Document</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Report</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generate the report for a given date.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates the report for a given date.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>report d/DATE in YYYY-MM-DD</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>report d/2020-03-04</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Export</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a neat and editable file containing the current <code>Food</code> entries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>Please note the following:<br></p>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 18:11:02 UTC</div></div></div></body></html>
+<div class="ulist">
+<ul>
+<li>
+<p>For the <code>clear</code>, <code>export</code>, and <code>list</code> commands, any parameters entered will be ignored.<br></p>
+</li>
+<li>
+<p>For the <code>find</code> command, only one parameter is accepted. Any input entered without a preceding <code>Prefix</code> will be ignored.</p>
+</li>
+</ul>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 19:29:41 UTC</div></div></div></body></html>

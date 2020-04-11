@@ -58,8 +58,10 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>This Developer Guide is a document to guide future software developers of the Calgo App by providing a sufficient and comprehensible overview of the project.<br>
-While we aim to provide a reasonable amount of depth, the goal of this document is not to serve as a replacement for reading the actual code.<br>
-Welcome on-board the Software Development Team for Calgo!</p>
+While we aim to provide a reasonable amount of depth, do keep in mind that the goal of this document is not to serve as a replacement for reading the actual code.<br></p>
+</div>
+<div class="paragraph">
+<p>Welcome on-board the Software Development Team for Calgo! Together, we will inspire a healthier lifestyle!</p>
 </div>
 </div>
 </div>
@@ -596,10 +598,13 @@ display only desired commands by entering an optional keyword after <code>help</
 <p>(by Eugene)</p>
 </div>
 <div class="paragraph">
-<p>This section addresses how the <code>find</code> and <code>list</code> commands work. These commands are complementary to one another.</p>
+<p>This section addresses how the <code>find</code> and <code>list</code> commands work. As they are complementary in their functions during the search process, both <code>find</code> and <code>list</code> commands will be explained together here for better coherence.</p>
 </div>
 <div class="paragraph">
-<p>The <code>find</code> command allows us to search through the <code>FoodRecord</code> (via categorical or substring search) based on what the user enters for the <code>Prefix</code>. Users may only enter 1 and only 1 <code>Prefix</code>. These search results can then be shown in the GUI&#8217;s <code>Food Record</code>.</p>
+<p>The <code>find</code> command allows us to search through the <code>FoodRecord</code> (via categorical or substring search) based on what the user enters for the <code>Prefix</code>. Users may enter one and only one <code>Prefix</code>. The search results can then be displayed in the GUI&#8217;s <code>Food Record</code>.</p>
+</div>
+<div class="paragraph">
+<p>Meanwhile, the <code>list</code> command allows us to reset the GUI&#8217;s <code>Food Record</code> to once again show all entries in lexicographical order. This can be thought of as the reverse of a <code>find</code> command. However, unlike the <code>find</code> command, the <code>list</code> command does not use any <code>Prefix</code>, and ignores any input after its command word.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -608,13 +613,10 @@ display only desired commands by entering an optional keyword after <code>help</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>Prefix</code> here indicates which <code>Food</code> attribute we are interested in. Categorical search implies searching via <code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, or <code>Fat</code>, while substring search implies searching via a substring which appears in any part of the the <code>Name</code> or in any part of any one of the <code>Tag</code> objects of the <code>Food</code>.
+<code>Prefix</code> here indicates which <code>Food</code> attribute we are interested in. Categorical search finds <code>Food</code> objects with matching values representing one of the nutritional categories (<code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, or <code>Fat</code>). Meanwhile, substring search finds matches of a substring in any part of the the <code>Name</code> or in any of the <code>Tag</code> objects belonging to the <code>Food</code>.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>The <code>list</code> command allows us to reset the GUI&#8217;s <code>Food Record</code> to once again show all the <code>Food</code> entries in lexicographical order, and can be thought of as the reverse of a <code>find</code> command. The <code>list</code> command does not use any <code>Prefix</code>, and ignores anything after the 'find' keyword entered by the user in the GUI.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -629,13 +631,15 @@ For more information on lexicographical ordering, please refer to its relevant s
 </table>
 </div>
 <div class="paragraph">
-<p><code>FindCommand</code> and <code>ListCommand</code> both use a <code>Predicate&lt;Food&gt;</code> and the GUI&#8217;s <code>Food Record</code> will eventually show <code>Food</code> entries that evaluate these predicates to be true.</p>
+<p>The above commands rely on the <code>FindCommand</code> and <code>ListCommand</code> classes respectively. Objects of both classes use a <code>Predicate&lt;Food&gt;</code> object to filter through the current <code>Food</code> objects, which will be displayed in the GUI&#8217;s <code>Food Record</code> should they evaluate these predicates to be true.</p>
 </div>
 <div class="sect3">
 <h4 id="implementation-3"><a class="link" href="#implementation-3">4.3.1. Implementation</a></h4>
 <div class="paragraph">
-<p>To search via a particular <code>Food</code> attribute, we use the <code>FindCommandParser</code> (which matches the user-entered <code>Prefix</code> with the corresponding user-entered arguments) to create the corresponding <code>Predicate&lt;Food&gt;</code> based on the type of <code>Prefix</code> entered. This predicate is then used to construct a <code>FindCommand</code>, which upon execution, changes the GUI display.
-The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> used in the construction of <code>FindCommand</code> objects. Note that only relevant information is shown.</p>
+<p>To search via a particular <code>Food</code> attribute, we use a <code>FindCommandParser</code> to create the corresponding <code>Predicate&lt;Food&gt;</code> based on which <code>Food</code> attribute the <code>Prefix</code> entered represents. This predicate is then used to construct a new <code>FindCommand</code> object, which changes the GUI display when executed.<br></p>
+</div>
+<div class="paragraph">
+<p>The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> classes used in the construction of <code>FindCommand</code> objects.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -644,61 +648,87 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 </div>
 <div class="paragraph">
 <div class="title">Class Diagram showing the relevant predicates used in constructing <code>FindCommand</code> objects</div>
-<p>As seen in the above class diagram, each <code>Predicate&lt;Food&gt;</code> is specific to an attribute of <code>Food</code> and has a dependency to their related attribute. Moreover, each of these predicates test against a <code>Food</code> object, and therefore have a dependency on <code>Food</code>.</p>
+<p>As seen in the above class diagram, each <code>Predicate&lt;Food&gt;</code> is indeed representative of either <code>Name</code>, <code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, <code>Fat</code>, or <code>Tag</code>. Moreover, it should be noted that each of these predicates test against a <code>Food</code> object, and therefore have a dependency on <code>Food</code>.</p>
 </div>
 <div class="paragraph">
-<p>The sequence diagram below demonstrates how the <code>find</code> command works, for both categorical searching and substring searching:</p>
+<p>The sequence diagram below demonstrates how the <code>find</code> command works, for both categorical and substring search:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/FindSequenceDiagram.png" alt="FindSequenceDiagram">
 </div>
+<div class="title">Figure 12. Sequence Diagram for <code>find</code> command: categorical search and substring search</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for the both of the <code>FindCommandParser</code> objects, and both of the <code>FindCommand</code> objects should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<div class="title">Sequence Diagram for <code>find</code> command: categorical search and substring search</div>
 <p>From the above, it is clear that both categorical search and substring search of the <code>find</code> command have similar steps:<br></p>
 </div>
 <div class="paragraph">
-<p>Step 1: <code>LogicManager</code> executes the user input, using <code>CalgoParser</code> to realise this is a <code>find</code> command, and creates a <code>FindCommandParser</code>.<br></p>
+<p>Step 1: <code>LogicManager</code> executes the user input, uses <code>CalgoParser</code> to realise this is a <code>find</code> command, and creates a new <code>FindCommandParser</code> object.<br></p>
 </div>
 <div class="paragraph">
-<p>Step 2: <code>FindCommandParser</code> parses the user-entered arguments that come after the <code>Prefix</code>, creating the respective <code>Predicate&lt;Food&gt;</code> which depends on which <code>Prefix</code> has been entered. A new <code>FindCommand</code> object is then made from this predicate, and returned to <code>LogicManager</code>.<br></p>
+<p>Step 2: The <code>FindCommandParser</code> object parses the user-entered arguments that match the <code>Prefix</code>, creating a <code>Predicate&lt;Food&gt;</code> object based on which <code>Food</code> attribute the <code>Prefix</code> represents.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>In the above diagram example, a <code>ProteinContainsKeywordsPredicate</code> is created for categorical search via <code>Protein</code> while a <code>NameContainsKeywordPredicate</code> is created for substring search.<br></p>
+<p>In the above diagram examples, a <code>ProteinContainsKeywordsPredicate</code> object is created for the categorical search via <code>Protein</code> while a <code>NameContainsKeywordPredicate</code> object is created for the substring search via <code>Name</code>.<br></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Step 3: <code>LogicManager</code> calls the <code>execute</code> method on the <code>FindCommand</code> created, which filters out <code>Food</code> objects that satisfy the predicate created and returns a new <code>CommandResult</code> object reflecting the status of the execution. These changes are eventually reflected in the GUI&#8217;s <code>Food Record</code>.</p>
+<p>Step 3: This <code>Predicate&lt;Food&gt;</code> object is then used to construct a new <code>FindCommand</code> object, returned to <code>LogicManager</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 4: <code>LogicManager</code> calls the <code>execute</code> method of the <code>FindCommand</code> created, which filters for <code>Food</code> objects that evaluate the predicate previously created to be true. It then returns a new <code>CommandResult</code> object reflecting the status of the execution. These changes are eventually reflected in the GUI.</p>
 </div>
 <div class="paragraph">
 <p>The <code>find</code> command therefore searches through the existing <code>FoodRecord</code> and then displays the relevant search results in the GUI&#8217;s <code>Food Record</code>. To once again show all <code>Food</code> entries in the display, we use the <code>list</code> command.</p>
 </div>
 <div class="paragraph">
-<p>In constrast to the <code>FindCommand</code>, the <code>ListCommand</code> takes in no arguments (any arguments are ignored) and simply uses the predicate <code>Model.PREDICATE_SHOW_ALL_FOODS</code> defined in the <code>Model</code> interface, as it must always show all <code>Food</code> entries. This is described by the sequence diagram below:</p>
+<p>In constrast to <code>FindCommand</code>, the <code>ListCommand</code> constructor takes in no arguments and simply uses the predicate <code>Model.PREDICATE_SHOW_ALL_FOODS</code> to always show all <code>Food</code> entries in its <code>execute</code> method. This is described by the sequence diagram below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ListSequenceDiagram.png" alt="ListSequenceDiagram">
 </div>
+<div class="title">Figure 13. Sequence Diagram for <code>list</code> command</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for the <code>ListCommand</code> object should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<div class="title">Sequence Diagram for <code>list</code> command</div>
 <p>How the <code>list</code> command works:</p>
 </div>
 <div class="paragraph">
-<p>Step 1: <code>LogicManager</code> executes the user input, using <code>CalgoParser</code> to realise this is a <code>list</code> command and creates a new <code>ListCommand</code> object.<br></p>
+<p>Step 1: <code>LogicManager</code> executes the user input, uses <code>CalgoParser</code> to realise this is a <code>list</code> command and thereby create a new <code>ListCommand</code> object.<br></p>
 </div>
 <div class="paragraph">
-<p>Step 2: <code>LogicManager</code> then calls the <code>execute</code> method on this <code>ListCommand</code>, which uses <code>Model.PREDICATE_SHOW_ALL_FOODS</code> which evaluates to true for all <code>Food</code> objects in the <code>FoodRecord</code>.</p>
+<p>Step 2: <code>LogicManager</code> then calls the <code>execute</code> method of this <code>ListCommand</code>, which uses <code>Model.PREDICATE_SHOW_ALL_FOODS</code> to evaluate to true for all <code>Food</code> objects in the <code>FoodRecord</code>.</p>
 </div>
 <div class="paragraph">
 <p>Step 3: The GUI&#8217;s <code>Food Record</code> reflects the above changes to show all <code>Food</code> entries.</p>
 </div>
-<div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.3.2. Design considerations</a></h4>
@@ -707,7 +737,7 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Each <code>Predicate&lt;Food&gt;</code> is created using a new object of type either <code>Name</code>, <code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, <code>Fat</code>, <code>Tag</code>.</p>
+<p><strong>Alternative 1 (current choice):</strong> Each <code>Predicate&lt;Food&gt;</code> is constructed using a new object of type either <code>Name</code>, <code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, <code>Fat</code>, <code>Tag</code>.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -715,13 +745,13 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <div class="ulist">
 <ul>
 <li>
-<p>Models objects well to reflect real-world.</p>
-</li>
-<li>
 <p>Defensive programming by building new objects rather than relying on mutable sources.</p>
 </li>
 <li>
 <p>Can reuse existing code and classes like ArgumentMultimap and their methods.</p>
+</li>
+<li>
+<p>Models objects well to reflect the real-world.</p>
 </li>
 </ul>
 </div>
@@ -731,10 +761,10 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <div class="ulist">
 <ul>
 <li>
-<p>May be more resource-intensive</p>
+<p>May be more resource-intensive than other alternatives.</p>
 </li>
 <li>
-<p>New developers may not find this intuitive</p>
+<p>New developers may not find this intuitive.</p>
 </li>
 </ul>
 </div>
@@ -767,6 +797,9 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <p>More prone to bugs.</p>
 </li>
 <li>
+<p>Difficult to ascertain which <code>Food</code> attribute it actually represents.</p>
+</li>
+<li>
 <p>More difficult to debug as <code>String</code> type is easily modified.</p>
 </li>
 <li>
@@ -794,10 +827,13 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <div class="ulist">
 <ul>
 <li>
-<p>Improved user experience.</p>
+<p>Improves user experience.</p>
 </li>
 <li>
-<p>Can reuse some underlying code as the approach for both <code>Name</code> and <code>Tag</code> are similar.</p>
+<p>Can reuse common code as the approach for both <code>Name</code> and <code>Tag</code> are similar.</p>
+</li>
+<li>
+<p>Can use regular expressions, which are powerful and suitable for our purpose.</p>
 </li>
 </ul>
 </div>
@@ -807,7 +843,13 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <div class="ulist">
 <ul>
 <li>
-<p>Require good understanding of <code>String</code> type and manipulation.</p>
+<p>Requires good understanding of the original project.</p>
+</li>
+<li>
+<p>Need to know the <code>String</code> type, regular expressions, and their implications.</p>
+</li>
+<li>
+<p>Need to implement searching via multiple types of <code>Food</code> attributes and hence more dependencies.</p>
 </li>
 </ul>
 </div>
@@ -824,7 +866,7 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <div class="ulist">
 <ul>
 <li>
-<p>Can simply reuse large parts of Address Book 3 existing code.</p>
+<p>Can simply reuse large parts of the original project&#8217;s existing code.</p>
 </li>
 <li>
 <p>Less prone to bugs.</p>
@@ -843,7 +885,7 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <p>Diminishes user experience.</p>
 </li>
 <li>
-<p>Does not satisfy the full user requirements.</p>
+<p>May not fully satisfy the user requirements.</p>
 </li>
 </ul>
 </div>
@@ -858,13 +900,22 @@ The class diagram below shows the relevant <code>Predicate&lt;Food&gt;</code> us
 <div class="sect3">
 <h4 id="summary-2"><a class="link" href="#summary-2">4.3.3. Summary</a></h4>
 <div class="paragraph">
-<p>The <code>UniqueFoodList</code> facilitates the lexicographical ordering of <code>Food</code> objects and hence their appearance in the GUI <code>Food Record</code>. This can be summarised in an activity diagram below:</p>
+<p>In essence, this section focuses on searching which is implemented via <code>find</code> and <code>list</code> commands.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>find</code> command performs a categorical search if a value from a nutritional category (<code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, <code>Fat</code>) is specified. Otherwise, a substring search is performed to find <code>Food</code> objects that contain the entered substring in their <code>Name</code> or in one of their <code>Tag</code> s. These rely on the <code>Predicate&lt;Food&gt;</code> object used in constructing the <code>FindCommand</code>, which depend on the <code>Prefix</code> entered by the user.<br></p>
+</div>
+<div class="paragraph">
+<p>Meanwhile, the <code>list</code> command simply uses the predicate already defined in <code>Model</code> to display all <code>Food</code> objects.<br></p>
+</div>
+<div class="paragraph">
+<p>The above can be summarised in the activity diagram below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/LexicographicalOrderingActivityDiagram.png" alt="LexicographicalOrderingActivityDiagram">
+<img src="images/FindListCommandActivityDiagram.png" alt="FindListCommandActivityDiagram">
 </div>
-<div class="title">Figure 12. Activity Diagram for Lexicographical Ordering</div>
+<div class="title">Figure 14. Activity Diagram for Searching</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -984,7 +1035,7 @@ in <code>DailyFoodLog</code> for each <code>LocalDate</code>.</p>
 <div class="content">
 <img src="images/NomActivityDiagram.png" alt="NomActivityDiagram">
 </div>
-<div class="title">Figure 13. Activity Diagram for Nom</div>
+<div class="title">Figure 15. Activity Diagram for Nom</div>
 </div>
 </div>
 </div>
@@ -1114,7 +1165,7 @@ more memory than .txt files as well.</p>
 <div class="content">
 <img src="images/ReportActivityDiagram.png" alt="ReportActivityDiagram">
 </div>
-<div class="title">Figure 14. Activity Diagram for Report command</div>
+<div class="title">Figure 16. Activity Diagram for Report command</div>
 </div>
 </div>
 </div>
@@ -1153,7 +1204,7 @@ For a better understanding of adding and editing <code>Food</code> objects using
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Although the the <code>list</code> command changes the GUI <code>Food Record</code> display, it does not actually perform sorting. It simply resets the GUI <code>Food Record</code> to show all <code>Food</code> entries, and is usually used after a <code>find</code> command.
+Although the the <code>list</code> command changes the GUI <code>Food Record</code> display, it does not actually perform sorting. It simply resets the GUI <code>Food Record</code> to show all <code>Food</code> entries, and is usually used after a <code>find</code> command. You can read more about them <a href="#Implementation-FindList">here</a>.
 </td>
 </tr>
 </table>
@@ -1185,7 +1236,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <p>Existing <code>Food</code> objects are therefore arranged in lexicographic order by <code>Name</code>.</p>
 </li>
 <li>
-<p>Thereafter, <code>UniqueFoodList</code> sorts the <code>Food</code> whenever they are added or edited in the <code>Model</code>.</p>
+<p>Thereafter, <code>UniqueFoodList</code> sorts the <code>Food</code> objects whenever they are added or edited in the <code>Model</code>.</p>
 </li>
 </ul>
 </div>
@@ -1196,59 +1247,59 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="content">
 <img src="images/LexicographicalOrderingStartupSequenceDiagram.png" alt="LexicographicalOrderingStartupSequenceDiagram">
 </div>
+<div class="title">Figure 17. Lexicographical Ordering Sequence Diagram for App Start-up</div>
 </div>
 <div class="paragraph">
-<div class="title">Lexicographical Ordering Sequence Diagram for App Start-up</div>
 <p>Based on the above diagram, when Calgo starts:<br></p>
 </div>
 <div class="paragraph">
-<p>Step 1: We initialise the <code>ModelManager</code>. For this, we use previously stored user data if available. Otherwise, we use the default Calgo <code>Food</code> entries.<br></p>
+<p>Step 1: We initialise the <code>ModelManager</code> object. For this, we use previously stored user data if available (by reading in from the source json files). Otherwise, we use the default <strong>Calgo</strong> <code>Food</code> entries.<br></p>
 </div>
 <div class="paragraph">
-<p>Step 2: In creating a <code>ModelManager</code>, we require the creation of a <code>FoodRecord</code> which requires the creation of a <code>UniqueFoodList</code>.<br></p>
+<p>Step 2: Before we can finish constructing a new <code>ModelManager</code> object, we require the creation of a new <code>FoodRecord</code> object which in turn requires the creation of a new <code>UniqueFoodList</code> object.<br></p>
 </div>
 <div class="paragraph">
-<p>Step 3: The next step in the creation of the <code>FoodRecord</code> is the introduction of the initialising data, into the <code>UniqueFoodList</code>. Here, the <code>sortInternalList</code> method sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code> according to the specified lexicographical order defined in the <code>Food</code> class.</p>
+<p>Step 3: Once <code>UniqueFoodList</code> is constructed, we introduce the initialising data into it via the <code>setFood</code> method. This calls the <code>sortInternalList</code> method, which sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code> according to the specified lexicographical order (defined in the <code>Food</code> class).</p>
 </div>
 <div class="paragraph">
-<p>The sequence diagram below (a reference frame omitting irrelevant <code>update</code> command details) describes the main sorting process when <code>Food</code> objects are added or edited using the <code>update</code> command:</p>
+<p>The sequence diagram below (which is a reference frame omitting irrelevant <code>update</code> command details) describes the lexicographical sorting process when <code>Food</code> objects are added or edited using the <code>update</code> command:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LexicographicalOrderingUpdateSequenceDiagram.png" alt="LexicographicalOrderingUpdateSequenceDiagram">
 </div>
+<div class="title">Figure 18. Lexicographical Ordering Sequence Diagram for Updating (Note: this is in a reference frame as it is reused in the <code>update</code> section <a href="#Implementation-SmartUpdate">here</a>)</div>
 </div>
 <div class="paragraph">
-<div class="title">Lexicographical Ordering Sequence Diagram for Updating (Note: this is in a reference frame as it is reused in the <code>update</code> section <a href="#Implementation-SmartUpdate">here</a>)</div>
 <p>Based on the above diagram, after parsing the user input and creating an <code>UpdateCommand</code> object:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>If the user-entered <code>Food</code> already exists in <code>UniqueFoodList</code>:</p>
+<p>If a <code>Food</code> object with an equivalent <code>Name</code> (as what the user inputs) already exists in the <code>UniqueFoodList</code> object:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Step 1: <code>UpdateCommand</code> calls <code>getExistingFood</code> method of <code>ModelManager</code> for the user-entered <code>Food</code>, which then calls that of <code>FoodRecord</code>, and subsequently that of <code>UniqueFoodList</code> to eventually obtain an existing <code>Food</code> object with an equivalent <code>Name</code>.<br></p>
+<p>Step 1: The <code>UpdateCommand</code> object calls the <code>getExistingFood</code> method of the <code>ModelManager</code> for the user-entered <code>Food</code>, which then calls that of <code>FoodRecord</code>, and subsequently that of <code>UniqueFoodList</code> to eventually obtain the existing <code>Food</code> object with an equivalent <code>Name</code>.<br></p>
 </li>
 <li>
-<p>Step 2: Using the same sequence of classes, we call the respective <code>setFood</code> methods, eventually setting the desired <code>Food</code> object and arriving at the <code>sortInternalList</code> method of <code>UniqueFoodList</code>.<br></p>
+<p>Step 2: Using the same sequence of classes, we call the respective <code>setFood</code> methods, eventually replacing the existing <code>Food</code> object with the desired one and arriving at the <code>sortInternalList</code> method of <code>UniqueFoodList</code>.<br></p>
 </li>
 <li>
-<p>Step 3: The <code>sortInternalList</code> method then sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code> according to the specified lexicographical order defined in the <code>Food</code> class.</p>
+<p>Step 3: The <code>sortInternalList</code> method then sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order defined in the <code>Food</code> class.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Otherwise, the user-entered <code>Food</code> is an entirely new <code>Food</code> object:</p>
+<p>Otherwise, the user-entered <code>Food</code> is an entirely new <code>Food</code> object without a <code>Name</code>-equivalent <code>Food</code> that exists in the <code>UniqueFoodList</code>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Step 1: Using the same sequence of classes as the former case, we call the respective <code>addFood</code> and <code>add</code> methods of the classes, eventually adding the <code>Food</code> object and arriving at the <code>sortInternalList</code> method of <code>UniqueFoodList</code>.<br></p>
+<p>Step 1: Using the same sequence of classes as the former case, we call the <code>addFood</code> and <code>add</code> methods of the respective classes, eventually adding the <code>Food</code> object and arriving at the <code>sortInternalList</code> method of <code>UniqueFoodList</code>.<br></p>
 </li>
 <li>
-<p>Step 2: The <code>sortInternalList</code> method then sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code> according to the specified lexicographical order defined in the <code>Food</code> class.</p>
+<p>Step 2: The <code>sortInternalList</code> method then sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order defined in the <code>Food</code> class.</p>
 </li>
 </ul>
 </div>
@@ -1256,15 +1307,12 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 </ul>
 </div>
 <div class="paragraph">
-<p>Any re-ordering will eventually be reflected in the GUI using the following (or its similar):</p>
+<p>Any re-ordering will eventually be reflected in the GUI, facilitated by the following (in the case of a <code>list</code> command) or otherwise something similar:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">model.updateFilteredFoodRecord(Model.PREDICATE_SHOW_ALL_FOODS);</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>This allows for the GUI <code>Food Record</code> to be updated in real-time, once the user makes the changes to the <code>Model</code>.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1335,10 +1383,10 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <p>Diminishes user experience.</p>
 </li>
 <li>
-<p>May lead to bugs in overall product involving order of <code>Food</code> objects.</p>
+<p>May be incompatible with certain <code>Storage</code> functions.</p>
 </li>
 <li>
-<p>May be incompatible with certain <code>Storage</code> functionalities.</p>
+<p>May lead to bugs in overall product due to incompatible features.</p>
 </li>
 </ul>
 </div>
@@ -1362,10 +1410,10 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="ulist">
 <ul>
 <li>
-<p>Any changes to the <code>Model</code> are automatically reflected in the GUI. This is very useful for testing and debugging manually.</p>
+<p>Can reuse existing code, removing the need to maintain a separate list-like data structure.</p>
 </li>
 <li>
-<p>Removes the need to maintain a separate list-like data structure, simply reusing what is already in the codebase.</p>
+<p>Based on existing code, any changes to the <code>Model</code> from the sorting process are automatically reflected in the GUI. This is very useful for testing and debugging manually.</p>
 </li>
 </ul>
 </div>
@@ -1404,6 +1452,9 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <li>
 <p>More troublesome as we require self-defined methods, abstracted over the existing ones. If not careful, these self-defined methods can possibly contain violations of certain software engineering principles, which may introduce regression in the future.</p>
 </li>
+<li>
+<p>May be inefficient in using resources.</p>
+</li>
 </ul>
 </div>
 </li>
@@ -1418,13 +1469,13 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="sect3">
 <h4 id="summary-5"><a class="link" href="#summary-5">4.6.3. Summary</a></h4>
 <div class="paragraph">
-<p>The <code>UniqueFoodList</code> facilitates the lexicographical ordering of <code>Food</code> objects and hence their appearance in the GUI <code>Food Record</code>. This can be summarised in an activity diagram below:</p>
+<p>The <code>UniqueFoodList</code> facilitates the lexicographical ordering of <code>Food</code> objects and hence their respective entries in the GUI <code>Food Record</code>. This can be summarised in the activity diagram below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LexicographicalOrderingActivityDiagram.png" alt="LexicographicalOrderingActivityDiagram">
 </div>
-<div class="title">Figure 15. Activity Diagram for Lexicographical Ordering</div>
+<div class="title">Figure 19. Activity Diagram for Lexicographical Ordering</div>
 </div>
 </div>
 </div>
@@ -1503,7 +1554,7 @@ Otherwise, the new <code>Food</code> item will be added into the <code>FoodRecor
 <div class="content">
 <img src="images/UpdateSequenceDiagram.png" alt="UpdateSequenceDiagram">
 </div>
-<div class="title">Figure 16. Sequence Diagram for Update command</div>
+<div class="title">Figure 20. Sequence Diagram for Update command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1512,7 +1563,7 @@ Otherwise, the new <code>Food</code> item will be added into the <code>FoodRecor
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The lifeline for <code>UpdateCommandParser</code> and <code>UpdateCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The lifeline for <code>UpdateCommandParser</code> and <code>UpdateCommand</code> should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
 </td>
 </tr>
 </table>
@@ -1570,7 +1621,7 @@ The following activity diagram summarises what happens when a user enters a vali
 <div class="content">
 <img src="images/UpdateActivityDiagram.png" alt="UpdateActivityDiagram">
 </div>
-<div class="title">Figure 17. Activity Diagram for Update command</div>
+<div class="title">Figure 21. Activity Diagram for Update command</div>
 </div>
 </div>
 </div>
@@ -2329,4 +2380,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 18:11:02 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 19:29:41 UTC</div></div></div></body></html>
