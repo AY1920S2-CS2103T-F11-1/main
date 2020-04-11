@@ -162,6 +162,19 @@ Start experimenting with the commands yourself and experience the convenience <s
 </div>
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+As you begin to key in the name of the <code>Food</code> for any of these commands: <code>update</code>, <code>delete</code>, or <code>nom</code>, Calgo shows you
+<code>Food</code> with similar names that exists in the <code>Food Record</code>.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.1. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
@@ -238,7 +251,11 @@ This consumption will be rated 7/10.</p>
 <div class="sect2">
 <h3 id="deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code"><a class="link" href="#deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code">3.3. Deleting a <code>Food</code> from current <code>Food Record</code>: <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified <code>Food</code> from the <code>Food Record</code>.</p>
+<p>(by Zhang Xian)</p>
+</div>
+<div class="paragraph">
+<p>If you no longer require Calgo to store a particular <code>Food</code> and its nutritional values for you, this <code>delete</code> command
+helps you with that.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>delete n/NAME</code></p>
@@ -719,24 +736,42 @@ Displays a list of <code>Food</code> the user has consumed today.</p>
 <div class="sect2">
 <h3 id="updating-the-current-code-food-record-code-code-update-code"><a class="link" href="#updating-the-current-code-food-record-code-code-update-code">3.13. Updating the current <code>Food Record</code> : <code>update</code></a></h3>
 <div class="paragraph">
-<p>Updates a <code>Food</code> into the <code>Food Record</code>.</p>
+<p>(by Zhang Xian)</p>
 </div>
-<div class="sidebarblock">
-<div class="content">
+<div class="paragraph">
+<p>Your <code>Food Record</code> stores all the nutritional information of all the <code>Food</code> that you consume frequently. This <code>update</code> command helps you <code>update</code> your <code>Food Record</code> with either
+a new <code>Food</code>  or <code>update</code> an existing <code>Food</code>  in the <code>Food Record</code>.</p>
+</div>
+<div class="paragraph">
+<p>There is only two scenarios in which you will use this <code>update</code> command:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>If <code>Food</code> is not present in the <code>Food Record</code>, this will create a new <code>Food</code> with all the nutritional details specified</p>
-</li>
+<p>Scenario 1: You want to update a new <code>Food</code>  into <code>Food Record</code></p>
+<div class="ulist">
+<ul>
 <li>
-<p>If <code>Food</code> is already present in the <code>Food Record</code>, this will override that <code>Food</code> with all the nutritional details specified by user</p>
+<p>The <code>Food</code> , along with the nutritional values that you inputted will be added into the <code>Food Record</code> as a new <code>Food</code> .</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Scenario 2: You want to update an existing <code>Food</code> item in the <code>Food Record</code> with nutritional values</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The existing <code>Food</code>  in the <code>Food Record</code> will be updated with new nutritional values that you have inputted.</p>
+</li>
+</ul>
 </div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Format: <code>update n/NAME cal/CALORIES p/PROTEINS c/CARBOHYDRATES f/FATS [t/TAGS]</code></p>
+<p>In both scenarios, we have kept the format the same for you:<br>
+Format: <code>update n/NAME cal/CALORIES p/PROTEINS c/CARBOHYDRATES f/FATS [t/TAGS]</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -745,23 +780,24 @@ Displays a list of <code>Food</code> the user has consumed today.</p>
 <ul>
 <li>
 <p><code>update n/pizza cal/200 p/10 c/200 f/200</code><br>
-This command adds a new <code>Food</code>, pizza into the user’s food presets with nutritional details of 200 <code>Calorie</code> s, 10g of <code>Protein</code> s, 200g of <code>Carbohydrate</code> s and 200g of <code>Fat</code> s.</p>
+This command adds a new <code>Food</code>, pizza into the user’s food presets with nutritional values of 200 <code>Calorie</code>, 10g of <code>Protein</code>, 200g of <code>Carbohydrate</code> and 200g of <code>Fat</code>.</p>
 </li>
 <li>
 <p><code>update n/pizza cal/100 p/10 c/100 f/30 t/Italiano t/Favourite</code><br>
-As pizza is already in the user’s <code>Food Record</code>, this command overrides the nutritional details of pizza with 200 <code>Calorie</code> s, 10g of <code>Protein</code> s, 200g of <code>Carbohydrate</code> s and 20g of <code>Fat</code> s.
-The pizza is also tagged with the <code>Tag</code> s "Italiano" and "Favourite" .</p>
+As pizza already exists in the user’s <code>Food Record</code>, this command overrides the nutritional values of pizza with 200 <code>Calorie</code>, 10g of <code>Protein</code>, 200g of <code>Carbohydrate</code> and 20g of <code>Fat</code>.
+The pizza is also tagged with the <code>Tag</code> "Italiano" and "Favourite" .</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Whenever you begin to key in the name of the <code>Food</code>, Calgo shows you the existing <code>Food</code> items in <code>Food Record</code> with similar names, if any.
+As long as two Food items have the same name, they are deemed to be the same Food item! We suggest you to be as specific in naming your Food
+item as much as possible. Instead of naming your Food "Chocolate", perhaps "White Chocolate" or "Dark Chocolate" would be a better idea!
 </td>
 </tr>
 </table>
@@ -884,4 +920,4 @@ Whenever you begin to key in the name of the <code>Food</code>, Calgo shows you 
 </tbody>
 </table>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 05:04:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 07:28:06 UTC</div></div></div></body></html>
