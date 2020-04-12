@@ -1487,8 +1487,8 @@ more memory than .txt files as well.</p>
 </div>
 <div class="paragraph">
 <p>In essence, <code>Food</code> objects are sorted by the <code>UniqueFoodList</code> (which is inside <code>FoodRecord</code>).
-Sorting is performed each time <code>Food</code> object(s) are newly added to the <code>UniqueFoodList</code>, edited by the user, or when the <code>UniqueFoodList</code> is initialised during App start-up.
-There is no need to re-sort during deletion as the order is maintained.</p>
+Sorting is performed each time <code>Food</code> object(s) are newly added to the <code>UniqueFoodList</code>, or during the initialisation of the <code>UniqueFoodList</code> upon App start-up.
+There is no need to re-sort when a <code>Food</code> object is deleted or edited as the order is maintained.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1541,9 +1541,12 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <p>Existing <code>Food</code> objects are therefore arranged in lexicographic order by <code>Name</code>.</p>
 </li>
 <li>
-<p>Thereafter, <code>UniqueFoodList</code> sorts the <code>Food</code> objects whenever they are added or edited in the <code>Model</code>.</p>
+<p>Thereafter, <code>UniqueFoodList</code> sorts the <code>Food</code> objects whenever new <code>Food</code> objects are added.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>It should be noted that sorting is only performed by the <code>addFood</code> and <code>setFoods</code> method of the <code>UniqueFoodList</code>, which calls the <code>sortInternalList</code> method. Not to be confused, the <code>setFood</code> method, which is used when a <code>Food</code> object is edited, does not perform any sorting.<br></p>
 </div>
 <div class="paragraph">
 <p>The sequence diagram below shows how the lexicographical ordering is performed when Calgo starts up:</p>
@@ -1564,10 +1567,10 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <p>Step 2: Before we can finish constructing a new <code>ModelManager</code> object, we require the creation of a new <code>FoodRecord</code> object which in turn requires the creation of a new <code>UniqueFoodList</code> object.<br></p>
 </div>
 <div class="paragraph">
-<p>Step 3: Once <code>UniqueFoodList</code> is constructed, we introduce the initialising data into it using the <code>setFood</code> method. This calls the <code>sortInternalList</code> method, which sorts the newly added <code>Food</code> objects in the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order (defined in the <code>Food</code> class).</p>
+<p>Step 3: Once <code>UniqueFoodList</code> is constructed, we introduce the initialising data into it using the <code>setFoods</code> method. This calls the <code>sortInternalList</code> method, which sorts the newly added <code>Food</code> objects in the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order (defined in the <code>Food</code> class).</p>
 </div>
 <div class="paragraph">
-<p>Moving on, the sequence diagram below (which is a reference frame omitting irrelevant <code>update</code> command details) describes the lexicographical sorting process when <code>Food</code> objects are added or edited using the <code>update</code> command:</p>
+<p>Moving on, the sequence diagram below (which is a reference frame omitting irrelevant <code>update</code> command details) describes the lexicographical sorting process when <code>Food</code> objects are added (note: not when they are edited) using the <code>update</code> command:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1576,40 +1579,25 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="title">Figure 20. Lexicographical Ordering Sequence Diagram for Updating (Note: this is in a reference frame as it is reused in the <code>update</code> section <a href="#Implementation-SmartUpdate">here</a>)</div>
 </div>
 <div class="paragraph">
-<p>Based on the above diagram, after parsing the user input and creating an <code>UpdateCommand</code> object:</p>
+<p>Here, the diagram describes what happens after parsing the user input and creating an <code>UpdateCommand</code> object. Since the <code>Food</code> entered by the user is an entirely new <code>Food</code> object without a <code>Name</code>-equivalent <code>Food</code> existing in the <code>UniqueFoodList</code>:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>If the user inputs a <code>Food</code> object that already has an existing counterpart with an equivalent <code>Name</code> in the <code>UniqueFoodList</code>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Step 1: The <code>UpdateCommand</code> object calls the <code>getExistingFood</code> method of the <code>ModelManager</code> for the user-entered <code>Food</code>, which then calls that of <code>FoodRecord</code>, and subsequently that of <code>UniqueFoodList</code> to eventually obtain the existing <code>Food</code> object with an equivalent <code>Name</code>.<br></p>
-</li>
-<li>
-<p>Step 2: Using the same sequence of classes, we call the respective <code>setFood</code> methods, eventually replacing the existing <code>Food</code> object with the desired one and arriving at the <code>sortInternalList</code> method of <code>UniqueFoodList</code>.<br></p>
-</li>
-<li>
-<p>Step 3: The <code>sortInternalList</code> method then sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order defined in the <code>Food</code> class.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Step 1: We call the respective <code>addFood</code> and <code>add</code> methods as seen in the diagram, eventually adding the <code>Food</code> object into the <code>UniqueFoodList</code> and arriving at its <code>sortInternalList</code> method call.<br></p>
 </div>
-</li>
-<li>
-<p>Otherwise, the user-entered <code>Food</code> is an entirely new <code>Food</code> object without a <code>Name</code>-equivalent <code>Food</code> that exists in the <code>UniqueFoodList</code>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Step 1: Using the same sequence of classes as the former case, we call the <code>addFood</code> and <code>add</code> methods of the respective classes, eventually adding the <code>Food</code> object and arriving at the <code>sortInternalList</code> method of <code>UniqueFoodList</code>.<br></p>
-</li>
-<li>
-<p>Step 2: The <code>sortInternalList</code> method then sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order defined in the <code>Food</code> class.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Step 2: The <code>sortInternalList</code> method then sorts the <code>Food</code> objects in the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order defined in the <code>Food</code> class.</p>
 </div>
-</li>
-</ul>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+During an <code>update</code> command, we do not perform sorting if the user enters a <code>Food</code> object that already has an existing counterpart with an equivalent <code>Name</code> in the <code>UniqueFoodList</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Any re-ordering will eventually be reflected in the GUI, facilitated by the following (in the case of a <code>list</code> command) or otherwise something similar:</p>
@@ -1628,7 +1616,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Sort whenever a new <code>Food</code> is added or edited.</p>
+<p><strong>Alternative 1 (current choice):</strong> Sort whenever a new <code>Food</code> is added or during App start-up.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1639,7 +1627,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <p>Guarantees correctness of sorting.</p>
 </li>
 <li>
-<p>Saves on computational cost by not sorting during deletion as the order is maintained.</p>
+<p>Saves on computational cost by not sorting during deletion or edits as the order is preserved.</p>
 </li>
 <li>
 <p>Computational cost is not too expensive since the introduced <code>Food</code> objects usually come individually rather than as a collection (except during App start-up).</p>
@@ -2158,61 +2146,55 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who does not know what my food is made of</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">find out the nutritional composition of a particular food by name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">locate details of the Food item without having to go through the entire Food record</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">locate details of the entry without having to go through the entire record</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">new user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">see usage instructions</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">refer to instructions when I forget how to use Calgo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">refer to instructions when I forget how to use the App</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have a portable and readable file to store the relevant values for each Food item</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">backup, share or export my personal Food records list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a portable, editable, and readable file to store the relevant values for each entry made</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit, share, or print my personal entries</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who may not be able to access his laptop at some time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have a copy of my past Food records</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a copy of my past entries</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use it for physical reference</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who wants to save a copy of my current Food records</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">save my file at a convenient location</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">easily access it</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who dislikes sieving through information and prefers to have only the relevant information presented</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have a way to easily find what Food items I want in the records</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a way to easily find the entries I want in the record</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">save time and effort and not get annoyed</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">lazy user who does not like typing too many tedious characters</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">find entries using incomplete words or phrases</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">obtain the same intended results for a search through the Food records as in the case of typing fully and correctly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">obtain the same intended results for a search through the entries as in the case of typing fully and correctly</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who dislikes memorising things</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have an option to see the entire Food record</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">know what Food items have their data currently in the records</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have an option to see the entire record</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">know what entries currently exist in the records</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who has many entries</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">view entire food record in lexicographic order</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">easily navigate to the entry in the record</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view entire record in lexicographical order</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easily navigate to the entry I want in the record</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who is forgetful</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">be able to edit the nutritional value of a previously saved Food item in the Food record</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">I can edit the Food Item if I remembered a nutrition value of the Food Item wrongly previously</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to edit the nutritional value of a previously saved entry in the record</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I can edit the entry if I remembered a nutrition value wrongly previously</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
@@ -2263,12 +2245,6 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <td class="tableblock halign-left valign-top"><p class="tableblock">not be bothered by unnecessary information.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">be able to lookup exact command formats</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">so that I won&#8217;t need to go through the trouble of memorising commands</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who values visuals</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">curated information expressed in a well organised graph</p></td>
@@ -2281,27 +2257,27 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <td class="tableblock halign-left valign-top"><p class="tableblock">know my options when I am indecisive on what to eat</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who cannot fully remember the Food name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">access a Food item&#8217;s information by any one of its nutritional values I happen to remember</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who cannot fully remember the name for a particular entry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">view all entries which have the nutritional value I happen to remember</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">obtain a list of possible Food items that are relevant</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">fitness influencer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">get a screenshot and share my daily food consumption</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">get a copy of and share my daily food consumption</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">can conveniently continue to inspire my followers.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who cannot fully remember the food name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have some form of autocomplete or input correction measure for incomplete keywords</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">obtain the possible results for a search through the Food records as in the case of typing fully and correctly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to lookup exact command formats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I won&#8217;t need to go through the trouble of memorising commands</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><em>{More to be added as development proceeds and is always ongoing}</em></p>
+<p><em>{Add more here as you continue developing the project}</em></p>
 </div>
 </div>
 </div>
@@ -2309,7 +2285,7 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>(For all use cases below, the <strong>System</strong> is the <code>Calgo</code> application and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+<p>(For all use cases below, the <strong>System</strong> is the Calgo application and the <strong>Actor</strong> is the user, unless specified otherwise)</p>
 </div>
 <h3 id="use-case-obtain-reference-for-app-s-commands" class="discrete">Use case: obtain reference for app&#8217;s commands</h3>
 <div class="paragraph">
@@ -2318,7 +2294,7 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests for a guide on the app&#8217;s commands</p>
+<p>User requests for a guide on the app&#8217;s commands.</p>
 </li>
 <li>
 <p>Calgo shows a list of all available commands and their corresponding purpose and usage.</p>
@@ -2328,17 +2304,20 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 </li>
 </ol>
 </div>
-<h3 id="use-case-code-find-code-code-food-code-item-by-keyword-which-can-be-an-incomplete-word" class="discrete">Use case: <code>find</code> <code>Food</code> item by keyword (which can be an incomplete word)</h3>
+<h3 id="use-case-code-find-code-code-food-code-item-by-code-name-code-or-code-tag-code-keyword-which-can-be-an-incomplete-word" class="discrete">Use case: <code>find</code> <code>Food</code> item by <code>Name</code> or <code>Tag</code> keyword (which can be an incomplete word)</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to find a <code>Food</code> item by the keyword.</p>
+<p>User wants to find a <code>Food</code> entry by a specific keyword in <code>Name</code> or <code>Tag</code>.</p>
 </li>
 <li>
-<p><code>Calgo</code> shows a list of <code>Food</code> items which contains <code>name</code> in any part of the name of the <code>Food</code> item.</p>
+<p>User enters <code>find</code> command with the <code>Name</code> <code>Prefix</code>, or the <code>Tag</code> <code>Prefix</code>, accordingly.</p>
+</li>
+<li>
+<p><code>Calgo</code> shows a list of <code>Food</code> entries which contains the substring indicated in any part of the <code>Name</code> or <code>Tag</code> of the <code>Food</code> entries respectively.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2349,8 +2328,13 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <p><strong>Extensions</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>The <code>FoodRecord</code> is empty</strong><br>
-A message indicating that zero matching <code>Food</code> items exist is shown.<br>
+<p><strong>2a. User enters invalid input for particular <code>Prefix</code></strong><br>
+2a1. A message prompting the user to enter a valid input is shown.<br>
+Use case resumes from Step 2.</p>
+</div>
+<div class="paragraph">
+<p><strong>3a. The <code>FoodRecord</code> is empty</strong><br>
+3a1. A message is shown indicating that there are zero matching <code>Food</code> items and prompts users to make new entries.<br>
 Use case ends.</p>
 </div>
 <h3 id="use-case-code-find-code-code-food-code-item-by-nutritional-value" class="discrete">Use case: <code>find</code> <code>Food</code> item by nutritional value</h3>
@@ -2360,10 +2344,13 @@ Use case ends.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to <code>find</code> a <code>Food</code> item by a single nutritional value of <code>Protein</code>, <code>Carbohydrate</code>, or <code>Fat</code> (indicated by the prefix).</p>
+<p>User wants to <code>find</code> a <code>Food</code> item by a single nutritional value of either <code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, or <code>Fat</code>.</p>
 </li>
 <li>
-<p><code>Calgo</code> shows a list of <code>Food</code> items in the <code>FoodRecord</code> which has the same nutritional values.</p>
+<p>User enters <code>find</code> command with appropriate <code>Prefix</code>.</p>
+</li>
+<li>
+<p><code>Calgo</code> shows a list of <code>Food</code> entries which has the same nutritional value.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2374,8 +2361,13 @@ Use case ends.</p>
 <p><strong>Extensions</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>The <code>FoodRecord</code> is empty.</strong><br>
-<code>Calgo</code> shows a message indicating that 0 matching <code>Food</code> items exist.<br>
+<p><strong>2a. User enters invalid input for particular <code>Prefix</code></strong><br>
+2a1. A message prompting the user to enter a valid input is shown.<br>
+Use case resumes from Step 2.</p>
+</div>
+<div class="paragraph">
+<p><strong>3a. The <code>FoodRecord</code> is empty</strong><br>
+3a1. A message is shown indicating that there are zero matching <code>Food</code> items and prompts users to make new entries.<br>
 Use case ends.</p>
 </div>
 <h3 id="use-case-code-export-code-current-code-foodrecord-code" class="discrete">Use case: <code>export</code> current <code>FoodRecord</code></h3>
@@ -2385,27 +2377,13 @@ Use case ends.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to <code>export</code> the current <code>FoodRecord</code>.</p>
+<p>User wants to <code>export</code> the current <code>FoodRecord</code>.</p>
+</li>
+<li>
+<p>User enters the <code>export</code> command into <code>Calgo</code>.</p>
 </li>
 <li>
 <p>Calgo creates a user-friendly text file <code>FoodRecord.txt</code> containing all <code>Food</code> item details in the <code>data/exports</code> folder.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<h3 id="use-case-code-list-code-all-current-code-food-code-entries" class="discrete">Use case: <code>list</code> all current <code>Food</code> entries</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to <code>list</code> all current <code>FoodRecord</code> entries.</p>
-</li>
-<li>
-<p><code>Calgo</code> shows a list of all <code>Food</code> items in the current <code>FoodRecord</code>.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2416,8 +2394,36 @@ Use case ends.</p>
 <p><strong>Extensions</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>The <code>FoodRecord</code> is empty.</strong><br>
-<code>Calgo</code> shows a message indicating that the <code>FoodRecord</code> is currently empty.<br>
+<p><strong>3a. User&#8217;s system prevents the file from being created</strong><br>
+3a1. A message is shown indicating that the file is unable to be created.<br>
+Use case ends.</p>
+</div>
+<h3 id="use-case-code-list-code-all-current-code-food-code-entries" class="discrete">Use case: <code>list</code> all current <code>Food</code> entries</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User wants to <code>list</code> all current <code>FoodRecord</code> entries.</p>
+</li>
+<li>
+<p>User enters the <code>list</code> command into <code>Calgo</code>.</p>
+</li>
+<li>
+<p><code>Calgo</code> shows a list of all <code>Food</code> entries in the GUI&#8217;s <code>Food Record</code>.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>3a. The <code>FoodRecord</code> is empty.</strong><br>
+3a1. <code>Calgo</code> shows a message indicating that all entries are shown, with the GUI showing an empty <code>Food Record</code>. User is also prompted by this message to make new entries.<br>
 Use case ends.</p>
 </div>
 <h3 id="use-case-code-update-code-current-code-foodrecord-code-with-a-new-code-food-code-item" class="discrete">Use case: <code>update</code> current <code>FoodRecord</code> with a new <code>Food</code> item</h3>
@@ -2545,13 +2551,21 @@ Use case ends.</p>
 This contains nutritional values of each of their <code>Calorie</code> s, number of grams of <code>Protein</code> s, <code>Carbohydrate</code> s and <code>Fat</code> s.
 They can also contains a series of <code>Tag</code> s.</p>
 </dd>
+<dt class="hdlist1"><a id="gui-food-records-entry"></a> Food Entry</dt>
+<dd>
+<p>An entry in the GUI&#8217;s <code>Food Record</code> box, which shows all details for one <code>Food</code> object.</p>
+</dd>
 <dt class="hdlist1"><a id="food-records"></a> FoodRecord</dt>
 <dd>
-<p>The accumulated list of all <code>Food</code> items entered by the user, containing nutritional values of each of their <code>Calorie</code> s, number of grams of <code>Protein</code> s, <code>Carbohydrate</code> s and <code>Fat</code> s.</p>
+<p>The accumulated list of all <code>Food</code> objects entered by the user.</p>
 </dd>
 <dt class="hdlist1"><a id="gui-food-records"></a> Food Record</dt>
 <dd>
-<p>The GUI&#8217;s <code>Food Record</code> box.</p>
+<p>The GUI&#8217;s <code>Food Record</code> box, which shows all details for every <code>Food</code> entry.</p>
+</dd>
+<dt class="hdlist1"><a id="gui"></a> GUI</dt>
+<dd>
+<p>The Graphical User Interface of <strong>Calgo</strong>.</p>
 </dd>
 <dt class="hdlist1"><a id="mainstream-os"></a> Mainstream OS</dt>
 <dd>
@@ -2685,4 +2699,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 07:11:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 08:06:44 UTC</div></div></div></body></html>
