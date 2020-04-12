@@ -31,7 +31,7 @@
 <li><a href="#Implementation-InsightsReport">4.6. Generate insights report</a></li>
 <li><a href="#Implementation-LexicographicalOrder">4.7. Lexicographical <code>Food</code> order</a></li>
 <li><a href="#logging">4.8. Logging</a></li>
-<li><a href="#Implementation-SmartUpdate">4.9. Updating <code>FoodRecord</code></a></li>
+<li><a href="#Implementation-SmartUpdate">4.9. Updating the <code>FoodRecord</code></a></li>
 <li><a href="#Implementation-CalorieGraph">4.10. Past seven days calorie data graph</a></li>
 </ul>
 </li>
@@ -406,7 +406,7 @@ An example of how such a model may look like is given in the below diagram.<br>
 <div class="paragraph">
 <p>The <code>help</code> command allows us to reference a summarised version of the User Guide (called the command guide)
 containing the usages of the commands and their formats, arranged in alphabetical order. Users may enter an
-optional <code>Command_word</code> that filters the displayed command guide.</p>
+optional <code>command word</code> that filters the displayed command guide.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -415,7 +415,7 @@ optional <code>Command_word</code> that filters the displayed command guide.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>Command_word</code> filters out only commands which contain the <code>Command_word</code> as a substring. If no commands contain it
+<code>command word</code> filters out only commands which contain the <code>command word</code> as a substring. If no commands contain it
 as a substring, an error message will be displayed at the top of the <code>HelpWindow</code> and the full command guide will be shown.
 </td>
 </tr>
@@ -424,12 +424,41 @@ as a substring, an error message will be displayed at the top of the <code>HelpW
 <div class="sect3">
 <h4 id="implementation-2"><a class="link" href="#implementation-2">4.2.1. Implementation</a></h4>
 <div class="paragraph">
-<p>Step 1: <code>LogicManager</code> takes in the user input of "help".<br>
-Step 2: <code>FoodRecordParser</code> is passed the String input and is parsed using <code>parseCommand</code>.<br>
-Step 3: This results in a <code>HelpCommand</code> object which is executed by the <code>LogicManager</code>.<br>
-Step 4: The <code>LogicManager</code> encapsulates the result as a <code>CommandResult</code> object which is passed back to the <code>MainWindow</code>.<br>
-Step 5: The <code>MainWindow</code> executes the handleHelp() method, displaying the <code>HelpWindow</code> if it is not already being displayed.<br>
-Step 6: <code>HelpWindow</code> is displayed as a separate popup.</p>
+<p>To generate a command guide using the <code>help</code> command, a <code>HelpCommand</code> object helps to generate the relevant command guides
+based on the provided <code>command word</code> in the input.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below demonstrates how teh <code>help</code> command works, should a <code>command word</code> of "nom" be provided.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/HelpSequenceDiagram.png" alt="HelpSequenceDiagram">
+</div>
+<div class="title">Figure 11. Sequence Diagram for Help</div>
+</div>
+<div class="paragraph">
+<p>Step 1: <code>LogicManager</code> executes the user input, using <code>CalgoParser</code> to realise it is a <code>help</code> command, and thus creates
+<code>HelpCommand</code></p>
+</div>
+<div class="paragraph">
+<p>Step 2: <code>HelpCommand</code> constructor generates the necessary mapping of command name to the corresponding command guide.</p>
+</div>
+<div class="paragraph">
+<p>Step 3: <code>LogicManager</code> calls the <code>execute</code> method on the <code>HelpCommand</code> object, which produces the String containing the
+relevant command guides. A <code>CommandResult</code> object is produced reflecting the response to the <code>help</code> command.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the above sequence diagram, one possibility shown, where the user provides a <code>command_word</code>. <code>setFilteredGuide</code>
+will attempt to retrieve only relevant command guides, defaulting to a list of all guides if no relevant guides exist.
+Otherwise, by default a list of all guides will be provided.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Step 4: The <code>CommandResult</code> is eventually passed to <code>MainWindow</code>, which then displays the command guide in a separate
+window, called <code>HelpWindow</code>.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -588,7 +617,7 @@ display only desired commands by entering an optional keyword after <code>help</
 <div class="content">
 <img src="images/HelpActivityDiagram.png" alt="HelpActivityDiagram">
 </div>
-<div class="title">Figure 11. Activity Diagram for Help</div>
+<div class="title">Figure 12. Activity Diagram for Help</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -644,7 +673,7 @@ Meanwhile, <code>VALUE_COLUMN_SIZE</code> represents the allowed space for each 
 <div class="content">
 <img src="images/ExportSequenceDiagram.png" alt="ExportSequenceDiagram">
 </div>
-<div class="title">Figure 12. Sequence Diagram for <code>export</code> command: generating FoodRecord.txt</div>
+<div class="title">Figure 13. Sequence Diagram for <code>export</code> command: generating FoodRecord.txt</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -880,7 +909,7 @@ The lifeline for the <code>ExportCommand</code> object and that of the <code>Exp
 <div class="content">
 <img src="images/ExportActivityDiagram.png" alt="ExportActivityDiagram">
 </div>
-<div class="title">Figure 13. Activity Diagram for Searching</div>
+<div class="title">Figure 14. Activity Diagram for Searching</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -950,7 +979,7 @@ For more information on lexicographical ordering, please refer to its relevant s
 <div class="content">
 <img src="images/FindSequenceDiagram.png" alt="FindSequenceDiagram">
 </div>
-<div class="title">Figure 14. Sequence Diagram for <code>find</code> command: categorical search and substring search</div>
+<div class="title">Figure 15. Sequence Diagram for <code>find</code> command: categorical search and substring search</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -996,7 +1025,7 @@ The lifeline for the both of the <code>FindCommandParser</code> objects, and bot
 <div class="content">
 <img src="images/ListSequenceDiagram.png" alt="ListSequenceDiagram">
 </div>
-<div class="title">Figure 15. Sequence Diagram for <code>list</code> command</div>
+<div class="title">Figure 16. Sequence Diagram for <code>list</code> command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1220,7 +1249,7 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 <div class="content">
 <img src="images/FindListCommandActivityDiagram.png" alt="FindListCommandActivityDiagram">
 </div>
-<div class="title">Figure 16. Activity Diagram for Searching</div>
+<div class="title">Figure 17. Activity Diagram for Searching</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1340,7 +1369,7 @@ in <code>DailyFoodLog</code> for each <code>LocalDate</code>.</p>
 <div class="content">
 <img src="images/NomActivityDiagram.png" alt="NomActivityDiagram">
 </div>
-<div class="title">Figure 17. Activity Diagram for Nom</div>
+<div class="title">Figure 18. Activity Diagram for Nom</div>
 </div>
 </div>
 </div>
@@ -1470,7 +1499,7 @@ more memory than .txt files as well.</p>
 <div class="content">
 <img src="images/ReportActivityDiagram.png" alt="ReportActivityDiagram">
 </div>
-<div class="title">Figure 18. Activity Diagram for Report command</div>
+<div class="title">Figure 19. Activity Diagram for Report command</div>
 </div>
 </div>
 </div>
@@ -1555,7 +1584,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="content">
 <img src="images/LexicographicalOrderingStartupSequenceDiagram.png" alt="LexicographicalOrderingStartupSequenceDiagram">
 </div>
-<div class="title">Figure 19. Lexicographical Ordering Sequence Diagram for App Start-up</div>
+<div class="title">Figure 20. Lexicographical Ordering Sequence Diagram for App Start-up</div>
 </div>
 <div class="paragraph">
 <p>Based on the above diagram, when Calgo starts:<br></p>
@@ -1576,7 +1605,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="content">
 <img src="images/LexicographicalOrderingUpdateSequenceDiagram.png" alt="LexicographicalOrderingUpdateSequenceDiagram">
 </div>
-<div class="title">Figure 20. Lexicographical Ordering Sequence Diagram for Updating (Note: this is in a reference frame as it is reused in the <code>update</code> section <a href="#Implementation-SmartUpdate">here</a>)</div>
+<div class="title">Figure 21. Lexicographical Ordering Sequence Diagram for Updating (Note: this is in a reference frame as it is reused in the <code>update</code> section <a href="#Implementation-SmartUpdate">here</a>)</div>
 </div>
 <div class="paragraph">
 <p>Here, the diagram describes what happens after parsing the user input and creating an <code>UpdateCommand</code> object. Since the <code>Food</code> entered by the user is an entirely new <code>Food</code> object without a <code>Name</code>-equivalent <code>Food</code> existing in the <code>UniqueFoodList</code>:</p>
@@ -1768,7 +1797,7 @@ During an <code>update</code> command, we do not perform sorting if the user ent
 <div class="content">
 <img src="images/LexicographicalOrderingActivityDiagram.png" alt="LexicographicalOrderingActivityDiagram">
 </div>
-<div class="title">Figure 21. Activity Diagram for Lexicographical Ordering</div>
+<div class="title">Figure 22. Activity Diagram for Lexicographical Ordering</div>
 </div>
 </div>
 </div>
@@ -1811,43 +1840,68 @@ During an <code>update</code> command, we do not perform sorting if the user ent
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-SmartUpdate"><a class="link" href="#Implementation-SmartUpdate">4.9. Updating <code>FoodRecord</code></a></h3>
+<h3 id="Implementation-SmartUpdate"><a class="link" href="#Implementation-SmartUpdate">4.9. Updating the <code>FoodRecord</code></a></h3>
 <div class="paragraph">
-<p>This feature allows you to add a food preset with all its nutritional details into the <code>FoodRecord</code>.
-This makes it convenient for you to keep track of your <code>Food</code> consumed in the day without having to manually key in the nutritional details every time you do so.</p>
+<p>This section addresses how the <code>update</code> command works.</p>
+</div>
+<div class="paragraph">
+<p>The <code>update</code> command allows the user to update the <code>FoodRecord</code> by either updating a new <code>Food</code> into the <code>FoodRecord</code> or updating the
+nutritional values of an existing <code>Food</code> in the <code>FoodRecord</code>.</p>
+</div>
+<div class="paragraph">
+<p>From the user&#8217;s perspective, the <code>update</code> command decides whether to
+override an existing <code>Food</code> in the <code>FoodRecord</code> with new values, or create a new <code>Food</code> in the <code>FoodRecord</code> for them.</p>
+</div>
+<div class="paragraph">
+<p>For better user experience, the <code>Name</code> required in the <code>update</code> command is case-insensitive. This means that if "Apple" already exists in the
+<code>FoodRecord</code>, an update command with "apple" as the <code>Name</code> will result in nutritional values of "Apple" in the <code>FoodRecord</code> being updated,
+instead of a new <code>Food</code> with <code>Name</code> "apple" being created in the <code>FoodRecord</code></p>
+</div>
+<div class="paragraph">
+<p>On top of this, for all new <code>Food</code> being updated into the FoodRecord with the <code>update</code> command, the <code>Name</code> entry of the <code>Food</code> updated into the <code>FoodRecord</code>
+will be formatted to title case. This means that if the user updates a new Food into the FoodRecord with the <code>Name</code> as "char kuay teow", the <code>Food</code> that
+is stored in the FoodRecord will be of <code>Name</code> "Char Kuay Teow".</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When a new Food is updated into the FoodRecord, the FoodRecord is sorted in lexicographical order. For more information on how this is implemented,
+please refer to its relevant section <a href="#Implementation-LexicographicalOrder">here</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="implementation-8"><a class="link" href="#implementation-8">4.9.1. Implementation</a></h4>
 <div class="paragraph">
-<p>The update mechanism is facilitated by <code>FoodRecord</code> and <code>UpdateCommand</code>. An additional operation was implemented into <code>FoodRecord</code>:</p>
+<p>The <code>update</code> command is facilitated by the FoodRecord which contains a UniqueFoodList which stores all the Food in the FoodRecord.
+This command either adds a new Food into this UniqueFoodList or edits the nutritional values of an existing Food in the UniqueFoodList.
+An additional operation is implemented to help with this:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>FoodRecord#hasExistingFood()</code> - Checks if there is an existing <code>Food</code> in <code>FoodRecord</code> based on its name only</p>
+<p><code>FoodRecord#hasFood()</code> - Checks if there is an existing <code>Food</code> in <code>FoodRecord</code> by checking if there is any <code>Food</code> in the FoodRecord
+with the same <code>Name</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>This operation was exposed in the <code>Model</code> interface as <code>Model#hasExistingFood()</code>.</p>
+<p>This operation was exposed in the <code>Model</code> interface as <code>Model#hasFood()</code> and allows the <code>UpdateCommand</code> to decide whether to
+add or edit <code>Food</code> in the <code>UniqueFoodList</code>.</p>
 </div>
 <div class="paragraph">
-<p>The update feature first checks if there is already an existing <code>Food</code> item with the same name
-inside <code>FoodRecord</code> using the method <code>FoodRecord#hasExistingFood()</code>.</p>
-</div>
-<div class="paragraph">
-<p>If there is already an existing <code>Food</code> with the same name, the existing <code>Food</code> item will override the <code>Food</code> item inside <code>FoodRecord</code> with
-the new nutritional information provided by the user.<br>
-Otherwise, the new <code>Food</code> item will be added into the <code>FoodRecord</code>.</p>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the update operation works in both cases:</p>
+<p>The following sequence diagram shows how the <code>update</code> operation works in both cases:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/UpdateSequenceDiagram.png" alt="UpdateSequenceDiagram">
 </div>
-<div class="title">Figure 22. Sequence Diagram for Update command</div>
+<div class="title">Figure 23. Sequence Diagram for Update command (to be updated)</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1860,6 +1914,66 @@ The lifeline for <code>UpdateCommandParser</code> and <code>UpdateCommand</code>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>How the <code>update</code> command works:</p>
+</div>
+<div class="paragraph">
+<p>Step 1: LogicManager executes the user input of `update n/apple cal/52 p/2 c/14 f/1", using CalgoParser to realise this is
+an update command and creates a new UpdateCommandParser object.</p>
+</div>
+<div class="paragraph">
+<p>Step 2: <code>UpdateCommandParser</code> then parses the arguments provided by <code>CalgoParser</code> with the <code>parse</code> method.
+During this parsing process, <code>UpdateCommandParser</code> calls the <code>covertToTitleCase</code> method on the <code>Name</code> argument, converting it
+to title case.</p>
+</div>
+<div class="paragraph">
+<p>Step 3: <code>UpdateCommandParser</code> then creates a new <code>UpdateCommand</code> object, which <code>LogicManager</code> calls the execute method with this object
+as an argument.</p>
+</div>
+<div class="paragraph">
+<p>Step 4: <code>UpdateCommand</code> now checks if there exists an existing <code>Food</code> in the <code>FoodRecord</code> by calling <code>Model</code> 's
+<code>hasFood</code> method, which checks if there is any Food in <code>FoodRecord</code> 's UniqueFoodList with the same <code>Name</code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 5:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scenario 1:
+If Food already exists in the <code>FoodRecord</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Model calls the <code>getExistingFood</code> method with the user inputted Food
+as a parameter to get the existing Food, <code>existingFood</code> in the <code>UniqueFoodList</code>. It thens call the setFood method to replace the
+existing Food in the UniqueFoodList with the new <code>Food</code> which contains new nutritional values.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Scenario 2:
+If Food does not exist in <code>FoodRecord</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This scenario is handled by the Lexicographical Ordering feature. Please refer to its relevant section <a href="#Implementation-LexicographicalOrder">here</a>.</p>
+</li>
+<li>
+<p>Model calls the <code>addFood</code> method with the user inputted <code>Food</code> as a parameter to add the new <code>Food</code> into the <code>UniqueFoodList</code> in <code>FoodRecord</code></p>
+</li>
+<li>
+<p>After the <code>Food</code> is added into the <code>UniqueFoodList</code>, the <code>UniqueFoodList</code> is also sorted in lexicographical order.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Step 6: A new <code>CommandResult</code> object is then created and returned back to <code>LogicManager</code>.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1874,27 +1988,57 @@ The lifeline for <code>UpdateCommandParser</code> and <code>UpdateCommand</code>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: No need for a separate command of <code>edit</code> to deal with existing <code>Food</code> item apart from <code>add</code> to add new <code>Food</code> item into the <code>FoodRecord</code>.
-Instead, a smarter command of <code>update</code> is used to deal with both scenarios.</p>
-</li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
 <li>
-<p>Cons:
-This might not be intuitive for the user since the word "update" is generally assumed to be for editing something only, and not necessarily adding something.</p>
+<p>No need for an additional command of <code>edit</code> just for the user to edit an existing <code>Food</code> item in the <code>FoodRecord</code>.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Informs the user that there is already an existing <code>Food</code> item, and direct him to use another function <code>edit</code> to edit the existing <code>Food</code> instead.</p>
+<p>Cons:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: In the event where the user is unaware that there is already an existing <code>Food</code> item, this two step process will be clearer to him that he is
-in fact editing a <code>Food</code> item and not adding a new one in.</p>
+<p>Might not be intuitive for the user since the word "update" is generally assumed to be for editing something only and not necessarily adding something.</p>
 </li>
 <li>
-<p>Cons: This is more tedious for the user since more steps is required to change an existing <code>Food</code> item. On top of that, an additional command of <code>edit</code> will be required and <code>update</code>
-should be replaced with <code>add</code> for clearer user experience.</p>
+<p>May result in additional performance overhead.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Informs the user that there is already an existing <code>Food</code> item, and direct him to use another command <code>edit</code> to edit the existing <code>Food</code> instead.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>More intuitive for user, since he might not know that he is overriding an existing <code>Food</code> item</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Additional command has to be created just to handle editing</p>
+</li>
+<li>
+<p>More tedious for user since more steps are required to achieve the same result.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1914,7 +2058,7 @@ The following activity diagram summarises what happens when a user enters a vali
 <div class="content">
 <img src="images/UpdateActivityDiagram.png" alt="UpdateActivityDiagram">
 </div>
-<div class="title">Figure 23. Activity Diagram for Update command</div>
+<div class="title">Figure 24. Activity Diagram for Update command</div>
 </div>
 </div>
 </div>
@@ -2699,4 +2843,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 08:06:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 08:27:11 UTC</div></div></div></body></html>

@@ -15,25 +15,37 @@
 <li><a href="#introduction">1. Introduction</a></li>
 <li><a href="#additional-information">2. Additional Information</a></li>
 <li><a href="#quick-start">3. Quick Start</a></li>
-<li><a href="#Commands">4. Commands</a>
+<li><a href="#GUI">4. Interpreting Calgo&#8217;s Graphical User Interface</a>
 <ul class="sectlevel2">
-<li><a href="#clearing-all-entries-code-clear-code">4.1. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#adding-code-food-code-to-code-consumption-record-code-code-nom-code">4.2. Adding <code>Food</code> to <code>Consumption Record</code> : <code>nom</code></a></li>
-<li><a href="#deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code">4.3. Deleting a <code>Food</code> from current <code>Food Record</code>: <code>delete</code></a></li>
-<li><a href="#removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code">4.4. Removing portions of <code>Food</code> from <code>Consumption Record</code> : <code>vomit</code></a></li>
-<li><a href="#displaying-code-help-code-when-lost-code-help-code">4.5. Displaying <code>help</code> when lost : <code>help</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.6. Exiting the program : <code>exit</code></a></li>
-<li><a href="#exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code">4.7. Exporting the current <code>Food Record</code> into a reference sheet : <code>export</code></a></li>
-<li><a href="#FindCommand">4.8. Finding a <code>Food</code> entry by nutritional value or keyword(s) : <code>find</code></a></li>
-<li><a href="#report">4.9. Generating insights : <code>report</code></a></li>
-<li><a href="#ListCommand">4.10. Listing all <code>Food</code> in current <code>Food Record</code> : <code>list</code></a></li>
-<li><a href="#setting-a-daily-code-calorie-code-target-code-goal-code">4.11. Setting a daily <code>Calorie</code> target : <code>goal</code></a></li>
-<li><a href="#showing-all-code-food-code-consumed-on-a-particular-day-code-stomach-code">4.12. Showing all <code>Food</code> consumed on a particular day : <code>stomach</code></a></li>
-<li><a href="#updating-the-current-code-food-record-code-code-update-code">4.13. Updating the current <code>Food Record</code> : <code>update</code></a></li>
+<li><a href="#code-menu-bar-code">4.1. <code>Menu Bar</code></a></li>
+<li><a href="#code-command-box-code">4.2. <code>Command Box</code></a></li>
+<li><a href="#code-result-display-code">4.3. <code>Result Display</code></a></li>
+<li><a href="#code-daily-goal-consumption-code">4.4. <code>Daily Goal Consumption</code></a></li>
+<li><a href="#code-consumption-record-code">4.5. <code>Consumption Record</code></a></li>
+<li><a href="#code-graph-display-code">4.6. <code>Graph Display</code></a></li>
+<li><a href="#code-food-record-code">4.7. <code>Food Record</code></a></li>
+<li><a href="#code-status-bar-code">4.8. <code>Status Bar</code></a></li>
 </ul>
 </li>
-<li><a href="#faq">5. FAQ</a></li>
-<li><a href="#command-summary">6. Command Summary</a></li>
+<li><a href="#Commands">5. Commands</a>
+<ul class="sectlevel2">
+<li><a href="#clearing-all-entries-code-clear-code">5.1. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#adding-code-food-code-to-code-consumption-record-code-code-nom-code">5.2. Adding <code>Food</code> to <code>Consumption Record</code> : <code>nom</code></a></li>
+<li><a href="#deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code">5.3. Deleting a <code>Food</code> from current <code>Food Record</code>: <code>delete</code></a></li>
+<li><a href="#removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code">5.4. Removing portions of <code>Food</code> from <code>Consumption Record</code> : <code>vomit</code></a></li>
+<li><a href="#displaying-code-help-code-when-lost-code-help-code">5.5. Displaying <code>help</code> when lost : <code>help</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">5.6. Exiting the program : <code>exit</code></a></li>
+<li><a href="#exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code">5.7. Exporting the current <code>Food Record</code> into a reference sheet : <code>export</code></a></li>
+<li><a href="#FindCommand">5.8. Finding a <code>Food</code> entry by nutritional value or keyword(s) : <code>find</code></a></li>
+<li><a href="#report">5.9. Generating insights : <code>report</code></a></li>
+<li><a href="#ListCommand">5.10. Listing all <code>Food</code> in current <code>Food Record</code> : <code>list</code></a></li>
+<li><a href="#setting-a-daily-code-calorie-code-target-code-goal-code">5.11. Setting a daily <code>Calorie</code> target : <code>goal</code></a></li>
+<li><a href="#showing-all-code-food-code-consumed-on-a-particular-day-code-stomach-code">5.12. Showing all <code>Food</code> consumed on a particular day : <code>stomach</code></a></li>
+<li><a href="#updating-the-current-code-food-record-code-code-update-code">5.13. Updating the current <code>Food Record</code> : <code>update</code></a></li>
+</ul>
+</li>
+<li><a href="#faq">6. FAQ</a></li>
+<li><a href="#command-summary">7. Command Summary</a></li>
 </ul>
 </div>
 </div>
@@ -160,10 +172,10 @@ Start experimenting with the commands yourself and experience the convenience Ca
 <div class="ulist">
 <ul>
 <li>
-<p>Learn specific details about the various commands Calgo offers by referring to <a href="#Commands">Section 4, &#8220;Commands&#8221;</a>.</p>
+<p>Learn specific details about the various commands Calgo offers by referring to <a href="#Commands">Section 5, &#8220;Commands&#8221;</a>.</p>
 </li>
 <li>
-<p>If you need a complete summary of all commands, refer to <a href="#command-summary">Section 6, &#8220;Command Summary&#8221;</a>.</p>
+<p>If you need a complete summary of all commands, refer to <a href="#command-summary">Section 7, &#8220;Command Summary&#8221;</a>.</p>
 </li>
 </ul>
 </div>
@@ -173,8 +185,115 @@ Start experimenting with the commands yourself and experience the convenience Ca
 </div>
 </div>
 <div class="sect1">
-<h2 id="Commands"><a class="link" href="#Commands">4. Commands</a></h2>
+<h2 id="GUI"><a class="link" href="#GUI">4. Interpreting Calgo&#8217;s Graphical User Interface</a></h2>
 <div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/Ui.png" alt="Ui" width="790">
+</div>
+<div class="title">Figure 1. A labelled illustration of Calgo on startup</div>
+</div>
+<div class="paragraph">
+<p>Calgo&#8217;s graphical user interface (GUI) is designed to be sleek and compact, allowing you to use Calgo on nearly entirely
+one window and also take in information at a glance. However, that might be a little overwhelming at the start. Hence,
+this section aims to give a rundown on the GUI&#8217;s various parts and ease you into using the App, starting from the
+top of the GUI.</p>
+</div>
+<div class="paragraph">
+<p>There are eight parts to the GUI, as follows: <code>Menu Bar</code>, <code>Command Box</code>, <code>Result Display</code>, <code>Daily Goal Display</code>, <code>Consumption Record</code>,
+ <code>Graph Display</code>, <code>Food Record</code> and <code>Status Bar</code>. They are labelled accordingly in the above image from 1 to 8. There is
+a ninth part, the <code>Help Window</code>, that is a separate pop up - only appearing when required for your convenience.</p>
+</div>
+<div class="sect2">
+<h3 id="code-menu-bar-code"><a class="link" href="#code-menu-bar-code">4.1. <code>Menu Bar</code></a></h3>
+<div class="paragraph">
+<p>The bar right at the top of Calgo&#8217;s GUI. It only has two button, <code>File</code> and <code>Help</code>. The buttons allow
+you to exit the app by clicking the exit option under <code>File</code>, and to access the command guide by clicking the
+ help option under <code>Help</code>. These buttons are there for your convenience, as exiting the app can also be done through the
+<code>exit</code> command, and likewise accessing the command guides can be done using the <code>help</code> command.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-command-box-code"><a class="link" href="#code-command-box-code">4.2. <code>Command Box</code></a></h3>
+<div class="paragraph">
+<p>Calgo listens to your requests and processes them. The <code>Command Box</code> is where you type commands into.</p>
+</div>
+<div id="TIP" class="paragraph">
+<p>Should you mistype a command, Calgo will prompt you to use the right format! You can easily edit the errornous command
+inside the <code>Command Box</code> without needing to retype it entirely.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-result-display-code"><a class="link" href="#code-result-display-code">4.3. <code>Result Display</code></a></h3>
+<div class="paragraph">
+<p>This is where Calgo displays textual updates as a result of processing your inputted commands. Although some commands
+update elsewhere on the GUI, the <code>Result Display</code> will still show a response so you know for certain when your
+commands have been correctly processed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-daily-goal-consumption-code"><a class="link" href="#code-daily-goal-consumption-code">4.4. <code>Daily Goal Consumption</code></a></h3>
+<div class="paragraph">
+<p>This section is helpfully labelled as "Your Goal Information" on the GUI, and consists of two parts. The left box
+showcases your target daily calorie goal (after you&#8217;ve set it using the <code>goal</code> command). The right box showcases
+the amount of calories you still need to consume to meet your daily goal, or the amount you&#8217;ve exceeded by.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Daily Goal Consumption</code> updates automatically.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-consumption-record-code"><a class="link" href="#code-consumption-record-code">4.5. <code>Consumption Record</code></a></h3>
+<div class="paragraph">
+<p>The <code>Consumption Record</code> displays the list of <code>Food</code> entries that you have consumed on that day! Although it only shows
+one day&#8217;s consumption, using the <code>stomach</code> command will let you view other days' records.</p>
+</div>
+<div class="paragraph">
+<p>It has three subsections: The name of the <code>Food</code> entry, the number of portions of that <code>Food</code> you consumed that day,
+and its average rating as set by you, color-coded from red to green for low to high rating.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-graph-display-code"><a class="link" href="#code-graph-display-code">4.6. <code>Graph Display</code></a></h3>
+<div class="paragraph">
+<p>This handy graph shows a summary of your past seven day&#8217;s total calorie consumption. It displays starting from the date
+of the current <code>Consumption Record</code> and then counts the six days before it.</p>
+</div>
+<div class="paragraph">
+<p>eg. <code>Consumption Record</code> currently shows 2020-04-12. <code>Graph Display</code> will thus show the daily calories consumed from
+2020-04-06 to 2020-04-12.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Graph Display</code> is a line graph for clear data representation, and to ensure you aren&#8217;t overly confused by
+unnecessary information on it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-food-record-code"><a class="link" href="#code-food-record-code">4.7. <code>Food Record</code></a></h3>
+<div class="paragraph">
+<p>This is a list of all <code>Food</code> entries you currently have in Calgo. Each <code>Food</code> entry will have a name, its nutritional
+information, and optional tags as set by you. The <code>Food Record</code> alternates colors between entries so that you
+can easily tell one entry apart from its neighbours.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-status-bar-code"><a class="link" href="#code-status-bar-code">4.8. <code>Status Bar</code></a></h3>
+<div class="paragraph">
+<p>All the way at the bottom, this bar shows where data saved via the <code>export</code> function is saved to in your computer. Simply
+navigate via a file explorer or copy paste that path into the file directory to view any saved exported data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Commands"><a class="link" href="#Commands">5. Commands</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, specific information about each command will be explained, such as what the command can do for you, how is it formatted and visual examples of their usage.</p>
+</div>
+<div class="paragraph">
+<p>But before that, do take note of the following information, which applies to all Calgo commands:</p>
+</div>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
@@ -183,41 +302,41 @@ Start experimenting with the commands yourself and experience the convenience Ca
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are parameters that are to be supplied by you</p>
+<p>Words in <code>UPPER_CASE</code> are parameters that are to be provided by you.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>e.g. in <code>n/NAME</code>, <code>NAME</code> is a parameter. <code>n/kiwi</code> would mean that the name of the <code>Food</code> is 'kiwi'.</p>
+<p><strong>Example:</strong> In <code>n/NAME</code>, <code>NAME</code> is a parameter. <code>n/kiwi</code> would mean that the name of the <code>Food</code> is 'kiwi'.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Items in square brackets (i.e. []) are optional</p>
+<p>Items in square brackets (i.e. []) are optional.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>e.g. in <code>[t/TAG]</code>, <code>TAG</code> is an optional parameter which can be used as <code>t/fruit</code> to tag the <code>Food</code> as a 'fruit'.</p>
+<p><strong>Example:</strong> In <code>[t/TAG]</code>, <code>TAG</code> is an optional parameter which can be used as <code>t/fruit</code> to tag the <code>Food</code> as a 'fruit'.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Parameters can be given in any order, as long as the correct prefix appears before the parameter</p>
+<p>Parameters can be given in any order, as long as the correct prefix appears before the parameter.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>e.g. if the command specifies <code>n/NAME p/PROTEINS</code>, <code>p/PROTEINS n/NAME</code> gives the same functionality.</p>
+<p><strong>Example:</strong> If the command specifies <code>n/NAME p/PROTEINS</code>, <code>p/PROTEINS n/NAME</code> gives the same functionality.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Items with <code>…</code>​ after them can be used multiple times (including zero times)</p>
+<p>Items with <code>…</code>​ after them can be used multiple times (including zero times).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>e.g. <code>[t/TAG]&#8230;&#8203;</code> implies it can be left empty, or used as <code>t/favourite</code>, <code>t/favourite t/green</code> or with more than 2 tags.</p>
+<p><strong>Example:</strong> <code>[t/TAG]&#8230;&#8203;</code> implies it can be left empty, or used as <code>t/favourite</code>, <code>t/favourite t/green</code> or with more than 2 tags.</p>
 </li>
 </ul>
 </div>
@@ -225,6 +344,9 @@ Start experimenting with the commands yourself and experience the convenience Ca
 </ul>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>In addition, this is a useful shortcut that may apply to you:</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -233,22 +355,56 @@ Start experimenting with the commands yourself and experience the convenience Ca
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-As you key in the name of the <code>Food</code> for any of these commands: <code>update</code>, <code>delete</code>, or <code>nom</code>, Calgo shows you
-<code>Food</code> with similar names that exists in the <code>Food Record</code>.
+As you key in the name of the <code>Food</code> for any of the following commands: <code>update</code>, <code>delete</code>, or <code>nom</code>, Calgo shows you
+<code>Food</code> with similar names that exists in the <code>Food Record</code> in the <code>Result Display</code> component of the GUI.
+Never make spelling mistakes again!
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.1. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
-<p>Clears all <code>Food</code> entries from the <code>Food Record</code>.<br>
-Format: <code>clear</code><br>
-(any parameters entered are ignored)</p>
+<p>Now that you know the general command information, refer to the following subsections for specific details of Calgo commands.</p>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">5.1. Clearing all entries : <code>clear</code></a></h3>
+<div class="paragraph">
+<p>(by Vineeth)</p>
+</div>
+<div class="paragraph">
+<p>If you want to clear all the <code>Food</code> entries currently stored in your <code>Food Record</code>, this command will be extremely useful to you.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>clear</code><br></p>
+</div>
+<div class="paragraph">
+<p>Example: Suppose that you want to drastically improve your diet. You decide to take a look at all of your <code>Food</code> items in the <code>Food Record</code> currently but none of them fit into your new diet.
+So instead of deleting each <code>Food</code> item one by one, you decide to <code>clear</code> them. This is what you need to do:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ClearCommandBefore.png" alt="ClearCommandBefore" width="">
+</div>
+</div>
+<div class="paragraph">
+<p>First type <code>clear</code> in the <code>Command Box</code> and press <kbd>enter</kbd>, as shown in the above diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ClearCommandAfter.png" alt="ClearCommandAfter" width="">
+</div>
+</div>
+<div class="paragraph">
+<p>Upon entering the command, all your <code>Food</code> items in the  <code>Food Record</code> will be deleted, resulting in an empty <code>Food Record</code>, as shown above.</p>
+</div>
+<div class="paragraph">
+<p>Note that your <code>Consumption Record</code> data is not affected from executing the <code>clear</code> command as shown by the unchanged Daily List and graph in the above diagram.</p>
+</div>
+<div class="paragraph">
+<p>To cater to fast typists that may make occasional typing mistakes, Calgo will still execute <code>clear</code> even if there are other parameters or words that are typed after <code>clear</code>.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-code-food-code-to-code-consumption-record-code-code-nom-code"><a class="link" href="#adding-code-food-code-to-code-consumption-record-code-code-nom-code">4.2. Adding <code>Food</code> to <code>Consumption Record</code> : <code>nom</code></a></h3>
+<h3 id="adding-code-food-code-to-code-consumption-record-code-code-nom-code"><a class="link" href="#adding-code-food-code-to-code-consumption-record-code-code-nom-code">5.2. Adding <code>Food</code> to <code>Consumption Record</code> : <code>nom</code></a></h3>
 <div class="paragraph">
 <p>(by Ruicong)</p>
 </div>
@@ -347,7 +503,7 @@ The <code>Consumption Record</code> panel and <code>Graph Display</code> are ref
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code"><a class="link" href="#deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code">4.3. Deleting a <code>Food</code> from current <code>Food Record</code>: <code>delete</code></a></h3>
+<h3 id="deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code"><a class="link" href="#deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code">5.3. Deleting a <code>Food</code> from current <code>Food Record</code>: <code>delete</code></a></h3>
 <div class="paragraph">
 <p>(by Zhang Xian)</p>
 </div>
@@ -405,7 +561,7 @@ the <code>Food</code>, <code>Pizza</code>,is no longer there.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code"><a class="link" href="#removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code">4.4. Removing portions of <code>Food</code> from <code>Consumption Record</code> : <code>vomit</code></a></h3>
+<h3 id="removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code"><a class="link" href="#removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code">5.4. Removing portions of <code>Food</code> from <code>Consumption Record</code> : <code>vomit</code></a></h3>
 <div class="paragraph">
 <p>(by Ruicong)</p>
 </div>
@@ -491,7 +647,7 @@ The <code>Graph Display</code> also reflects a drop in <code>Calories</code>.</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="displaying-code-help-code-when-lost-code-help-code"><a class="link" href="#displaying-code-help-code-when-lost-code-help-code">4.5. Displaying <code>help</code> when lost : <code>help</code></a></h3>
+<h3 id="displaying-code-help-code-when-lost-code-help-code"><a class="link" href="#displaying-code-help-code-when-lost-code-help-code">5.5. Displaying <code>help</code> when lost : <code>help</code></a></h3>
 <div class="paragraph">
 <p>Displays a guide for all available commands in Calgo.</p>
 </div>
@@ -529,14 +685,14 @@ This command will display only available commands containing the keyword 'list'.
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.6. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">5.6. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code"><a class="link" href="#exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code">4.7. Exporting the current <code>Food Record</code> into a reference sheet : <code>export</code></a></h3>
+<h3 id="exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code"><a class="link" href="#exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code">5.7. Exporting the current <code>Food Record</code> into a reference sheet : <code>export</code></a></h3>
 <div class="paragraph">
 <p>(by Eugene)<br></p>
 </div>
@@ -620,7 +776,7 @@ You can find this copy (FoodRecord.txt) in the <code>data/exports</code> folder 
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="FindCommand"><a class="link" href="#FindCommand">4.8. Finding a <code>Food</code> entry by nutritional value or keyword(s) : <code>find</code></a></h3>
+<h3 id="FindCommand"><a class="link" href="#FindCommand">5.8. Finding a <code>Food</code> entry by nutritional value or keyword(s) : <code>find</code></a></h3>
 <div class="paragraph">
 <p>(by Eugene)<br></p>
 </div>
@@ -753,7 +909,10 @@ The <code>Food Record</code> displays the relevant entries of each <code>find</c
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="report"><a class="link" href="#report">4.9. Generating insights : <code>report</code></a></h3>
+<h3 id="report"><a class="link" href="#report">5.9. Generating insights : <code>report</code></a></h3>
+<div class="paragraph">
+<p>(by Vineeth)</p>
+</div>
 <div class="paragraph">
 <p>Given a date, the command generates a document (in txt format) of relevant insights about the user&#8217;s food consumption
 pattern of the same date. This file is stored in the <code>data/reports</code> folder.</p>
@@ -815,7 +974,7 @@ This generates a txt file containing the above-mentioned insights made on the co
 </div>
 </div>
 <div class="sect2">
-<h3 id="ListCommand"><a class="link" href="#ListCommand">4.10. Listing all <code>Food</code> in current <code>Food Record</code> : <code>list</code></a></h3>
+<h3 id="ListCommand"><a class="link" href="#ListCommand">5.10. Listing all <code>Food</code> in current <code>Food Record</code> : <code>list</code></a></h3>
 <div class="paragraph">
 <p>(by Eugene)<br></p>
 </div>
@@ -874,7 +1033,10 @@ After a <code>find</code> command, you are advised to complete your intended act
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-daily-code-calorie-code-target-code-goal-code"><a class="link" href="#setting-a-daily-code-calorie-code-target-code-goal-code">4.11. Setting a daily <code>Calorie</code> target : <code>goal</code></a></h3>
+<h3 id="setting-a-daily-code-calorie-code-target-code-goal-code"><a class="link" href="#setting-a-daily-code-calorie-code-target-code-goal-code">5.11. Setting a daily <code>Calorie</code> target : <code>goal</code></a></h3>
+<div class="paragraph">
+<p>(by Vineeth)</p>
+</div>
 <div class="paragraph">
 <p>What is the point of tracking your meals if you do not have an objective benchmark?</p>
 </div>
@@ -914,7 +1076,7 @@ Sets the desired number of <code>Calorie</code> to be consumed to be 2580.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-all-code-food-code-consumed-on-a-particular-day-code-stomach-code"><a class="link" href="#showing-all-code-food-code-consumed-on-a-particular-day-code-stomach-code">4.12. Showing all <code>Food</code> consumed on a particular day : <code>stomach</code></a></h3>
+<h3 id="showing-all-code-food-code-consumed-on-a-particular-day-code-stomach-code"><a class="link" href="#showing-all-code-food-code-consumed-on-a-particular-day-code-stomach-code">5.12. Showing all <code>Food</code> consumed on a particular day : <code>stomach</code></a></h3>
 <div class="paragraph">
 <p>(by Ruicong)</p>
 </div>
@@ -925,7 +1087,7 @@ Sets the desired number of <code>Calorie</code> to be consumed to be 2580.</p>
 <p>You can go to the <code>Consumption Record</code> of a particular <code>Date</code> using <code>stomach</code> command.</p>
 </div>
 <div class="paragraph">
-<p>For a more detailed statistical report with nutritional values of <code>Food</code> consumed, see <a href="#report">Section 4.9, &#8220;Generating insights : <code>report</code>&#8221;</a>.</p>
+<p>For a more detailed statistical report with nutritional values of <code>Food</code> consumed, see <a href="#report">Section 5.9, &#8220;Generating insights : <code>report</code>&#8221;</a>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -972,7 +1134,7 @@ You can also see that <code>Daily Goal Display</code> has been updated to reflec
 </div>
 </div>
 <div class="sect2">
-<h3 id="updating-the-current-code-food-record-code-code-update-code"><a class="link" href="#updating-the-current-code-food-record-code-code-update-code">4.13. Updating the current <code>Food Record</code> : <code>update</code></a></h3>
+<h3 id="updating-the-current-code-food-record-code-code-update-code"><a class="link" href="#updating-the-current-code-food-record-code-code-update-code">5.13. Updating the current <code>Food Record</code> : <code>update</code></a></h3>
 <div class="paragraph">
 <p>(by Zhang Xian)</p>
 </div>
@@ -1088,7 +1250,7 @@ being updated into the <code>Food Record</code>, your new <code>Food</code> item
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">6. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my <strong>Calgo</strong> data to another Computer?<br>
@@ -1107,7 +1269,7 @@ Commands that deal with <code>Consumption Record</code> are words that you think
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">6. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">7. Command Summary</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all" style="width: 59%;">
 <colgroup>
@@ -1228,4 +1390,4 @@ Commands that deal with <code>Consumption Record</code> are words that you think
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 08:06:44 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 08:27:11 UTC</div></div></div></body></html>
