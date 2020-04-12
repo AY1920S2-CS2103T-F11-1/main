@@ -15,14 +15,14 @@
 <li><a href="#Commands">4. Commands</a>
 <ul class="sectlevel2">
 <li><a href="#clearing-all-entries-code-clear-code">4.1. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#consuming-code-food-code-consumed-on-a-certain-day-code-nom-code">4.2. Consuming <code>Food</code> consumed on a certain day : <code>nom</code></a></li>
+<li><a href="#adding-code-food-code-to-code-consumption-record-code-code-nom-code">4.2. Adding <code>Food</code> to <code>Consumption Record</code> : <code>nom</code></a></li>
 <li><a href="#deleting-a-code-food-code-from-current-code-food-record-code-code-delete-code">4.3. Deleting a <code>Food</code> from current <code>Food Record</code>: <code>delete</code></a></li>
-<li><a href="#deleting-code-food-code-consumed-on-a-certain-day-code-vomit-code">4.4. Deleting <code>Food</code> consumed on a certain day : <code>vomit</code></a></li>
+<li><a href="#removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code">4.4. Removing portions of <code>Food</code> from <code>Consumption Record</code> : <code>vomit</code></a></li>
 <li><a href="#displaying-code-help-code-when-lost-code-help-code">4.5. Displaying <code>help</code> when lost : <code>help</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">4.6. Exiting the program : <code>exit</code></a></li>
 <li><a href="#exporting-the-current-code-food-record-code-into-a-reference-sheet-code-export-code">4.7. Exporting the current <code>Food Record</code> into a reference sheet : <code>export</code></a></li>
 <li><a href="#FindCommand">4.8. Finding a <code>Food</code> entry by nutritional value or keyword(s) : <code>find</code></a></li>
-<li><a href="#generating-insights-code-report-code">4.9. Generating insights : <code>report</code></a></li>
+<li><a href="#report">4.9. Generating insights : <code>report</code></a></li>
 <li><a href="#ListCommand">4.10. Listing all <code>Food</code> in current <code>Food Record</code> : <code>list</code></a></li>
 <li><a href="#setting-a-daily-code-calorie-code-target-code-goal-code">4.11. Setting a daily <code>Calorie</code> target : <code>goal</code></a></li>
 <li><a href="#showing-all-code-food-code-consumed-on-a-particular-day-code-stomach-code">4.12. Showing all <code>Food</code> consumed on a particular day : <code>stomach</code></a></li>
@@ -99,18 +99,6 @@ This informs you of useful tips about Calgo.
 </tr>
 </table>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-This serves as a warning to alert you about something you need to be careful of.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -137,8 +125,8 @@ This serves as a warning to alert you about something you need to be careful of.
 </div>
 </li>
 <li>
-<p>Type your desired command in the command box and press <kbd>Enter</kbd> to execute it.<br>
-e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.<br></p>
+<p>Type your desired command in the command box and press <kbd>enter</kbd> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>enter</kbd> will open the help window.<br></p>
 <div class="ulist">
 <ul>
 <li>
@@ -231,70 +219,102 @@ Format: <code>clear</code><br>
 </div>
 </div>
 <div class="sect2">
-<h3 id="consuming-code-food-code-consumed-on-a-certain-day-code-nom-code"><a class="link" href="#consuming-code-food-code-consumed-on-a-certain-day-code-nom-code">4.2. Consuming <code>Food</code> consumed on a certain day : <code>nom</code></a></h3>
+<h3 id="adding-code-food-code-to-code-consumption-record-code-code-nom-code"><a class="link" href="#adding-code-food-code-to-code-consumption-record-code-code-nom-code">4.2. Adding <code>Food</code> to <code>Consumption Record</code> : <code>nom</code></a></h3>
 <div class="paragraph">
-<p>(by Ruicong)
+<p>(by Ruicong)</p>
+</div>
+<div class="paragraph">
+<p>Your <code>Consumption Record</code> stores everything that you have consumed.
+With the <code>nom</code> command, you can add food that you have consumed on a certain day to your
+<code>Consumption Record</code>.<br>
 The <code>nom</code> command allows you to keep track of your consumption on certain date.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>nom n/NAME [d/DATE] [portion/PORTION][r/RATING]</code></p>
+<p>Below are some information to keep in mind:</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>If a date is not provided, Calgo will by default take it that you ate the <code>Food</code> today.</p>
+<p>The <code>Food</code> you consume should exist in <code>Food Record</code>.</p>
+</li>
+<li>
+<p>The <code>nom</code> command has some default behavior when you choose to not provide values for certain <code>Prefixes</code>. Do note that
+this is not the same as excluding optional parameters.</p>
+</li>
+<li>
+<p>If you do not provide the <code>Date</code> parameter, or if its <code>Prefix</code> does not have a value,
+Calgo will by default take it that you consumed the <code>Food</code> today.</p>
 </li>
 <li>
 <p>Date follows yyyy-mm-dd format.</p>
 </li>
 <li>
-<p>If you decide not to include in <code>d/</code>, <code>portion/</code> or <code>r/</code> prefixes, Calgo will take it that those prefixes exist
-but has no values provided.<br>
-Not providing values can result in the following behavior:</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Date will be today&#8217;s date.</p>
+<p>If you do not provide the <code>Portion</code> parameter, or if its <code>Prefix</code> does not have a value,
+Calgo will by default take it that you consumed 1 portion of <code>Food</code>.</p>
 </li>
 <li>
-<p>Portion will be 1.</p>
+<p>If you do not provide the <code>RATING</code> parameter, the consumption of <code>Food</code> will not have a rating associated with it.
+However, if you do not give the <code>Prefix</code> a value, you will get an error.</p>
 </li>
 <li>
-<p>This dining experience will not have a rating.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Rating for food displayed is the its average rating, based on the ratings it received that day.</p>
-</li>
-<li>
-<p>You can check how much nutritional content each type of food content by checking the existing list of food.</p>
-</li>
-<li>
-<p>You can rate your dining experience, average rating of consuming a certain food will then be displayed.</p>
+<p>The rating for a <code>Food</code> displayed is based on the average rating given to the food on that day.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+As you enter <code>nom n/..</code>, Calgo will show you <code>Food</code> suggestions that match what you are searching for via the <code>Result Display</code>.
+<code>Names</code> on Calgo are case insensitive, so you can type quickly without worrying about the specific name of the <code>Food</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you have planned to eat something at a future date, it is possible to use <code>nom</code> to record a consumption
+with <code>Date</code> that comes after today.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>nom n/NAME [d/DATE] [portion/PORTION][r/RATING]</code></p>
+</div>
+<div class="paragraph">
+<p>Example: Suppose you want to have a Cheeseburger today and have already stored its nutritional content
+in <code>Food Record</code>. Since you just want to dig in as soon as possible, yet still want to jot your meal down,
+you decide to enter the simplest command possible. Here&#8217;s how you do it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/NomCommandBefore.png" alt="NomCommandBefore" width="">
 </div>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>First, enter <code>nom n/Cheeseburger</code> as input and press <kbd>enter</kbd>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>nom n/chicken d/2020-03-04 portion/1.5</code><br>
-Adds 1.5 portion of chicken to the log tracking user&#8217;s consumption on 4th March 2020.</p>
-</li>
-<li>
-<p><code>nom n/apple pie portion/2 r/7</code><br>
-Adds 2 portion of apple pie to the log tracking user&#8217;s consumption today.
-This consumption will be rated 7/10.</p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="images/NomCommandAfter.png" alt="NomCommandAfter" width="">
+</div>
+</div>
+<div class="paragraph">
+<p>Once you enter the command, the <code>Result Display</code> will inform you that the food has been consumed.
+The <code>Consumption Record</code> panel and <code>Graph Display</code> are refreshed to reflect your latest consumption.</p>
 </div>
 </div>
 <div class="sect2">
@@ -343,7 +363,7 @@ input for the <code>delete</code> command is case insensitive.
 </div>
 </div>
 <div class="paragraph">
-<p>You should first enter <code>delete n/pizza</code> as input, and press enter. Note that <code>delete n/Pizza</code> also has the same effect.</p>
+<p>You should first enter <code>delete n/pizza</code> as input, and press <kbd>enter</kbd>. Note that <code>delete n/Pizza</code> also has the same effect.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -356,51 +376,59 @@ the <code>Food</code>, <code>Pizza</code>,is no longer there.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-code-food-code-consumed-on-a-certain-day-code-vomit-code"><a class="link" href="#deleting-code-food-code-consumed-on-a-certain-day-code-vomit-code">4.4. Deleting <code>Food</code> consumed on a certain day : <code>vomit</code></a></h3>
+<h3 id="removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code"><a class="link" href="#removing-portions-of-code-food-code-from-code-consumption-record-code-code-vomit-code">4.4. Removing portions of <code>Food</code> from <code>Consumption Record</code> : <code>vomit</code></a></h3>
 <div class="paragraph">
-<p>(by Ruicong)
-Deletes a <code>Food</code> that a user has previously added to the log tracking consumption on that day.</p>
+<p>(by Ruicong)</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>vomit num/INDEX_OF_FOOD [d/DATE] [portion/PORTION]</code></p>
+<p>If you have overstated an amount previously or actually vomited from over-consumption(yikes!), you can amend existing
+consumption records using the <code>vomit</code> command.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>Food</code> that you wish to <code>vomit</code> must already exist in the current <code>Consumption Record</code>,
+but not necessarily exist from <code>Food Record</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes a portion of food at the specified <code>INDEX_OF_FOOD</code>.</p>
+<p>Deletes a portion of food at the specified <code>INDEX_OF_FOOD</code>. The index refers to the position of <code>Food</code> shown in
+the <code>Consumption Record</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed consumption list.</p>
+<p>The index you supply <strong>must be a positive integer</strong>: 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong>: 1, 2, 3, &#8230;&#8203;</p>
+<p>The <code>vomit</code> command has some default behavior when you choose to not provide values for certain <code>Prefixes</code>. Do note that
+this is not the same as excluding optional parameters.</p>
 </li>
 <li>
-<p>If you decide not to include in <code>d/</code> or <code>portion/</code> prefixes, Calgo will take it that those prefixes exist
-but has no values provided.<br>
-Not providing values can result in the following behavior:</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Date will be today&#8217;s date.</p>
-</li>
-<li>
-<p>The whole entry is deleted.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>If user specified a portion greater than what he has consumed, the entire entry will be deleted.</p>
+<p>If you do not provide the <code>Date</code> parameter, or if its <code>Prefix</code> does not have a value,
+Calgo will by default take it that you <code>vomit</code> today.</p>
 </li>
 <li>
 <p>Date follows yyyy-mm-dd format.</p>
 </li>
 <li>
-<p>Vomiting a portion of food will not affect it&#8217;s ratings.<br>
-Suppose you gave a rating by mistake, you can use the <code>undo</code> command,
+<p>If you do not provide the <code>Portion</code> parameter, or if its <code>Prefix</code> does not have a value,
+Calgo will by default take it that you wish to <code>vomit</code> the whole portion <code>Food</code>, resulting in the deletion of that entire entry.</p>
+</li>
+<li>
+<p>If you specified a portion greater than what you have consumed, the entire entry will be deleted as well.</p>
+</li>
+<li>
+<p>Using <code>vomit</code> on a portion of food will not affect its ratings.
+If you gave a rating by mistake, you can use the <code>undo</code> command,
 which will be available from version 2.0 onwards.</p>
 </li>
 </ul>
@@ -408,20 +436,29 @@ which will be available from version 2.0 onwards.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Format: <code>vomit num/INDEX_OF_FOOD [d/DATE] [portion/PORTION]</code></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>stomach</code><br>
-<code>vomit num/2</code><br>
-Deletes the second food consumed today in the consumption log displayed using <code>stomach</code> command.</p>
-</li>
-<li>
-<p><code>vomit num/1 d/2020-03-04 portion/3</code><br>
-Deletes 3 portions of of the first <code>Food</code> consumed on 2020-03-04.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Example: Let&#8217;s say you ordered a glass of Bandung and previously used <code>nom</code> with <code>Portion</code> set to 1.
+However, because the drink was too sweet, and you can only finish half a glass, you can use <code>vomit</code> to adjust your
+<code>Consumption Record</code>. Here&#8217;s how you can do this.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/VomitCommandBefore.png" alt="VomitCommandBefore" width="">
+</div>
+</div>
+<div class="paragraph">
+<p>You can enter <code>vomit num/1 portion/0.5</code>, then press <kbd>enter</kbd>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/VomitCommandAfter.png" alt="VomitCommandAfter" width="">
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see from the <code>Consumption Record</code> panel, the portion has been reduced.
+The <code>Graph Display</code> also reflects a drop in <code>Calories</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -540,7 +577,7 @@ Certain <code>Food</code> names may be too long to fit into the given space. The
 </div>
 </div>
 <div class="paragraph">
-<p>You should first type in and enter the command, as seen above.</p>
+<p>You should first type in the command and press <kbd>enter</kbd>, as seen above.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -687,7 +724,7 @@ The <code>Food Record</code> displays the relevant entries of each <code>find</c
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="generating-insights-code-report-code"><a class="link" href="#generating-insights-code-report-code">4.9. Generating insights : <code>report</code></a></h3>
+<h3 id="report"><a class="link" href="#report">4.9. Generating insights : <code>report</code></a></h3>
 <div class="paragraph">
 <p>Given a date, the command generates a document (in txt format) of relevant insights about the user&#8217;s food consumption
 pattern of the same date. This file is stored in the <code>data/reports</code> folder.</p>
@@ -853,21 +890,21 @@ Sets the desired number of <code>Calorie</code> to be consumed to be 2580.</p>
 <p>(by Ruicong)</p>
 </div>
 <div class="paragraph">
-<p>Displays a list of <code>Food</code> entries along side how many portions have been consumed on that day.
-For a more detailed statistical report with nutritional values of <code>Food</code> consumed, see the <code>report</code> command.</p>
+<p>Do you want to see what you ate yesterday? Or the day before?<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>stomach [d/DATE]</code></p>
+<p>You can go to the <code>Consumption Record</code> of a particular <code>Date</code> using <code>stomach</code> command.</p>
+</div>
+<div class="paragraph">
+<p>For a more detailed statistical report with nutritional values of <code>Food</code> consumed, see <a href="#report">Section 4.9, &#8220;Generating insights : <code>report</code>&#8221;</a>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>If a date is not provided, <strong>Calgo</strong> will assume that the user wishes to see <code>Food</code> consumed today.</p>
-</li>
-<li>
-<p>If you want to show today&#8217;s records, inclusion of <code>d/</code> prefix is optional.</p>
+<p>If you choose to not provide a <code>Date</code>, or a value for its <code>Prefix</code>,
+<strong>Calgo</strong> will by default use today&#8217;s date.</p>
 </li>
 <li>
 <p>Date follows yyyy-mm-dd format.</p>
@@ -877,19 +914,32 @@ For a more detailed statistical report with nutritional values of <code>Food</co
 </div>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>If you go to a <code>Consumption Record</code> on a day where you have never consumed anything before, <code>Result Display</code>
+will remind you that you have not consumed anything yet, instead of showing "Display all food consumed".
+The latter message suggests that you have consumed something on that <code>Date</code>, but <code>vomit</code> it afterwards.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>stomach d/2020-03-04</code><br>
-Displays a list of <code>Food</code> user has consumed on 2020-03-04.</p>
-</li>
-<li>
-<p><code>stomach</code> or <code>stomach d/</code><br>
-Displays a list of <code>Food</code> the user has consumed today.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Format: <code>stomach [d/DATE]</code></p>
+</div>
+<div class="paragraph">
+<p>Example: If you want to see what you have consumed on 12 April 2020, here&#8217;s how you can do it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/StomachCommandBefore.png" alt="StomachCommandBefore" width="">
+</div>
+</div>
+<div class="paragraph">
+<p>Enter the command <code>stomach d/2020-04-12</code> as input and press <kbd>enter</kbd>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/StomachCommandAfter.png" alt="StomachCommandAfter" width="">
+</div>
+</div>
+<div class="paragraph">
+<p>You will then be shown a <code>Consumption Record</code> for 12 April 2020.
+You can also see that <code>Daily Goal Display</code> has been updated to reflect how you did on 12 April 2020.</p>
 </div>
 </div>
 <div class="sect2">
@@ -953,7 +1003,7 @@ Here&#8217;s how you update your new <code>Food</code>, Mee Goreng, into your <c
 </div>
 </div>
 <div class="paragraph">
-<p>You should first enter <code>update n/Mee Goreng cal/418 p/8 c/58 f/17</code> as input and press enter.</p>
+<p>You should first enter <code>update n/Mee Goreng cal/418 p/8 c/58 f/17</code> as input and press <kbd>enter</kbd>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -973,7 +1023,7 @@ You wish to <code>update</code> the <code>Protein</code> value for Mee Goreng to
 </div>
 </div>
 <div class="paragraph">
-<p>You should first enter <code>update n/Mee Goreng cal/418 p/10 c/58 f/17</code> as input and press enter</p>
+<p>You should first enter <code>update n/Mee Goreng cal/418 p/10 c/58 f/17</code> as input and press <kbd>enter</kbd>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1018,6 +1068,12 @@ being updated into the <code>Food Record</code>, your new <code>Food</code> item
 <div class="paragraph">
 <p><strong>Q</strong>: Where can I find my exported <code>Food Record</code> entries and consumption reports?<br>
 <strong>A</strong>: They are both found in the <code>exports</code> and <code>reports</code> subfolders in the <code>data</code> folder respectively. Please do not remove the json files in the <code>data</code> folder. These are system files.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: With so many commands for interacting with <code>Food Record</code> and <code>Consumption Record</code> which are so similar,
+how do I distinguish between them?<br>
+<strong>A</strong>: Our commands are named so that you can associate them with the correct <code>Record</code>.
+Commands that deal with <code>Consumption Record</code> are words that you think of when you physically interact with food.</p>
 </div>
 </div>
 </div>
@@ -1095,21 +1151,21 @@ being updated into the <code>Food Record</code>, your new <code>Food</code> item
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Edit Daily List</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Edit and Navigating Consumption Record</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Nom</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a <code>Food</code> to a specific day&#8217;s <code>Daily List</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nom [n/NAME] [d/DATE] [portion/PORTION][r/RATING]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nom n/chicken d/2020-03-04 portion/1.5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a <code>Food</code> to a specific day&#8217;s <code>Consumption Record</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nom n/NAME [d/DATE] [portion/PORTION][r/RATING]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nom n/chicken d/2020-03-04 portion/1.5 r/8</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stomach</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all <code>Food</code> in a particular day&#8217;s <code>Daily List</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all <code>Food</code> in a particular day&#8217;s <code>Consumption Record</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>stomach [d/DATE]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>stomach d/2020-03-04</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Vomit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes a specific <code>Food</code> from the <code>Daily List</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes a specific <code>Food</code> from the <code>Consumption Record</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>vomit num/INDEX_OF_FOOD [d/DATE] [portion/PORTION]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>vomit num/chicken d/2020-03-04 portion/3</code><strong>OR</strong><br>
 <code>vomit num/chicken</code><strong>OR</strong> <code>vomit n/chicken d/ portion/</code></p></td>
@@ -1143,4 +1199,4 @@ being updated into the <code>Food Record</code>, your new <code>Food</code> item
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-11 19:29:41 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 04:45:38 UTC</div></div></div></body></html>
