@@ -25,13 +25,14 @@
 <ul class="sectlevel2">
 <li><a href="#Implementation-Configuration">4.1. Configuration</a></li>
 <li><a href="#Implementation-HelpGuide">4.2. Command guide <code>help</code> command</a></li>
-<li><a href="#Implementation-FindList">4.3. Searching for specific <code>Food</code> via categories and substrings</a></li>
-<li><a href="#Implementation-ConsumptionManagement">4.4. <code>Food</code> consumption management</a></li>
-<li><a href="#Implementation-InsightsReport">4.5. Generate insights report</a></li>
-<li><a href="#Implementation-LexicographicalOrder">4.6. Lexicographical <code>Food</code> order</a></li>
-<li><a href="#logging">4.7. Logging</a></li>
-<li><a href="#Implementation-SmartUpdate">4.8. Updating <code>FoodRecord</code></a></li>
-<li><a href="#Implementation-CalorieGraph">4.9. Past seven days calorie data graph</a></li>
+<li><a href="#Implementation-Export">4.3. Exporting the current <code>FoodRecord</code> into a .txt file</a></li>
+<li><a href="#Implementation-FindList">4.4. Searching for specific <code>Food</code> via categories and substrings</a></li>
+<li><a href="#Implementation-ConsumptionManagement">4.5. <code>Food</code> consumption management</a></li>
+<li><a href="#Implementation-InsightsReport">4.6. Generate insights report</a></li>
+<li><a href="#Implementation-LexicographicalOrder">4.7. Lexicographical <code>Food</code> order</a></li>
+<li><a href="#logging">4.8. Logging</a></li>
+<li><a href="#Implementation-SmartUpdate">4.9. Updating <code>FoodRecord</code></a></li>
+<li><a href="#Implementation-CalorieGraph">4.10. Past seven days calorie data graph</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a></li>
@@ -593,7 +594,299 @@ display only desired commands by entering an optional keyword after <code>help</
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-FindList"><a class="link" href="#Implementation-FindList">4.3. Searching for specific <code>Food</code> via categories and substrings</a></h3>
+<h3 id="Implementation-Export"><a class="link" href="#Implementation-Export">4.3. Exporting the current <code>FoodRecord</code> into a .txt file</a></h3>
+<div class="paragraph">
+<p>(by Eugene)</p>
+</div>
+<div class="paragraph">
+<p>This section addresses how the <code>export</code> command works, creating a FoodRecord.txt file showing details of all the <code>Food</code> objects currently stored in the <code>FoodRecord</code>. The information is presently neatly in table form and the file is created in the <code>data/exports</code> folder.</p>
+</div>
+<div class="paragraph">
+<p>The <code>export</code> command mainly uses an <code>ExportGenerator</code> object to generate the file. All formatting options and methods to write the contents of the file are included in the <code>ExportGenerator</code> class, which extends the <code>DocumentGenerator</code> class.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You may find the <code>report</code> command similar as they both create a new file for the user. You can read more about it <a href="#Implementation-InsightsReport">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="implementation-3"><a class="link" href="#implementation-3">4.3.1. Implementation</a></h4>
+<div class="paragraph">
+<p>Most of the work in generating the file is done by the <code>generateExport</code> method of <code>ExportGenerator</code>. You can access the class to view its methods for writing the header and footer components, which are relatively easily to understand.</p>
+</div>
+<div class="paragraph">
+<p>However, the methods for writing the file body is likely where some explaining is required. Here, the formatting of the table body is determined by the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="type">int</span> NAME_COLUMN_SIZE = <span class="integer">45</span>;
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="type">int</span> VALUE_COLUMN_SIZE = <span class="integer">20</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>NAME_COLUMN_SIZE</code> represents the allowed space for the <code>Name</code>. If a <code>Food</code> object has a <code>Name</code> which is too long, the <code>Name</code> will be truncated and continued on the following lines.
+Meanwhile, <code>VALUE_COLUMN_SIZE</code> represents the allowed space for each nutritional value of <code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, and <code>Fat</code> in the table. These are guaranteed to be within a length of 5 characters when parsing, and should not exceed the given space.</p>
+</div>
+<div class="paragraph">
+<p>The nutritional values will always be shown in the first line of their respective <code>Food</code> object after its (possibly truncated) <code>Name</code>. This is facilitated by the <code>printBody</code> method of <code>ExportGenerator</code>, which calls its <code>printBodyComponent</code> method and subsequently its <code>generateFinalisedEntryString</code> method, which performs the truncation and amendment of the <code>Name</code> as necessary.</p>
+</div>
+<div class="paragraph">
+<p>Moving on, the sequence diagram below demonstrates how the <code>export</code> command works to create the user copy of the current <code>FoodRecord</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ExportSequenceDiagram.png" alt="ExportSequenceDiagram">
+</div>
+<div class="title">Figure 12. Sequence Diagram for <code>export</code> command: generating FoodRecord.txt</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for the <code>ExportCommand</code> object and that of the <code>ExportGenerator</code> object should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>From the above, creating FoodRecord.txt involves the following steps:</p>
+</div>
+<div class="paragraph">
+<p>Step 1: <code>LogicManager</code> executes the user input, uses <code>CalgoParser</code> to realise this is a <code>export</code> command, and thereby creates a new <code>ExportCommand</code> object.<br></p>
+</div>
+<div class="paragraph">
+<p>Step 2: LogicManager then calls the <code>execute</code> method of this <code>ExportCommand</code> object. This results in a call to the <code>Model</code> to get the current <code>FoodRecord</code>, which is used to construct a new <code>ExportGenerator</code> object. The <code>ExportGenerator</code> is responsible for creating the FoodRecord.txt file and writing to it.</p>
+</div>
+<div class="paragraph">
+<p>Step 3: <code>ExportCommand</code> then calls the <code>generateExport</code> method of <code>ExportGenerator</code>, writing the required parts to the file. This returns a boolean indicating whether the file creation and writing are successful.</p>
+</div>
+<div class="paragraph">
+<p>Step 4: A new <code>CommandResult</code> object indicating the status of the execution is then constructed and reflected in the GUI.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.3.2. Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-type-of-file-to-create"><a class="link" href="#aspect-type-of-file-to-create">Aspect: Type of file to create.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Create a .txt file to represent the <code>FoodRecord</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Satisfies user requirements: able to edit the file to include custom entries.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Need to define new classes and methods for file writing, which may introduce more dependencies.</p>
+</li>
+<li>
+<p>May be more resource-intensive than other alternatives.</p>
+</li>
+<li>
+<p>New developers may be unfamiliar with <code>String</code> manipulation and regular expressions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Create a .pdf file to represent the <code>FoodRecord</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The contents appear to be more legitimate.</p>
+</li>
+<li>
+<p>Can use external libraries for convenience.</p>
+</li>
+<li>
+<p>May be less resource-intensive.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>May not satisfy user requirements as the file cannot be edited easily.</p>
+</li>
+<li>
+<p>May introduce more bugs, additional dependencies, and become prone to external factors.</p>
+</li>
+<li>
+<p>More difficult to debug due to lack of familiarity with external libraries.</p>
+</li>
+<li>
+<p>May require more space.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-abstraction-for-code-exportgenerator-code-and-code-reportgenerator-code"><a class="link" href="#aspect-abstraction-for-code-exportgenerator-code-and-code-reportgenerator-code">Aspect: Abstraction for <code>ExportGenerator</code> and <code>ReportGenerator</code>.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Create <code>DocumentGenerator</code> abstract class which both <code>ExportGenerator</code> and <code>ReportGenerator</code> extends.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Good Object-Oriented Programming practice, following its principles.</p>
+</li>
+<li>
+<p>Allows for code reuse and neater code.</p>
+</li>
+<li>
+<p>Able to apply concepts of polymorphism, if required.</p>
+</li>
+<li>
+<p>May be now easier to debug.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Need to define new class, possibly introducing more dependencies.</p>
+</li>
+<li>
+<p>Need to identify what is common to both <code>ExportGenerator</code> and <code>ReportGenerator</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use an interface which both classes will implement.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Similar to Alternative 1.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Does not allow methods to be defined in the interface. (Some exceptions: default methods, etc)</p>
+</li>
+<li>
+<p>May need to repeat definitions which may be the same for both classes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3:</strong> Do not use an interface or abstract class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Requires less effort.</p>
+</li>
+<li>
+<p>Does not introduce additional dependencies.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Unable to reap benefits of the above alternatives.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="summary-2"><a class="link" href="#summary-2">4.3.3. Summary</a></h4>
+<div class="paragraph">
+<p>This section addresses how users are able to obtain an editable copy of the current <code>FoodRecord</code> using the <code>export</code> command.</p>
+</div>
+<div class="paragraph">
+<p>The <code>export</code> command largely relies on the <code>ExportGenerator</code> class. This facilitates creating the file and writing to it.</p>
+</div>
+<div class="paragraph">
+<p>The above can be summarised in the activity diagram below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ExportActivityDiagram.png" alt="ExportActivityDiagram">
+</div>
+<div class="title">Figure 13. Activity Diagram for Searching</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Implementation-FindList"><a class="link" href="#Implementation-FindList">4.4. Searching for specific <code>Food</code> via categories and substrings</a></h3>
 <div class="paragraph">
 <p>(by Eugene)</p>
 </div>
@@ -613,7 +906,7 @@ display only desired commands by entering an optional keyword after <code>help</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>Prefix</code> here indicates which <code>Food</code> attribute we are interested in. Categorical search finds <code>Food</code> objects with matching values representing one of the nutritional categories (<code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, or <code>Fat</code>). Meanwhile, substring search finds matches of a substring in any part of the the <code>Name</code> or in any of the <code>Tag</code> objects belonging to the <code>Food</code>.
+<code>Prefix</code> here indicates which <code>Food</code> attribute we are interested in. Categorical search finds <code>Food</code> objects with values that match the user-specified value representing one of the nutritional categories (<code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, or <code>Fat</code>). Meanwhile, substring search finds matches for the user-entered substring in any part of the the <code>Name</code> or in any of the <code>Tag</code> objects belonging to the <code>Food</code> objects.
 </td>
 </tr>
 </table>
@@ -631,10 +924,10 @@ For more information on lexicographical ordering, please refer to its relevant s
 </table>
 </div>
 <div class="paragraph">
-<p>The above commands rely on the <code>FindCommand</code> and <code>ListCommand</code> classes respectively. Objects of both classes use a <code>Predicate&lt;Food&gt;</code> object to filter through the current <code>Food</code> objects, which will be displayed in the GUI&#8217;s <code>Food Record</code> should they evaluate these predicates to be true.</p>
+<p>The above commands rely on the <code>FindCommand</code> and <code>ListCommand</code> objects respectively. Objects of both classes use a <code>Predicate&lt;Food&gt;</code> object to filter through the current <code>Food</code> objects, where <code>Food</code> objects will be displayed in the GUI&#8217;s <code>Food Record</code> should they evaluate these predicates to be true.</p>
 </div>
 <div class="sect3">
-<h4 id="implementation-3"><a class="link" href="#implementation-3">4.3.1. Implementation</a></h4>
+<h4 id="implementation-4"><a class="link" href="#implementation-4">4.4.1. Implementation</a></h4>
 <div class="paragraph">
 <p>To search via a particular <code>Food</code> attribute, we use a <code>FindCommandParser</code> to create the corresponding <code>Predicate&lt;Food&gt;</code> based on which <code>Food</code> attribute the <code>Prefix</code> entered represents. This predicate is then used to construct a new <code>FindCommand</code> object, which changes the GUI display when executed.<br></p>
 </div>
@@ -657,7 +950,7 @@ For more information on lexicographical ordering, please refer to its relevant s
 <div class="content">
 <img src="images/FindSequenceDiagram.png" alt="FindSequenceDiagram">
 </div>
-<div class="title">Figure 12. Sequence Diagram for <code>find</code> command: categorical search and substring search</div>
+<div class="title">Figure 14. Sequence Diagram for <code>find</code> command: categorical search and substring search</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -703,7 +996,7 @@ The lifeline for the both of the <code>FindCommandParser</code> objects, and bot
 <div class="content">
 <img src="images/ListSequenceDiagram.png" alt="ListSequenceDiagram">
 </div>
-<div class="title">Figure 13. Sequence Diagram for <code>list</code> command</div>
+<div class="title">Figure 15. Sequence Diagram for <code>list</code> command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -731,9 +1024,9 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.3.2. Design considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.4.2. Design considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-predicate-construction-source"><a class="link" href="#aspect-predicate-construction-source">Aspect: Predicate construction source</a></h5>
+<h5 id="aspect-predicate-construction-source"><a class="link" href="#aspect-predicate-construction-source">Aspect: Predicate construction source.</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -815,7 +1108,7 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-enabling-substring-search"><a class="link" href="#aspect-enabling-substring-search">Aspect: Enabling substring search</a></h5>
+<h5 id="aspect-enabling-substring-search"><a class="link" href="#aspect-enabling-substring-search">Aspect: Enabling substring search.</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -833,7 +1126,10 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 <p>Can reuse common code as the approach for both <code>Name</code> and <code>Tag</code> are similar.</p>
 </li>
 <li>
-<p>Can use regular expressions, which are powerful and suitable for our purpose.</p>
+<p>Generally easy to implement substring finding.</p>
+</li>
+<li>
+<p>Can use regular expressions if needed, which are powerful and suitable for our purpose.</p>
 </li>
 </ul>
 </div>
@@ -849,7 +1145,10 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 <p>Need to know the <code>String</code> type, regular expressions, and their implications.</p>
 </li>
 <li>
-<p>Need to implement searching via multiple types of <code>Food</code> attributes and hence more dependencies.</p>
+<p>Need to implement searching via multiple types of <code>Food</code> attributes and hence introduces more dependencies.</p>
+</li>
+<li>
+<p>Need to implement a new <code>Parser</code> class to detect each relevant <code>Prefix</code>.</p>
 </li>
 </ul>
 </div>
@@ -887,6 +1186,12 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 <li>
 <p>May not fully satisfy the user requirements.</p>
 </li>
+<li>
+<p>Need to implement searching via multiple types of <code>Food</code> attributes and hence introduces more dependencies.</p>
+</li>
+<li>
+<p>Need to implement a new <code>Parser</code> class to detect each relevant <code>Prefix</code>.</p>
+</li>
 </ul>
 </div>
 </li>
@@ -898,7 +1203,7 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 </div>
 </div>
 <div class="sect3">
-<h4 id="summary-2"><a class="link" href="#summary-2">4.3.3. Summary</a></h4>
+<h4 id="summary-3"><a class="link" href="#summary-3">4.4.3. Summary</a></h4>
 <div class="paragraph">
 <p>In essence, this section focuses on searching which is implemented via <code>find</code> and <code>list</code> commands.<br></p>
 </div>
@@ -915,20 +1220,20 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 <div class="content">
 <img src="images/FindListCommandActivityDiagram.png" alt="FindListCommandActivityDiagram">
 </div>
-<div class="title">Figure 14. Activity Diagram for Searching</div>
+<div class="title">Figure 16. Activity Diagram for Searching</div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-ConsumptionManagement"><a class="link" href="#Implementation-ConsumptionManagement">4.4. <code>Food</code> consumption management</a></h3>
+<h3 id="Implementation-ConsumptionManagement"><a class="link" href="#Implementation-ConsumptionManagement">4.5. <code>Food</code> consumption management</a></h3>
 <div class="paragraph">
 <p>In Calgo, you will find that there is a date associated with each list of <code>ConsumedFood</code>.
 When adding food to be consumed, removing food, or displaying food consumed on certain days,
 a <code>FilteredList</code> will be populated with relevant <code>ConsumedFood</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="implementation-4"><a class="link" href="#implementation-4">4.4.1. Implementation</a></h4>
+<h4 id="implementation-5"><a class="link" href="#implementation-5">4.5.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>nom</code>, <code>vomit</code> and <code>stomach</code> commands are facilitated by the <code>FoodRecord</code>. <br>
 <code>FoodRecord</code> contains a <code>UniqueDateToLogMap</code>, which maps a <code>LocalDate</code> to a <code>DailyFoodLog</code>.<br>
@@ -954,7 +1259,7 @@ Step 5: The GUI automatically detects changes in <code>FilteredList</code> and r
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.4.2. Design considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.5.2. Design considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-code-nom-code-executes"><a class="link" href="#aspect-how-code-nom-code-executes">Aspect: How <code>nom</code> executes</a></h5>
 <div class="ulist">
@@ -1027,7 +1332,7 @@ in <code>DailyFoodLog</code> for each <code>LocalDate</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="summary-3"><a class="link" href="#summary-3">4.4.3. Summary</a></h4>
+<h4 id="summary-4"><a class="link" href="#summary-4">4.5.3. Summary</a></h4>
 <div class="paragraph">
 <p>The <code>nom</code> command adds a <code>Food</code> item consumed by the user into the <code>stomach</code>. The following activity diagram summarizes what happens when the user executes a <code>nom</code> command.</p>
 </div>
@@ -1035,12 +1340,12 @@ in <code>DailyFoodLog</code> for each <code>LocalDate</code>.</p>
 <div class="content">
 <img src="images/NomActivityDiagram.png" alt="NomActivityDiagram">
 </div>
-<div class="title">Figure 15. Activity Diagram for Nom</div>
+<div class="title">Figure 17. Activity Diagram for Nom</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-InsightsReport"><a class="link" href="#Implementation-InsightsReport">4.5. Generate insights report</a></h3>
+<h3 id="Implementation-InsightsReport"><a class="link" href="#Implementation-InsightsReport">4.6. Generate insights report</a></h3>
 <div class="paragraph">
 <p>This feature allows a user to generate a report that contains statistics and deliverable insights based on
 personal food consumption patterns.</p>
@@ -1051,7 +1356,7 @@ This command generates a report that is based on the food consumed by
 the user on the specified date.</p>
 </div>
 <div class="sect3">
-<h4 id="implementation-5"><a class="link" href="#implementation-5">4.5.1. Implementation</a></h4>
+<h4 id="implementation-6"><a class="link" href="#implementation-6">4.6.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The specified feature is facilitated by <code>ReportGenerator</code> class in the <code>Storage</code> component.
 In this section, the implementation features of the <code>ReportGenerator</code> class will be further explained.</p>
@@ -1118,7 +1423,7 @@ to signify the end of the command.</p>
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.5.2. Design considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.6.2. Design considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-generate-report-executes"><a class="link" href="#aspect-how-generate-report-executes">Aspect: How generate report executes</a></h5>
 <div class="ulist">
@@ -1157,7 +1462,7 @@ more memory than .txt files as well.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="summary-4"><a class="link" href="#summary-4">4.5.3. Summary</a></h4>
+<h4 id="summary-5"><a class="link" href="#summary-5">4.6.3. Summary</a></h4>
 <div class="paragraph">
 <p>The following activity diagram summarizes what happens when user executes a <code>report d/DATE</code> command:<br></p>
 </div>
@@ -1165,12 +1470,12 @@ more memory than .txt files as well.</p>
 <div class="content">
 <img src="images/ReportActivityDiagram.png" alt="ReportActivityDiagram">
 </div>
-<div class="title">Figure 16. Activity Diagram for Report command</div>
+<div class="title">Figure 18. Activity Diagram for Report command</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-LexicographicalOrder"><a class="link" href="#Implementation-LexicographicalOrder">4.6. Lexicographical <code>Food</code> order</a></h3>
+<h3 id="Implementation-LexicographicalOrder"><a class="link" href="#Implementation-LexicographicalOrder">4.7. Lexicographical <code>Food</code> order</a></h3>
 <div class="paragraph">
 <p>(by Eugene)</p>
 </div>
@@ -1210,7 +1515,7 @@ Although the the <code>list</code> command changes the GUI <code>Food Record</co
 </table>
 </div>
 <div class="sect3">
-<h4 id="implementation-6"><a class="link" href="#implementation-6">4.6.1. Implementation</a></h4>
+<h4 id="implementation-7"><a class="link" href="#implementation-7">4.7.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>UniqueFoodList</code> is able to sort <code>Food</code> objects because the <code>Food</code> class implements the <code>Comparable&lt;Food&gt;</code> interface.
 This allows us to specify the lexicographical order for sorting <code>Food</code> objects via their <code>Name</code>, using the following compareTo method in the <code>Food</code> class:</p>
@@ -1247,7 +1552,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="content">
 <img src="images/LexicographicalOrderingStartupSequenceDiagram.png" alt="LexicographicalOrderingStartupSequenceDiagram">
 </div>
-<div class="title">Figure 17. Lexicographical Ordering Sequence Diagram for App Start-up</div>
+<div class="title">Figure 19. Lexicographical Ordering Sequence Diagram for App Start-up</div>
 </div>
 <div class="paragraph">
 <p>Based on the above diagram, when Calgo starts:<br></p>
@@ -1259,16 +1564,16 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <p>Step 2: Before we can finish constructing a new <code>ModelManager</code> object, we require the creation of a new <code>FoodRecord</code> object which in turn requires the creation of a new <code>UniqueFoodList</code> object.<br></p>
 </div>
 <div class="paragraph">
-<p>Step 3: Once <code>UniqueFoodList</code> is constructed, we introduce the initialising data into it via the <code>setFood</code> method. This calls the <code>sortInternalList</code> method, which sorts the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code> according to the specified lexicographical order (defined in the <code>Food</code> class).</p>
+<p>Step 3: Once <code>UniqueFoodList</code> is constructed, we introduce the initialising data into it using the <code>setFood</code> method. This calls the <code>sortInternalList</code> method, which sorts the newly added <code>Food</code> objects in the <code>ObservableList&lt;Food&gt;</code> contained in <code>UniqueFoodList</code>, according to the specified lexicographical order (defined in the <code>Food</code> class).</p>
 </div>
 <div class="paragraph">
-<p>The sequence diagram below (which is a reference frame omitting irrelevant <code>update</code> command details) describes the lexicographical sorting process when <code>Food</code> objects are added or edited using the <code>update</code> command:</p>
+<p>Moving on, the sequence diagram below (which is a reference frame omitting irrelevant <code>update</code> command details) describes the lexicographical sorting process when <code>Food</code> objects are added or edited using the <code>update</code> command:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LexicographicalOrderingUpdateSequenceDiagram.png" alt="LexicographicalOrderingUpdateSequenceDiagram">
 </div>
-<div class="title">Figure 18. Lexicographical Ordering Sequence Diagram for Updating (Note: this is in a reference frame as it is reused in the <code>update</code> section <a href="#Implementation-SmartUpdate">here</a>)</div>
+<div class="title">Figure 20. Lexicographical Ordering Sequence Diagram for Updating (Note: this is in a reference frame as it is reused in the <code>update</code> section <a href="#Implementation-SmartUpdate">here</a>)</div>
 </div>
 <div class="paragraph">
 <p>Based on the above diagram, after parsing the user input and creating an <code>UpdateCommand</code> object:</p>
@@ -1276,7 +1581,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div class="ulist">
 <ul>
 <li>
-<p>If a <code>Food</code> object with an equivalent <code>Name</code> (as what the user inputs) already exists in the <code>UniqueFoodList</code> object:</p>
+<p>If the user inputs a <code>Food</code> object that already has an existing counterpart with an equivalent <code>Name</code> in the <code>UniqueFoodList</code>:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1317,9 +1622,9 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.6.2. Design considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.7.2. Design considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-frequency-of-sorting-operation"><a class="link" href="#aspect-frequency-of-sorting-operation">Aspect: Frequency of sorting operation</a></h5>
+<h5 id="aspect-frequency-of-sorting-operation"><a class="link" href="#aspect-frequency-of-sorting-operation">Aspect: Frequency of sorting operation.</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1398,7 +1703,7 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-data-structure-to-store-code-food-code-objects"><a class="link" href="#aspect-data-structure-to-store-code-food-code-objects">Aspect: Data structure to store <code>Food</code> objects</a></h5>
+<h5 id="aspect-data-structure-to-store-code-food-code-objects"><a class="link" href="#aspect-data-structure-to-store-code-food-code-objects">Aspect: Data structure to store <code>Food</code> objects.</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1467,20 +1772,20 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 </div>
 </div>
 <div class="sect3">
-<h4 id="summary-5"><a class="link" href="#summary-5">4.6.3. Summary</a></h4>
+<h4 id="summary-6"><a class="link" href="#summary-6">4.7.3. Summary</a></h4>
 <div class="paragraph">
-<p>The <code>UniqueFoodList</code> facilitates the lexicographical ordering of <code>Food</code> objects and hence their respective entries in the GUI <code>Food Record</code>. This can be summarised in the activity diagram below:</p>
+<p>The <code>UniqueFoodList</code> facilitates the lexicographical ordering of <code>Food</code> objects and hence how their respective entries appear in the GUI <code>Food Record</code>. This can be summarised in the activity diagram below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/LexicographicalOrderingActivityDiagram.png" alt="LexicographicalOrderingActivityDiagram">
 </div>
-<div class="title">Figure 19. Activity Diagram for Lexicographical Ordering</div>
+<div class="title">Figure 21. Activity Diagram for Lexicographical Ordering</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1518,13 +1823,13 @@ This allows us to specify the lexicographical order for sorting <code>Food</code
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-SmartUpdate"><a class="link" href="#Implementation-SmartUpdate">4.8. Updating <code>FoodRecord</code></a></h3>
+<h3 id="Implementation-SmartUpdate"><a class="link" href="#Implementation-SmartUpdate">4.9. Updating <code>FoodRecord</code></a></h3>
 <div class="paragraph">
 <p>This feature allows you to add a food preset with all its nutritional details into the <code>FoodRecord</code>.
 This makes it convenient for you to keep track of your <code>Food</code> consumed in the day without having to manually key in the nutritional details every time you do so.</p>
 </div>
 <div class="sect3">
-<h4 id="implementation-7"><a class="link" href="#implementation-7">4.8.1. Implementation</a></h4>
+<h4 id="implementation-8"><a class="link" href="#implementation-8">4.9.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The update mechanism is facilitated by <code>FoodRecord</code> and <code>UpdateCommand</code>. An additional operation was implemented into <code>FoodRecord</code>:</p>
 </div>
@@ -1554,7 +1859,7 @@ Otherwise, the new <code>Food</code> item will be added into the <code>FoodRecor
 <div class="content">
 <img src="images/UpdateSequenceDiagram.png" alt="UpdateSequenceDiagram">
 </div>
-<div class="title">Figure 20. Sequence Diagram for Update command</div>
+<div class="title">Figure 22. Sequence Diagram for Update command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1571,7 +1876,7 @@ The lifeline for <code>UpdateCommandParser</code> and <code>UpdateCommand</code>
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.8.2. Design considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.9.2. Design considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-updating-the-code-foodrecord-code-when-there-is-an-existing-code-food-code-item-in-code-foodrecord-code"><a class="link" href="#aspect-updating-the-code-foodrecord-code-when-there-is-an-existing-code-food-code-item-in-code-foodrecord-code">Aspect: Updating the <code>FoodRecord</code> when there is an existing <code>Food</code> item in <code>FoodRecord</code></a></h5>
 <div class="ulist">
@@ -1611,7 +1916,7 @@ should be replaced with <code>add</code> for clearer user experience.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="summary-6"><a class="link" href="#summary-6">4.8.3. Summary</a></h4>
+<h4 id="summary-7"><a class="link" href="#summary-7">4.9.3. Summary</a></h4>
 <div class="paragraph">
 <p>The <code>update</code> command is a smart command that either updates an existing <code>Food</code> item in the <code>FoodRecord</code> with new nutritional information,
 or updates a new <code>Food</code> item into the <code>FoodRecord</code>
@@ -1621,12 +1926,12 @@ The following activity diagram summarises what happens when a user enters a vali
 <div class="content">
 <img src="images/UpdateActivityDiagram.png" alt="UpdateActivityDiagram">
 </div>
-<div class="title">Figure 21. Activity Diagram for Update command</div>
+<div class="title">Figure 23. Activity Diagram for Update command</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-CalorieGraph"><a class="link" href="#Implementation-CalorieGraph">4.9. Past seven days calorie data graph</a></h3>
+<h3 id="Implementation-CalorieGraph"><a class="link" href="#Implementation-CalorieGraph">4.10. Past seven days calorie data graph</a></h3>
 <div class="paragraph">
 <p>(by Janice)</p>
 </div>
@@ -1652,7 +1957,7 @@ for the past seven days from that date, inclusive.
 </table>
 </div>
 <div class="sect3">
-<h4 id="implementation-8"><a class="link" href="#implementation-8">4.9.1. Implementation</a></h4>
+<h4 id="implementation-9"><a class="link" href="#implementation-9">4.10.1. Implementation</a></h4>
 <div class="paragraph">
 <p><code>GraphPanel</code> in the <code>Ui</code> component. It contains a <code>LineChart</code> of <code>String</code> date against <code>Number</code> calories, and is populated with
 data from an <code>XYChart.series</code>. The data is in turn obtained from the <code>Logic</code> component, which provides only the past seven days'
@@ -1723,7 +2028,7 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.9.2. Design considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">4.10.2. Design considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-choice-of-visuals-for-past-seven-days-summary"><a class="link" href="#aspect-choice-of-visuals-for-past-seven-days-summary">Aspect: Choice of visuals for past seven days summary</a></h5>
 <div class="ulist">
@@ -2380,4 +2685,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 04:49:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-12 05:33:16 UTC</div></div></div></body></html>
