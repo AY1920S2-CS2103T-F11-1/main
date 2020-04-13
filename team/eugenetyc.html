@@ -272,6 +272,7 @@ looking for a light snack. Here is how you can do it:</p>
 <p>Once the command has been entered, the <code>Result Display</code> shows the results of your command and the <code>Food Record</code>
 displays the relevant entries with 150 calories.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="paragraph">
 <p>Example 2: Say you wish to find entries which contain the keyword <code>Cheese</code> in their name, but your hand slipped and
 the keyboard only typed <code>Chees</code>. This is what happens:<br></p>
@@ -295,6 +296,7 @@ the relevant entries which contain <code>Chees</code> in their name. This is not
 be largely relevant to <code>Cheese</code>. This shows that the <code>find</code> command can search for <code>Food</code> entries
 with incomplete keywords.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="paragraph">
 <p>Example 3: Say you are lazy but wish to find entries containing the keyword <code>sweet</code> in their tag. Here is how you can do it:<br></p>
 </div>
@@ -387,6 +389,7 @@ Individual entries will also appear on separate lines.
 <p>Format: <code>export</code><br>
 (any parameters entered are ignored)</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="paragraph">
 <p>Example:<br></p>
 </div>
@@ -446,7 +449,7 @@ just as the <code>Food Record</code> previously appeared:</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can think of this as the reverse of a <code>find</code> command.
+You can think of this as the reverse of a <a href="#FindCommand"><code>find</code></a> command.
 After a <code>find</code> command, you are advised to complete your intended actions first, before using the <code>list</code> command to
 reset the display. This allows for a smoother workflow as you will now avoid the need to perform the same <code>find</code> command again.
 </td>
@@ -457,6 +460,7 @@ reset the display. This allows for a smoother workflow as you will now avoid the
 <p>Format: <code>list</code><br>
 (any parameters entered are ignored)</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
@@ -567,6 +571,7 @@ For more information on lexicographical ordering, please refer to its relevant s
 <div class="paragraph">
 <p>The above commands rely on the <code>FindCommand</code> and <code>ListCommand</code> objects respectively. Objects of both classes use a <code>Predicate&lt;Food&gt;</code> object to filter through the current <code>Food</code> objects, where <code>Food</code> objects will be displayed in the GUI&#8217;s <code>Food Record</code> should they evaluate these predicates to be true.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="sect3">
 <h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
 <div class="paragraph">
@@ -584,6 +589,7 @@ For more information on lexicographical ordering, please refer to its relevant s
 <div class="paragraph">
 <p>As seen in the above class diagram, each <code>Predicate&lt;Food&gt;</code> is indeed representative of either <code>Name</code>, <code>Calorie</code>, <code>Protein</code>, <code>Carbohydrate</code>, <code>Fat</code>, or <code>Tag</code>. Moreover, it should be noted that each of these predicates test against a <code>Food</code> object, and therefore have a dependency on <code>Food</code>.</p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="paragraph">
 <p>The sequence diagram below demonstrates how the <code>find</code> command works, for both categorical and substring search:</p>
 </div>
@@ -663,6 +669,7 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 <div class="paragraph">
 <p>Step 3:  <code>LogicManager</code> then returns a new <code>CommandResult</code> object to reflect the status of the execution, in the GUI. The GUI&#8217;s <code>Food Record</code> reflects the above changes to show all <code>Food</code> entries once again.</p>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
@@ -854,6 +861,7 @@ The lifeline for the <code>ListCommand</code> object should end at the destroy m
 <div class="paragraph">
 <p>Meanwhile, the <code>list</code> command simply uses the predicate already defined in <code>Model</code> to display all <code>Food</code> objects.<br></p>
 </div>
+<div style="page-break-after: always;"></div>
 <div class="paragraph">
 <p>The above can be summarised in the activity diagram below:</p>
 </div>
@@ -1159,7 +1167,6 @@ During an <code>update</code> command, we do not perform sorting if the user ent
 </li>
 </ul>
 </div>
-<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect3">
@@ -1255,6 +1262,7 @@ The lifeline for the <code>ExportCommand</code> object and that of the <code>Exp
 <div class="paragraph">
 <p>Step 4: A new <code>CommandResult</code> object indicating the result of the execution is then constructed and reflected in the GUI.</p>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect3">
 <h4 id="Design-Export"><a class="link" href="#Design-Export">Design considerations</a></h4>
@@ -1445,6 +1453,7 @@ The lifeline for the <code>ExportCommand</code> object and that of the <code>Exp
 </li>
 </ul>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect3">
@@ -1467,4 +1476,4 @@ The lifeline for the <code>ExportCommand</code> object and that of the <code>Exp
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 13:31:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 14:10:31 UTC</div></div></div></body></html>
