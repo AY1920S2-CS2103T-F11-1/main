@@ -2518,7 +2518,10 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>(For all use cases below, the <strong>System</strong> is the Calgo application and the <strong>Actor</strong> is the user, unless specified otherwise)</p>
+<p>For all use cases below, the <strong>System</strong> is the Calgo application and the <strong>Actor</strong> is the user, unless specified otherwise.<br></p>
+</div>
+<div class="paragraph">
+<p>Also note that the term <strong>MSS</strong> refers to the Main Success Scenario for each Use Case.</p>
 </div>
 <h3 id="use-case-obtain-reference-for-app-s-commands" class="discrete">Use case: obtain reference for app&#8217;s commands</h3>
 <div class="paragraph">
@@ -2550,7 +2553,7 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <p>User enters <code>find</code> command with the <code>Name</code> <code>Prefix</code>, or the <code>Tag</code> <code>Prefix</code>, accordingly.</p>
 </li>
 <li>
-<p><code>Calgo</code> shows a list of <code>Food</code> entries which contains the substring indicated in any part of the <code>Name</code> or <code>Tag</code> of the <code>Food</code> entries respectively.</p>
+<p>Calgo shows a list of <code>Food</code> entries which contains the substring indicated in any part of the <code>Name</code> or <code>Tag</code> of the <code>Food</code> entries respectively.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2703,46 +2706,83 @@ Use case ends.</p>
 <p>User requests to delete an existing <code>Food</code> item from the <code>FoodRecord</code></p>
 </li>
 <li>
-<p><code>Calgo</code> deletes the existing <code>Food</code> item in the <code>FoodRecord</code>.</p>
+<p>Calgo deletes the existing <code>Food</code> item in the <code>FoodRecord</code>.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
 </li>
 </ol>
 </div>
-<h3 id="use-case-set-a-dietary-code-goal-code" class="discrete">Use case: set a dietary <code>goal</code></h3>
+<h3 id="use-case-set-a-daily-code-goal-code" class="discrete">Use case: set a daily <code>goal</code></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User uses <code>goal</code> command to set a dietary <code>DailyGoal</code> for the daily number of <code>Calorie</code> s to be consumed.</p>
+<p>User enters the <code>goal</code> command with the intended value.</p>
 </li>
 <li>
-<p><code>Calgo</code> stores this <code>DailyGoal</code> in user preferences and analyses <code>Food</code> consumption with respect to this <code>goal</code>.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
+<p>Calgo updates the user&#8217;s <code>goal</code> to the new value provided by the user.</p>
 </li>
 </ol>
 </div>
-<h3 id="use-case-generate-a-code-report-code-on-a-specific-day" class="discrete">Use case: generate a <code>report</code> on a specific day.</h3>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>1a. User enters an invalid input for the <code>goal</code>.</strong><br>
+  1a1. Calgo shows a message indicating the acceptable range of values for the <code>goal</code> command.<br>
+  1a2. User enters <code>goal</code> command with a new value.<br>
+Steps 1a1 and 1a2 are repeated until user enters a valid input.<br></p>
+</div>
+<div class="paragraph">
+<p>Use case resumes from step 2.</p>
+</div>
+<h3 id="use-case-generate-a-code-report-code-on-a-specific-code-date-code" class="discrete">Use case: generate a <code>report</code> on a specific <code>date</code>.</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to obtain a <code>report</code> on his or her <code>Food</code> consumption patterns on a particular day.</p>
+<p>User enters the <code>report</code> command with a particular <code>date</code>.</p>
 </li>
 <li>
-<p>Calgo analyses the <code>Food</code> consumed on that day and generates a document with actionable insights for the user.</p>
+<p>Calgo analyses the <code>Food</code> consumed on that <code>date</code> and generates a <code>report</code> text file in the <code>data/reports</code> folder for the user.</p>
+</li>
+</ol>
+</div>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
-</li>
-</ol>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>1a. There is no <code>Food</code> consumed on the inputted <code>date</code>.</strong><br>
+1a1. Calgo shows a message indicating that there was no <code>Food</code> consumed on the given <code>date</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+<div class="paragraph">
+<p><strong>1b. Inputted <code>date</code> in wrong format.</strong><br>
+1b1. Calgo shows a message indicating the correct format for the <code>date</code>.
+1b2. User enters <code>report</code> command with the <code>date</code> in the correct format.<br></p>
+</div>
+<div class="paragraph">
+<p>Use case resumes from step 2.</p>
+</div>
+<div class="paragraph">
+<p><strong>1c. User enters <code>report</code> command without setting a daily calorie <code>goal</code>.</strong><br>
+1c1. Calgo generates a <code>report</code> without the sections related to the <code>goal</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
 </div>
 </div>
@@ -2895,7 +2935,7 @@ Expected: The most recent window size and location is retained.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Launch <code>Calgo</code> succesfully and a <code>Food</code> item Apple already exists in <code>FoodRecord</code></p>
+<p>Prerequisites: Launch Calgo successfully and a <code>Food</code> item Apple already exists in <code>FoodRecord</code></p>
 </li>
 <li>
 <p>Test case: <code>delete n\Apple</code><br>
@@ -2924,7 +2964,7 @@ Expected: Similar to previous.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Launch <code>Calgo</code> successfully.</p>
+<p>Prerequisites: Launch Calgo successfully.</p>
 </li>
 <li>
 <p>Test case: <code>list</code><br>
@@ -3045,4 +3085,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 07:23:35 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 08:17:19 UTC</div></div></div></body></html>
