@@ -590,7 +590,7 @@ For more information on lexicographical ordering, please refer to its relevant s
 <div class="content">
 <img src="images/FindSequenceDiagram.png" alt="FindSequenceDiagram">
 </div>
-<div class="title">Figure 12. Sequence Diagram for <code>find</code> command: categorical search and substring search</div>
+<div class="title">Figure 12. Sequence Diagram for <code>find</code> command: Categorical Search and Substring Search</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1225,7 +1225,7 @@ Meanwhile, <code>VALUE_COLUMN_SIZE</code> represents the allowed space for each 
 <div class="content">
 <img src="images/ExportSequenceDiagram.png" alt="ExportSequenceDiagram">
 </div>
-<div class="title">Figure 18. Sequence Diagram for <code>export</code> command: generating FoodRecord.txt</div>
+<div class="title">Figure 18. Sequence Diagram for <code>export</code> command: Generating FoodRecord.txt</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1905,7 +1905,7 @@ optional <code>command word</code> that filters the displayed command guide.</p>
 </td>
 <td class="content">
 <code>command word</code> filters out only commands which contain the <code>command word</code> as a substring. If no commands contain it
-as a substring, an error message will be displayed at the top of the <code>HelpWindow</code> and the full command guide will be shown.
+as a substring, an error message will be displayed at the top of the GUI component <code>Help Window</code> and the full command guide will be shown.
 </td>
 </tr>
 </table>
@@ -1946,8 +1946,8 @@ Otherwise, by default a list of all guides will be provided.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Step 4: The <code>CommandResult</code> is eventually passed to <code>MainWindow</code>, which then displays the command guide in a separate
-window, called <code>HelpWindow</code>.</p>
+<p>Step 4: The <code>CommandResult</code> is eventually passed to the <code>MainWindow</code> class, which then displays the command guide in a separate
+window, using the <code>HelpWindow</code> class.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1958,7 +1958,7 @@ window, called <code>HelpWindow</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> <code>HelpWindow</code> is displayed as a separate popup.</p>
+<p><strong>Alternative 1 (current choice):</strong> GUI component <code>Help Window</code> is displayed as a separate popup.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1986,7 +1986,7 @@ window, called <code>HelpWindow</code>.</p>
 must be updated in <code>HelpCommand</code> separately.</p>
 </li>
 <li>
-<p><code>HelpWindow</code> might obstruct view of the App upon initially loading it, causing annoyance.</p>
+<p>GUI component <code>Help Window</code> might obstruct view of the App upon initially loading it, causing annoyance.</p>
 </li>
 </ul>
 </div>
@@ -1995,7 +1995,7 @@ must be updated in <code>HelpCommand</code> separately.</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> <code>HelpWindow</code> is not used, and instead content is displayed as part of <code>ResultDisplay</code>.</p>
+<p><strong>Alternative 2:</strong> GUI component <code>Help Window</code> is not used, and instead content is displayed as part of GUI component <code>Result Display</code>.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2016,7 +2016,7 @@ must be updated in <code>HelpCommand</code> separately.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>User must use the <code>help</code> command every time they require a guide, as <code>ResultDisplay</code> will be
+<p>User must use the <code>help</code> command every time they require a guide, as GUI component <code>Result Display</code> will be
 overwritten after other commands.</p>
 </li>
 </ul>
@@ -2045,7 +2045,7 @@ display only desired commands by entering an optional keyword after <code>help</
 <p>Desired command can be more rapidly found.</p>
 </li>
 <li>
-<p>Removes all unwanted commands from <code>HelpWindow</code>, reducing clutter.</p>
+<p>Removes all unwanted commands from GUI component <code>Help Window</code>, reducing clutter.</p>
 </li>
 </ul>
 </div>
@@ -2152,36 +2152,37 @@ of <code>DailyFoodLog</code>. The implementation of the <code>GraphPanel</code> 
 <div class="ulist">
 <ul>
 <li>
-<p><code>GraphPanel#initialiseTreeMap(Logic logic)</code> - Sets up the TreeMap that maps <code>LocalDate</code> date of <code>DailyFoodLog</code> to the <code>Double</code>
+<p><code>initialiseTreeMap</code> - Sets up the TreeMap that maps <code>LocalDate</code> date of <code>DailyFoodLog</code> to the <code>Double</code>
 total calorie consumption n that day.</p>
 </li>
 <li>
-<p><code>GraphPanel#initialseGraph()</code> - Sets up the <code>LineChart</code> with xAxis a <code>String</code> representing date, and yAxis a <code>Double</code> representing
+<p><code>initialseGraph</code> - Sets up the <code>LineChart</code> with xAxis a <code>String</code> representing date, and yAxis a <code>Double</code> representing
 total calories consumed on that date.</p>
 </li>
 <li>
-<p><code>GraphPanel#updateSeries()</code> - Ensures the <code>XYChart.series</code> that populates the graph with data is always updated with the
+<p><code>updateSeries</code> - Ensures the <code>XYChart.series</code> that populates the graph with data is always updated with the
 most recent app data.</p>
 </li>
 <li>
-<p><code>GraphPanel#makeGraph(Logic logic)</code> - Wrapper function that calls the above three methods.</p>
+<p><code>makeGraph</code> - Wrapper function that calls the above three methods.</p>
 </li>
 <li>
-<p><code>GraphPanel#getGraph(Logic logic)</code> - Public accessor function to generate and retrieve the <code>LineChart</code>.</p>
+<p><code>getGraph</code> - Public accessor function to generate and retrieve the <code>LineChart</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Calgo will display the past seven days' graph automatically, and likewise update automatically. It does so by having <code>MainWindow</code>
-call <code>GraphPanel#getGraph(Logic logic)</code> on startup and after execution of commands.</p>
+<p>Calgo will display the past seven days' graph automatically, and likewise update automatically. It does so by having the
+ <code>MainWindow</code> class call <code>getGraph</code> on startup and after execution of commands.</p>
 </div>
 <div class="paragraph">
-<p>The sequence diagram below demonstrates how the <code>Graph</code> feature works, such as upon loading of <code>MainWindow</code>.</p>
+<p>The sequence diagram below demonstrates how the <code>Graph</code> feature works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/GraphSequenceDiagram.png" alt="GraphSequenceDiagram">
 </div>
+<div class="title">Figure 25. Sequence Diagram for GraphPanel</div>
 </div>
 <div class="paragraph">
 <p>Sequence Diagram for <code>Graph</code> feature.</p>
@@ -2530,15 +2531,32 @@ Third, <code>updateSeries</code> method is called to ensure the data populating 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests for a guide on the app&#8217;s commands.</p>
+<p>User wants to find the command guide for the commands in Calgo.</p>
 </li>
 <li>
-<p>Calgo shows a list of all available commands and their corresponding purpose and usage.</p>
+<p>User enters <code>help</code> command with no additional <code>command_word</code>.</p>
+</li>
+<li>
+<p><code>Calgo</code> generates a popup, displaying a list of all command guides in the popup.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>2a. User enters a <code>command_word</code> after <code>help</code>, such as foe example <code>help nom</code>.</strong>
+2a1. <code>Calgo</code> filters out only command guides containing the <code>command_word</code> "nom".
+2a2. <code>Calgo</code> generates a popup, displaying this filtered list of command guides.</p>
+</div>
+<div class="paragraph">
+<p><strong>2b. User enters a <code>command_word</code> after <code>help</code> that has no corresponding command guides.</strong>
+2b1. <code>Calgo</code> tries to filter out only command guides containing the <code>command_word</code> but fails to find any guides. Thus
+it defaults to display all command guides.
+Use case resumes from Step 2.</p>
 </div>
 <h3 id="use-case-code-find-code-code-food-code-item-by-code-name-code-or-code-tag-code-keyword-which-can-be-an-incomplete-word" class="discrete">Use case: <code>find</code> <code>Food</code> item by <code>Name</code> or <code>Tag</code> keyword (which can be an incomplete word)</h3>
 <div class="paragraph">
@@ -3085,4 +3103,4 @@ Expected: The GUI will show all <code>Food</code> entries existing in the <code>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 08:17:19 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-04-13 09:24:51 UTC</div></div></div></body></html>
